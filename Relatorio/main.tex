@@ -1,0 +1,129 @@
+% ------------------------------------- Contrate Um Ciêntista ------------------------------------ %
+% Autores:
+%   - Ayrton Ricardo Albuquerque da Silva
+%   - Flávia Gouvea
+% ---------------------------------------------- END --------------------------------------------- %
+
+\PassOptionsToPackage{
+	pdfa
+}{hyperref}
+
+% ------------------------------------------------------------------------------------------------ %
+%                                     Configurações e Variáveis                                    %
+% ------------------------------------------------------------------------------------------------ %
+\documentclass[
+  12pt,
+  a4paper,
+  oneside,
+  openright,
+  sumario = abnt-6027-2012,
+  chapter = TITLE,
+  pretextualoneside,
+  fontetimes,
+  semrecuonosumario,
+  usemakeindex,
+  pardeassinaturas,
+  english,
+  french,
+  spanish,
+  brazil,
+]{utfpr}
+
+\usepackage[a-3b,mathxmp]{pdfx}[2018/12/22]
+\input{configuracoes}
+\input{./variaveis}
+
+\makeindex
+\makeglossaries
+\makenomenclature
+
+% ------------------------------------------------------------------------------------------------ %
+%                                        Início do Documento                                       %
+% ------------------------------------------------------------------------------------------------ %
+\begin{document}
+
+\include{./PreTexto/entradas-siglas}
+\include{./PosTexto/entradas-glossario}
+
+\pretextual
+
+% ------------------------------------------------------------------------------------------------ %
+%                                       Capa e Folha de Rosto                                      %
+% ------------------------------------------------------------------------------------------------ %
+\coverpageone
+\coverpagetwo
+\clearpage
+\setcounter{page}{1}
+\approvalpage
+
+% ------------------------------------------------------------------------------------------------ %
+%                                             Pré Texto                                            %
+% ------------------------------------------------------------------------------------------------ %
+\include{./PreTexto/dedicatoria}
+\include{./PreTexto/agradecimentos}
+\include{./PreTexto/epigrafe}
+\include{./PreTexto/resumo}
+\include{./PreTexto/abstract}
+
+% ------------------------------------------------------------------------------------------------ %
+%                                         Sumário e Listas                                         %
+% ------------------------------------------------------------------------------------------------ %
+\incluirlistadeilustracoes
+\incluirlistadefotografias
+\incluirlistadegraficos
+\incluirlistadetabelas
+\incluirlistadequadros
+\incluirlistadecodigosfonte
+\incluirlistadeacronimos{glossaries}
+\incluirlistadesimbolos{nomencl}
+\incluirsumario
+
+% ------------------------------------------------------------------------------------------------ %
+%                                             Capitulos                                            %
+% ------------------------------------------------------------------------------------------------ %
+\textual
+
+\include{./capitulos/cap-introducao}
+\include{./capitulos/cap-conceitos}
+\include{./capitulos/cap-trabalhos-relacionados}
+\include{./capitulos/cap-proposta}
+\include{./capitulos/cap-metodologia}
+\include{./capitulos/cap-experimentos-resultados}
+\include{./capitulos/cap-conclusoes}
+
+\postextual
+
+% ------------------------------------------------------------------------------------------------ %
+%                                            Referências                                           %
+% ------------------------------------------------------------------------------------------------ %
+\arquivosdereferencias{
+  main
+}
+
+% ------------------------------------------------------------------------------------------------ %
+%                                             Glossário                                            %
+% ------------------------------------------------------------------------------------------------ %
+%\incluirglossario 
+
+% ------------------------------------------------------------------------------------------------ %
+%                                             Apêndices                                            %
+% ------------------------------------------------------------------------------------------------ %
+\begin{arquivosdeapendices}
+  \include{./PosTexto/apendicea}
+  \include{./PosTexto/apendiceb}
+\end{arquivosdeapendices}
+
+% ------------------------------------------------------------------------------------------------ %
+%                                              Anexos                                              %
+% ------------------------------------------------------------------------------------------------ %
+\begin{arquivosdeanexos}
+  \include{./PosTexto/anexoa}
+  \include{./PosTexto/anexob}
+\end{arquivosdeanexos}
+
+% ------------------------------------------------------------------------------------------------ %
+%                                              Índice                                              %
+% ------------------------------------------------------------------------------------------------ %
+%\incluirindice
+
+\end{document}
