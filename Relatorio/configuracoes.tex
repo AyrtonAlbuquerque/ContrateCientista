@@ -1,9 +1,8 @@
-% ------------------------------------------------------------------------------------------------ %
-%                                           Configurações                                          %
-% ------------------------------------------------------------------------------------------------ %
+% ------------------------------------------------------------------------------------------- %
+%                                        Configurações                                        %
+% ------------------------------------------------------------------------------------------- %
 
-
-% -------------------------------------- Pacotes Adicionais -------------------------------------- %
+% ------------------------------------ Pacotes Adicionais ----------------------------------- %
 \usepackage{bigdelim, booktabs, colortbl, longtable, multirow}
 \usepackage{amssymb, amstext, amsthm, icomma}
 \usepackage{pifont, textcomp, wasysym}
@@ -15,7 +14,7 @@
 \renewcommand*{\cftsubsubsectionfont}{\normalfont\uline}
 \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\uline}
 
-% ------------------------------------ Comandos Personalizados ----------------------------------- %
+% --------------------------------- Comandos Personalizados --------------------------------- %
 \newcommand{\cpp}{\texttt{C$++$}}
 \newcommand{\latex}{\LaTeX\xspace}
 \newcommand{\ds}{\displaystyle}
@@ -41,14 +40,14 @@
 \newcommand{\citety}[1]{\citeyear{#1}}
 \newcommand{\fonteTexto}[1]{\renewcommand{\familydefault}{#1}}
 
-% -------------------------------------- Caminho da Figuras -------------------------------------- %
+% ------------------------------------ Caminho da Figuras ----------------------------------- %
 \graphicspath{{figuras/}}
 
-% ----------------------------------- Configuração de Glossário ---------------------------------- %
+% -------------------------------- Configuração de Glossário -------------------------------- %
 \usepackage{glossaries}
 \makeglossaries
 
-% -------------------------------------------- Siglas -------------------------------------------- %
+% ------------------------------------------ Siglas ----------------------------------------- %
 \newcommand{\siglaPt}[2]
 {
     \newglossaryentry{#1}{
@@ -69,7 +68,7 @@
     }
 }
 
-% -------------------------------------------- Avisos -------------------------------------------- %
+% ------------------------------------------ Avisos ----------------------------------------- %
 \usepackage{tcolorbox}
 \newcommand{\caixa}[2]{
     \begin{tcolorbox}[colback=red!5!white,colframe=red!45!white, title = #1, fonttitle=\bfseries]
@@ -77,10 +76,10 @@
     \end{tcolorbox}
 }
 
-% ------------------------------------- Linhas órfãs e viúvas ------------------------------------ %
+% ---------------------------------- Linhas órfãs e viúvas ---------------------------------- %
 \widowpenalty=10000
 \clubpenalty=10000
 
-% -------------------------------------------- Margens ------------------------------------------- %
+% ----------------------------------------- Margens ----------------------------------------- %
 \setlength{\leftmargini}{1.5cm}
 \setlength{\leftmarginii}{1.5cm}
