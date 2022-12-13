@@ -9,7 +9,11 @@
 
 A plataforma Lattes, concebida em agosto de 1999, representa a experiência do \gls{cnpq} na integração de bases de dados de currículos e de instituições da área de ciência e tecnologia em um único sistema de informações, padronizando em âmbito nacional o formato para coleta de informações curriculares e cuja importância atual se estende, não só às atividades do \gls{cnpq}, como também às ações de incentivo a outras instituições federais e estaduais \cite{Lattes}.
 
-A plataforma também possui uma página web para busca textual dos currículos cadastrados em seu sistema bem como uma ferramenta para extração de dados de sua base denominado \textit{Lattes Extrator}, porém tal ferramenta só é disponibilizada às instituições que devem efetuar cadastro e solicitar acesso a mesma.
+A plataforma também possui uma página web para busca textual dos currículos cadastrados em seu sistema bem como uma ferramenta para extração de dados de sua base denominado \textit{Lattes Extrator}, porém tal ferramenta só é disponibilizada às instituições, que devem efetuar cadastro e solicitar acesso à mesma.
+
+Há a possibilidade de não se obter acesso à ferramenta do \textit{Lattes Extrator}, e caso este risco venha a se concretizar duas alternativas serão consideradas. A primeira é a extração dos dados de maneira indireta através de requisições \gls{http} feitas para a ferramenta pública de busca da própria plataforma Lattes no seguinte formato \textit{\url{https://buscatextual.cnpq.br/buscatextual/download.do?metodo=apresentar&idcnpq=IdLattes}}, onde \textbf{IdLattes} é o id público de cada cientista cadastrado e disponibilizado no portal da memória da plataforma \cite{CnpqMemoria}. Esta requisição tem como retorno um arquivo no formato \gls{xml} contendo as informações do cientista que serão salvas na base de dados da plataforma.
+
+Caso a segunda opção também se mostre problemática, então a plataforma permitirá que os dados de cientistas possam ser cadastrados assim como empresas, centralizando assim todas as informações necessárias na base de dados deste projeto.
 
 \subsection{PostgreSQL}\label{subsec:postgresql}
 
@@ -49,7 +53,9 @@ Este tipo de aplicação também possui uma implementação relativamente rápid
 
 Uma das atividades mais importantes é a integração entre as aplicações, e uma relação básica entre elas pode ser vista na figura \ref{fig:diagrama}. A aplicação mobile realiza requisições \gls{http} baseado nas entradas do usuário e estas requisições são atendidas pela \gls{api}, hospedada em um servidor, que retorna uma resposta no formato \gls{json}.
 
-Quando uma requisição estiver relacionada a consulta de dados curriculares, a \gls{api} realiza uma nova requisição para a plataforma lattes a fim de obter os dados relacionados à consulta inicial requerida. Também são atribuições da \gls{api} a consulta e persistência de informações com a base de dados.
+Quando uma requisição estiver relacionada ao cadastro de uma demanda tecnológica por parte de um usuário empresa e todas as informações necessárias para que essa demanda possa ser atendida tenham sido fornecidas, como por exemplo, área de atuação específica, tempo limite de entrega, orçamento, região de atuação e artigos tecnológicos relevantes, esta demanda então será cadastrada na base de dados e uma notificação será enviada a todos os cientistas cadastrados que cumpram as exigências impostas. O cientista, por sua vez, poderá então decidir se pretende ou não atender a proposta.
+
+O acesso de usuários cientistas a plataforma será validado utilizando o identificador Lattes de cada um caso se possua acesso à ferramenta de extração de dados, caso contrário serão utilizados métodos padrões de login e senha criados no momento do cadastro. Ao acessar a plataforma, um cientista poderá visualizar a lista de demandas as quais está apto a atender, podendo assim confirmar sua intenção de atendê-lá. Ao fazê-lo, a empresa que gerou a demanda terá incluído na lista de possíveis parceiros o cientista, podendo assim iniciar as tratativas para a formação de uma parceria.
 
 \begin{figure}[htb]
     \caption{Diagrama das integrações entre aplicações}
@@ -57,3 +63,7 @@ Quando uma requisição estiver relacionada a consulta de dados curriculares, a 
     \fonte{Autoria Própria}
     \label{fig:diagrama}
 \end{figure}
+
+\subsection{Análise e Validação}\label{subsec:validacao}
+
+Para corroborar o funcionamento e eficácia do projeto proposto, o \gls{direc}, responsável pela formação de parcerias entre empresas e a \gls{utfpr} irá validar a plataforma em conjunto com empresas já parceiras e membros do corpo acadêmico que aceitem participar do processo de validação e possam disponibilizar dados relacionados as experiências passadas na formação de parcerias. Também poderão ser comparados os resultados com outras ferramentas de busca de capital intelectual como, por exemplo, o \textit{LinkedIn}, \textit{Escavador} e a própria plataforma \textit{Lattes}, podendo-se utilizar de métricas que se julguem necessárias, como o tempo entre a criação de uma demanda e a formação de um parceria para atendê-lá.

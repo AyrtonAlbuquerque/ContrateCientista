@@ -13,7 +13,7 @@ Segundo o manual de Oslo, o conceito de inovação pode ser definido como a impl
 
 Relacionar os problemas da sociedade com as especialidades dos cientistas é um desafio para as instituições acadêmicas. Um dos meios de comunicação com os cientistas, é realizado a partir de emails, onde a sociedade expõe suas necessidades, e um profissional é responsável pela indicação dos especialistas. Atualmente, esse trabalho, é realizado na ferramenta CV Lattes, através da pesquisa por nome dos cientistas e/ou área de conhecimento. O profissional que realiza a pesquisa, precisaria saber a especialidade de cada um dos cientistas da academia, além de ter um conhecimento prévio em cada área para determinar qual especialidade melhor atenderá a demanda, para então, recomendar o cientista adequado.
 
-Nossa proposta tem como objetivo otimizar o processo de busca de cientistas capacitados pela área de atuação. O objeto de pesquisa será uma plataforma, que realizará a busca de cientistas cadastrados através da base do CV Lattes, correlacionar os dados e disponibilizar através de um aplicativo para aparelhos celulares.
+Nossa proposta tem como objetivo otimizar o processo de busca de cientistas capacitados pela área de atuação bem como o facilitar a formação de parcerias universidade-empresa. O objeto de pesquisa será a construção de uma plataforma capaz de integrar informações relevantes sobre cientistas contidas na base de dados do CV Lattes ou cadastradas na mesma, com uma aplicação interativa que habilite uma empresa a ter acesso ao capital intelectual contido nas universidades de forma menos burocrática e direta, onde demandas tecnológicas possam ser cadastradas e estás, possam ser atendidas mais rapidamente.
 
 % ---------------------------------------- Objetivos ---------------------------------------- %
 \section{Objetivos}\label{sec:objetivos}
@@ -23,19 +23,19 @@ Nesta seção são apresentados os objetivos gerais e específicos deste projeto
 % -------------------------------------- Objetivo Geral ------------------------------------- %
 \subsection{Objetivo geral}\label{subsec:objetivoGeral}
 
-Desenvolver um \gls{mvp} capaz de proporcionar a um usuário a oportunidade de encontrar um cientista capaz de atender a sua demanda tecnológica e facilitar o contato entre as partes.
+Desenvolver um \gls{mvp} capaz de proporcionar a uma empresa a capacidade de cadastrar suas demandas tecnológicas que serão apresentadas de forma automática à cientistas, que poderão responder a estas demandas contanto que atendam as especificidades das mesmas, facilitando assim o relacionamento universidade-empresa.
 
 % ---------------------------------- Objetivos Específicos ---------------------------------- %
 \subsection{Objetivos específicos}\label{subsec:objetivosEspecificos}
 
 \begin{itemize}
     \item Desenvolver uma \gls{api} capaz de atender e realizar requisições através de \gls{http}.
-    \item Integrar as informações contidas na ferramenta CV Lattes à \gls{api} desenvolvida.
+    \item Integrar as informações contidas no CV Lattes à plataforma.
     \item Desenvolver uma aplicacão mobile capaz de habiltar usuários a visualizar e manipular dados apresentados.
-    \item Integrar a aplicação mobile desenvolvida à \gls{api}.
-    \item Construir uma base de dados para a plataforma.
-    \item Integrar a \gls{api} à base de dados.
-    \item Aplicar o protótipo como case na \gls{utfpr}
+    \item Integrar a aplicação mobile desenvolvida à plataforma.
+    \item Construir e integrar uma base de dados para a plataforma.
+    \item Aplicar o \gls{mvp} como case na \gls{utfpr}
+    \item Comparar os resultados do uso da plataforma com as ferramentas atualmente utilizadas para atingir o mesmo objetivo
 \end{itemize}
 
 % -------------------------------------- Justificativa -------------------------------------- %
@@ -43,11 +43,11 @@ Desenvolver um \gls{mvp} capaz de proporcionar a um usuário a oportunidade de e
 
 Atualmente não existem aplicações cujo objetivo específico seja facilitar a relação universidade-empresa, sendo a Plataforma Lattes e seu mecanismo de busca, já defasado, a única ferramenta capaz de nortear a busca de um cientista capaz de atender as necessidades inovativas das empresas. Com este problema em mente, este projeto propõe a criação de uma plataforma que atenda a este objetivo.
 
-Para alcançar os objetivos da plataforma proposta o desenvolvimento do projeto pode ser subdividido em três blocos básicos, sendo eles a criação de uma \gls{ui} que atenderá a necessidade de proporcionar aos usuários da plataforma uma maneira fácil e conveniente de visualizar os dados sobre os cientistas bem como filtrar as informações de acordo com suas preferências.
+Para alcançar os objetivos propostos o desenvolvimento do projeto pode ser subdividido em três blocos básicos, sendo eles a criação de uma \gls{ui} que atenderá a necessidade de proporcionar aos usuários da plataforma, empresas e cientistas, uma maneira fácil e conveniente de cadastrar suas demandas que possam no que lhe concerne serem visualizadas e aceitas por cada cientista que atenda os requisitos destas demandas.
 
 O próximo bloco consiste na criação de uma base de dados capaz de persistir informações pertinentes ao sistema, como dados de usuários por exemplo. Esses dados serão coletados no momento em que o cientista irá se cadastrar e adicionar o seu identificador da plataforma CV Lattes.
 
-A principal diferença entre o CV Lattes e o \gls{mvp} a ser desenvolvido, é a forma de contato entre o cientista e o responsável pela damanda. Ambos se cadastrarão em nossa base, e sempre que uma demanda for criada, serão enviadas notificações para todos os cientistas aptos à ela. Além dos dados extraídos do CV Lattes, os cientistas poderão adicionar artigos tecnológios, como por exemplo, microscópico, para as demanadas em que são necessarios. 
+A principal diferença entre o CV Lattes e o \gls{mvp} a ser desenvolvido, é a forma de contato entre o cientista e o responsável pela demanda. Ambos possuirão cadastro, e sempre que uma demanda for criada, serão enviadas notificações para todos os cientistas aptos a atendê-la. Além dos dados extraídos do CV Lattes, os cientistas poderão adicionar artigos tecnológicos a sua disposição que julguem ser relevantes para atender requisitos de demandas.
 
 Por fim, é necessário o desenvolvimento de uma \gls{api} de \gls{rest} que servirá como ponte entre a interface de usuário e a base de dados, bem como o consumo das informações contidas no CV Lattes.
 
