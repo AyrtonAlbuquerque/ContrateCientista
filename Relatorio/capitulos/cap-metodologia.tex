@@ -13,7 +13,7 @@ A plataforma também possui uma página web para busca textual dos currículos c
 
 Há a possibilidade de não se obter acesso à ferramenta do \textit{Lattes Extrator}, e caso este risco venha a se concretizar duas alternativas serão consideradas. A primeira é a extração dos dados de maneira indireta através de requisições \gls{http} feitas para a ferramenta pública de busca da própria plataforma Lattes no seguinte formato \textit{\url{https://buscatextual.cnpq.br/buscatextual/download.do?metodo=apresentar&idcnpq=IdLattes}}, onde \textbf{IdLattes} é o id público de cada cientista cadastrado e disponibilizado no portal da memória da plataforma \cite{CnpqMemoria}. Esta requisição tem como retorno um arquivo no formato \gls{xml} contendo as informações do cientista que serão salvas na base de dados da plataforma.
 
-Caso a segunda opção também se mostre problemática, então a plataforma permitirá que os dados de cientistas possam ser cadastrados assim como empresas, centralizando assim todas as informações necessárias na base de dados deste projeto.
+Caso a segunda opção também se mostre problemática, a plataforma permitirá então, que os dados de cientistas possam ser cadastrados assim como o de empresas, centralizando dessa forma todas as informações necessárias na base de dados deste projeto.
 
 \subsection{PostgreSQL}\label{subsec:postgresql}
 
@@ -51,11 +51,9 @@ Este tipo de aplicação também possui uma implementação relativamente rápid
 
 \subsection{Integrações}\label{subsec:integrar}
 
-Uma das atividades mais importantes é a integração entre as aplicações, e uma relação básica entre elas pode ser vista na figura \ref{fig:diagrama}. A aplicação mobile realiza requisições \gls{http} baseado nas entradas do usuário e estas requisições são atendidas pela \gls{api}, hospedada em um servidor, que retorna uma resposta no formato \gls{json}.
+Uma das atividades mais importantes é a integração entre as ferramentas, e uma relação básica entre elas pode ser vista na figura \ref{fig:diagrama}. A aplicação mobile realiza requisições \gls{http} baseado nas entradas do usuário e estas requisições são atendidas pela \gls{api}, hospedada em um servidor que se situará nos domínios da \gls{utfpr}, retornando uma resposta no formato \gls{json}.
 
-Quando uma requisição estiver relacionada ao cadastro de uma demanda tecnológica por parte de um usuário empresa e todas as informações necessárias para que essa demanda possa ser atendida tenham sido fornecidas, como por exemplo, área de atuação específica, tempo limite de entrega, orçamento, região de atuação e artigos tecnológicos relevantes, esta demanda então será cadastrada na base de dados e uma notificação será enviada a todos os cientistas cadastrados que cumpram as exigências impostas. O cientista, por sua vez, poderá então decidir se pretende ou não atender a proposta.
-
-O acesso de usuários cientistas a plataforma será validado utilizando o identificador Lattes de cada um caso se possua acesso à ferramenta de extração de dados, caso contrário serão utilizados métodos padrões de login e senha criados no momento do cadastro. Ao acessar a plataforma, um cientista poderá visualizar a lista de demandas as quais está apto a atender, podendo assim confirmar sua intenção de atendê-lá. Ao fazê-lo, a empresa que gerou a demanda terá incluído na lista de possíveis parceiros o cientista, podendo assim iniciar as tratativas para a formação de uma parceria.
+A \gls{api} também é responsável pela consulta de dados cadastrados na base da plataforma bem como a persistência de informações na mesma. Com o acesso as informações contidas na plataforma Lattes de cada cientista a \gls{api} também realizará a tarefa de consultá-las sempre que necessário, como por exemplo no momento do cadastro de um cientista, explicado na seção \ref{subsec:cadastro}.
 
 \begin{figure}[htb]
     \caption{Diagrama das integrações entre aplicações}
@@ -64,6 +62,25 @@ O acesso de usuários cientistas a plataforma será validado utilizando o identi
     \label{fig:diagrama}
 \end{figure}
 
-\subsection{Análise e Validação}\label{subsec:validacao}
+\subsection{Cadastro de Cientistas}\label{subsec:cadastro}
+
+A inserção de usuários cientistas na plataforma poderá se dar de duas maneiras, a depender da possibilidade de se obter os dados relacionados da plataforma Lattes. Para o caso em que isto seja possível, no momento do cadastro, o usuário irá informar seu \textit{Id Lattes}, bem como uma senha. Utilizando o id informado, a plataforma irá então consultar na base do Lattes o email vinculado a esta informação e enviará para este email uma mensagem de confirmação, realizando assim a autenticação do cientista. Um problema óbvio surge deste método, a não existência de um email vinculado ao \textit{Id lattes} informado. Neste caso a plataforma irá então requerer que o usuário atualize esta informação ná sua pagina Lattes.
+
+No caso da impossibilidade de se extrair dados da base do Lattes, no momento do cadastro de um cientista será requerido então que todas as informações necessárias para que o mesmo possa ser devidamente classificado dentro da plataforma sejam informadas. 
+
+\subsection{Fluxo Proposto}\label{subsec:fluxo}
+
+Quando uma empresa realizar o cadastro de uma demanda tecnológica e todas as informações necessárias para que essa demanda possa ser atendida tenham sido fornecidas, como por exemplo, área de atuação específica, tempo limite de entrega, orçamento, região de atuação e artefatos tecnológicos relevantes, esta demanda então será inserida na base de dados e uma notificação será enviada a todos os cientistas que cumpram as exigências impostas. 
+
+Ao acessar a plataforma, um cientista poderá então visualizar a lista de demandas as quais está apto a atender, podendo assim confirmar sua intenção de atendê-lá. Ao fazê-lo, a empresa que gerou a demanda terá incluído na lista de possíveis parceiros o cientista, podendo assim iniciar as tratativas para a formação de uma parceria.
+
+\begin{figure}[htb]
+    \caption{Fluxo de uso}
+    \includegraphics[width=\textwidth]{Flowchart.png}
+    \fonte{Autoria Própria}
+    \label{fig:fluxograma}
+\end{figure}
+
+\section{Análise e Validação}\label{sec:validacao}
 
 Para corroborar o funcionamento e eficácia do projeto proposto, o \gls{direc}, responsável pela formação de parcerias entre empresas e a \gls{utfpr} irá validar a plataforma em conjunto com empresas já parceiras e membros do corpo acadêmico que aceitem participar do processo de validação e possam disponibilizar dados relacionados as experiências passadas na formação de parcerias. Também poderão ser comparados os resultados com outras ferramentas de busca de capital intelectual como, por exemplo, o \textit{LinkedIn}, \textit{Escavador} e a própria plataforma \textit{Lattes}, podendo-se utilizar de métricas que se julguem necessárias, como o tempo entre a criação de uma demanda e a formação de um parceria para atendê-lá.
