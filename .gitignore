@@ -72,3 +72,5 @@ Relatorio/readme.md
 *.bbl
 
 *.blg
+
+*.synctex(busy)
