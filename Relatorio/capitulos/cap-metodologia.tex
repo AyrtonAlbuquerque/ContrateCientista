@@ -67,33 +67,6 @@ Ao acessar a plataforma, um cientista poderá então visualizar a lista de deman
     \label{fig:fluxograma}
 \end{figure}
 
-\subsection{Aplicação Mobile}\label{subsec:app}
-
-O desenvolvimento da Aplicação foi Mobile, pela facilidade e praticidade dos usuários se conectarem de qualquer lugar, requerindo apenas acesso a internet. A aplicação utilizou Flutter {\&} Dart, o que possibilita uma compatibilidade com sistemas Android e iOS. O propósito do aplicativo, é fornecer uma interface clara para login, cadastro das demandas, e para cada demanda, notificar os cientistas aptos, para que consigam se candidatar à elas.
-
-O principal objetivo, é o desenvolvimento para a plataforma Android, sabendo que a maioria das pessoas, no Brasil, utilizam esse sistema operacional \cite{StatCounter}. Além de, para a disponibilização em iOS, é necessário um equipamento do sistema operacional para compilar o aplicativo.
-
-\subsection{API REST}\label{subsec:apirest}
-
-Para atender a necessidade de comunicação entre a aplicação cliente e as ferramentas empregadas na construção desta plataforma escolheu-se desenvolver uma \gls{api} \gls{rest}. Este tipo de aplicação pode ser descrita como um conjunto de serviços web hospedados em um servidor que expõem um conjunto de funcionalidades e dados de forma pública com o intuito de facilitar as interações e troca de informação entre programas de computador \cite{RestApiBook}.
-
-Uma das principais vantagens de se utilizar uma \gls{api} \gls{rest} é sua escalabilidade, pois a aplicação simplesmente atende à requisições realizadas através de protocolo \gls{http} sem distinguir o tipo ou a quantidade de clientes, separando assim as regras de negócio relacionadas a manipulação de dados, das regras da aplicação de interface de usuário.
-
-Este tipo de aplicação também possui uma implementação relativamente rápida e simples, onde cada possível requisição necessária pode ser facilmente adicionada a um controlador que gerência o acesso e a resposta para cada uma. Os testes sobre a aplicação também são simples, pois utilizam protocolo \gls{http} e podem por muitas vezes serem testados utilizando apenas um navegador web.
-
-\subsection{Integrações}\label{subsec:integrar}
-
-Uma das atividades mais importantes é a integração entre as ferramentas, e uma relação básica entre elas pode ser vista na figura \ref{fig:diagrama}. A aplicação mobile realiza requisições \gls{http} baseado nas entradas do usuário e estas requisições são atendidas pela \gls{api}, hospedada em um servidor que se situará nos domínios da \gls{utfpr}, retornando uma resposta no formato \gls{json}.
-
-A \gls{api} também é responsável pela consulta de dados cadastrados na base da plataforma bem como a persistência de informações na mesma. Com o acesso as informações contidas na plataforma Lattes de cada cientista a \gls{api} também realizará a tarefa de consultá-las sempre que necessário, como por exemplo no momento do cadastro de um cientista, explicado na seção \ref{subsec:cadastro}.
-
-\begin{figure}[htb]
-    \caption{Diagrama das integrações entre aplicações}
-    \includegraphics[width=0.8\textwidth]{DiagramaPlataforma}
-    \fonte{Autoria Própria}
-    \label{fig:diagrama}
-\end{figure}
-
 \section{Validação}\label{sec:validacao}
 
-Para corroborar o funcionamento e eficácia do projeto proposto, o \gls{direc}, responsável pela formação de parcerias entre empresas e a \gls{utfpr} irá validar a plataforma em conjunto com empresas já parceiras e membros do corpo acadêmico que aceitem participar do processo de validação e possam disponibilizar dados relacionados as experiências passadas na formação de parcerias. Também poderão ser comparados os resultados com outras ferramentas de busca de capital intelectual como, por exemplo, o \textit{LinkedIn}, \textit{Escavador} e a própria plataforma \textit{Lattes}, podendo-se utilizar de métricas que se julguem necessárias, como o tempo entre a criação de uma demanda e a formação de um parceria para atendê-lá.
+Para corroborar o funcionamento e eficácia do projeto proposto, o \gls{direc}, responsável pela formação de parcerias entre empresas e a \gls{utfpr} irá validar a plataforma em conjunto com empresas já parceiras e/ou da \gls{iut}, e membros do corpo acadêmico que aceitem participar do processo de validação e possam disponibilizar dados relacionados as experiências passadas na formação de parcerias. Também poderão ser comparados os resultados com outras ferramentas de busca de capital intelectual como, por exemplo, o \textit{LinkedIn}, \textit{Escavador} e a própria plataforma \textit{Lattes}, podendo-se utilizar de métricas que se julguem necessárias, como o tempo entre a criação de uma demanda e a formação de um parceria para atendê-lá.
