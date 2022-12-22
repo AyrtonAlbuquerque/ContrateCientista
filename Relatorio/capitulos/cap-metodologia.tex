@@ -9,7 +9,7 @@
 
 A plataforma Lattes, concebida em agosto de 1999, representa a experiência do \gls{cnpq} na integração de bases de dados de currículos e de instituições da área de ciência e tecnologia em um único sistema de informações, padronizando em âmbito nacional o formato para coleta de informações curriculares e cuja importância atual se estende, não só às atividades do \gls{cnpq}, como também às ações de incentivo a outras instituições federais e estaduais \cite{Lattes}.
 
-A plataforma também possui uma página web para busca textual dos currículos cadastrados em seu sistema bem como uma ferramenta para extração de dados de sua base denominado \textit{Lattes Extrator}, porém tal ferramenta só é disponibilizada às instituições, que devem efetuar cadastro e solicitar acesso à mesma.
+A plataforma também possui uma página web para busca textual dos currículos cadastrados em seu sistema, bem como uma ferramenta para extração de dados de sua base denominado \textit{Lattes Extrator}, porém tal ferramenta só é disponibilizada às instituições, que devem efetuar cadastro e solicitar acesso à mesma.
 
 Há a possibilidade de não se obter acesso à ferramenta do \textit{Lattes Extrator}, e caso este risco venha a se concretizar duas alternativas serão consideradas. A primeira é a extração dos dados de maneira indireta através de requisições \gls{http} feitas para a ferramenta pública de busca da própria plataforma Lattes no seguinte formato \textit{\url{https://buscatextual.cnpq.br/buscatextual/download.do?metodo=apresentar&idcnpq=IdLattes}}, onde \textbf{IdLattes} é o id público de cada cientista cadastrado e disponibilizado no portal da memória da plataforma \cite{CnpqMemoria}. Esta requisição tem como retorno um arquivo no formato \gls{xml} contendo as informações do cientista que serão salvas na base de dados.
 
@@ -17,29 +17,29 @@ Caso a segunda opção também se mostre problemática, a plataforma permitirá 
 
 \subsection{PostgreSQL}\label{subsec:postgresql}
 
-O PostgreSQL é um banco de dados relacional contributivo, ou seja, tem seu desenvolvimento em código aberto, o que garante mais liberdade no uso, além de permitir diferentes implementações de acordo com as necessidades, e ele utiliza a linguagem SQL como base \cite{Amazon}. Muitos dos contribuintes são voluntários, mas o projeto se sustenta com patrocínios de diversar empresas de todo o mundo. É um projeto da Universidade da Califórnia em Berkeley e tem mais de 35 anos de desenvolvimento ativo na plataforma central \cite{PostgreSQL}.
+O PostgreSQL é um banco de dados relacional contributivo, ou seja, tem seu desenvolvimento em código aberto, o que garante mais liberdade no uso, além de permitir diferentes implementações de acordo com as necessidades, e ele utiliza a linguagem SQL como base \cite{Amazon}. Muitos dos contribuintes são voluntários, mas o projeto se sustenta com patrocínios de diversas empresas de todo o mundo. É um projeto da Universidade da Califórnia em Berkeley e tem mais de 35 anos de desenvolvimento ativo na plataforma central \cite{PostgreSQL}.
 
 \subsection{Linguagem C{\#} {\&} .NET Framework}\label{subsec:csharp}
 
-C{\#} é uma linguagem de programação, fortemente tipada e orientada a objetos desenvolvida pela Microsoft em julho de 2000 e sua sintaxe foi baseada no C++ porém contendo influências de outras linguagens como Java. A linguagem permite que desenvolvedores construam diversos tipos de aplicações de forma segura e robusta que são executadas sobre a plataforma .NET \cite{CSharp}.
+C{\#} é uma linguagem de programação, fortemente tipada e orientada a objetos desenvolvida pela Microsoft em julho de 2000 e sua sintaxe foi baseada no C++, porém contendo influências de outras linguagens como Java. A linguagem permite que desenvolvedores construam diversos tipos de aplicações de forma segura e robusta que são executadas sobre a plataforma .NET \cite{CSharp}.
 
 .NET Framework é uma plataforma de desenvolvimento que possui um \gls{clr}, que gerencia a execução de código. Possui também uma \gls{bcl}, oferecendo um amplo leque de classes para a construção de aplicações. A Microsoft, sua desenvolvedora, modelou a ferramenta para uso multi-plataforma, porém a ferramenta funciona melhor com o sistema operacional Windows \cite{CSharpDevelopment}.
 
 \subsection{Flutter {\&} Dart}\label{subsec:flutterdart}
 
-Flutter é uma estrutura que tem seu desenvolvimento em código aberto, disponível pelo Google. Com apenas um código, é possível construir aplicativos em multi-plataformas (Android/iOS), utilizando componentes nativos de cada plataforma \cite{Flutter}. A estrutura utiliza a linguagem Dart, que é assíncrona e muito semelhante a linguagem JavaScript \cite{Dart}.
+Flutter é uma estrutura com seu desenvolvimento em código aberto, disponível pelo Google. Com apenas um código, é possível construir aplicativos em multi-plataformas (Android/iOS), utilizando componentes nativos de cada plataforma \cite{Flutter}. A estrutura utiliza a linguagem Dart, assíncrona e muito semelhante à linguagem JavaScript \cite{Dart}.
 
 \subsection{Docker}\label{subsec:docker}
 
-Docker é um motor de código aberto que automatiza a implementação de aplicações dentro de containers. Esta ferramenta torna possível a criação de aplicações mais portáteis, de fácil construção e colaboração, reduzindo o tempo em que um código escrito seja testado, implementado e utilizado \cite{TheDockerBook}.
+Docker é um motor de código aberto que automatiza a implementação de aplicações dentro de contêineres. Esta ferramenta permite a criação de aplicações mais portáteis, de fácil construção e colaboração, reduzindo o tempo em que um código escrito seja testado, implementado e utilizado \cite{TheDockerBook}.
 
 \section{Métodos}\label{sec:metodo}
 
 \subsection{Dados Conectados}\label{subsec:linkedData}
 
-Para que se possa construir um modelo que represente de forma adequada a relação entre os dados de demandas e os dados de cientistas é necessário primeiramente compreender o que cada pedaço de informação representa no contexto aplicado, tanto em quantidade quanto em qualidade. A partir disso determina-se quais dados são mais relavantes para que a sugestão de cientista possa ser feita da forma mais simples possível. Da formação de um vínculo simples pode-se então analisar quais outros dados são necessários para um melhor refinamento da sugestão, abrindo caminho para que filtros possam ser criados e novas conexões entre os dados possam ser formadas.
+Para que se possa construir um modelo que represente de forma adequada a relação entre os dados de demandas e os dados de cientistas é necessário primeiramente compreender o que cada pedaço de informação representa no contexto aplicado, tanto em quantidade quanto em qualidade. A partir disso determina-se quais dados são mais relevantes para que a sugestão de cientista possa ser feita da forma mais simples possível. Da formação de um vínculo simples pode-se então analisar quais outros dados são necessários para um melhor refinamento da sugestão, abrindo caminho para que filtros possam ser criados e novas conexões entre os dados possam ser formadas.
 
-Desta análise também pode ser possível extrair informações que prejudiquem o apontamento de uma sugestão o que pode contribuir para o ajuste fino das recomendações feitas aos usuários no momento de cadastro de demandas e/ou informações curriculares.
+Desta análise também deve ser possível extrair informações que prejudiquem o apontamento de uma sugestão, o que pode contribuir para o ajuste fino das recomendações feitas aos usuários no momento de cadastro de demandas e/ou informações curriculares.
 
 \begin{figure}[htb]
     \caption{Dados conectados}
@@ -50,15 +50,28 @@ Desta análise também pode ser possível extrair informações que prejudiquem 
 
 \subsection{Cadastro de Cientistas}\label{subsec:cadastro}
 
-A inserção de usuários cientistas na plataforma poderá se dar de duas maneiras, a depender da possibilidade de se obter os dados relacionados da plataforma Lattes. Para o caso em que isto seja possível, no momento do cadastro, o usuário irá informar seu \textit{Id Lattes}, bem como uma senha. Utilizando o id informado, a plataforma irá então consultar na base do Lattes o email vinculado a esta informação e enviará para este email uma mensagem de confirmação, realizando assim a autenticação do cientista. Um problema óbvio surge deste método, a não existência de um email vinculado ao \textit{Id lattes} informado. Neste caso a plataforma irá então requerer que o usuário atualize esta informação ná sua pagina Lattes.
+A inserção de usuários cientistas na plataforma poderá se dar de duas maneiras, a depender da possibilidade de se obter os dados relacionados da plataforma Lattes. Para o caso em que isto seja possível, no momento do cadastro, o usuário irá informar seu \textit{Id Lattes}, bem como uma senha. Utilizando o id informado, a plataforma irá então consultar na base do Lattes o e-mail vinculado a esta informação e enviará para este email uma mensagem de confirmação, realizando assim a autenticação do cientista. Um problema óbvio surge deste método, a não existência de um email vinculado ao \textit{Id lattes} informado. Neste caso a plataforma irá então requerer que o usuário atualize esta informação em sua pagina Lattes.
 
-No caso da impossibilidade de se extrair dados da base do Lattes, no momento do cadastro de um cientista será requerido então que todas as informações necessárias para que o mesmo possa ser devidamente classificado dentro da plataforma sejam informadas, podendo-se inclusive tornar obrigatórias aquelas que com maior relevância para realização de um boa sugestão beseado na análise dos dados disponíveis.  
+No caso da impossibilidade de se extrair dados da base do Lattes, no momento do cadastro de um cientista será requerido então que todas as informações necessárias para que o mesmo possa ser devidamente classificado dentro da plataforma sejam informadas, podendo-se inclusive tornar obrigatórias aquelas que com maior relevância para realização de um boa sugestão baseado na análise dos dados disponíveis.  
 
 \subsection{Cadastro de Demandas}\label{subsec:demandas}
 
-Como mencionado na seção \ref{subsec:linkedData} a qualidade da escolha feita depende diretamente dos dados fornecidos para cada demanda, e assim como no cadastro de cientistas, baseado na análise dos dados conectados serão requeridas as informações necessárias para que a nova demanda possa ser melhor atendida. Com todas as informações fornecidas, como por exemplo, área de atuação específica, tempo limite de entrega, orçamento, região de atuação e artefatos tecnológicos relevantes, esta demanda então será inserida na base de dados e uma notificação será enviada a todos os cientistas que cumpram as exigências impostas. 
+Como mencionado na seção \ref{subsec:linkedData} a qualidade da escolha feita depende diretamente dos dados fornecidos para cada demanda, e com isto em mente extrair a maior quantidade possível de informações no cadastro é essencial. Tomemos como exemplo algumas das demandas apresentadas ao \gls{direc} no passado:
 
-Ao acessar a plataforma, um cientista poderá então visualizar a lista de demandas as quais está apto a atender, podendo assim confirmar sua intenção de atendê-lá. Ao fazê-lo, a empresa que gerou a demanda terá incluído na lista de possíveis parceiros o cientista, podendo assim iniciar as tratativas para a formação de uma parceria.
+\begin{itemize}
+    \item Gestão inteligente de energia elétrica/iluminação do veículo.
+    \item Proposta de novo dispositivo gerador de energia elétrica.
+    \item Sistema eólico de captação de energia para eficiência energética e sistema de iluminação.
+    \item Estudos de Materiais "Eco-Friendly" para aplicação veicular
+\end{itemize}
+
+Já pode-se perceber uma informação muito importante necessária no momento do cadastro, o título. A partir dele é possível extrair algumas palavras-chave que ajudam a melhor definir o escopo da demanda, e esta tarefa pode ser feita utilizando ferramentas de busca semântica como, por exemplo, o algoritmo \textit{Hummingbird} da Google \cite{Hummingbird}, que a partir de palavras sinônimos é capaz de relacionar informações, ou seja, criar conexões entre dados. Para as demandas acima, as possíveis palavras-chave principais seriam \textit{energia}, \textit{elétrica}, \textit{iluminação}, \textit{eficiência}, \textit{inteligente} e \textit{veículo}, e a partir delas pode-se estimar quais expertises melhor se encaixariam como, por exemplo, sistemas inteligentes, controle e automação.
+
+Outras informações também podem ser requeridas como, por exemplo, área de aplicação, estimativa de valor (orçamento), prazo de trabalho, região de aplicação, tipo de contrato (consultoria técnica, serviço tecnológico, encomenda tecnológica, transferência tecnológica), diretos de propriedade intelectual (copyright registrado, direitos de exclusividade, know-how secreto, patente concedida, patente solicitada), entre outros tipos de informações que auxiliem na escolha de sugestões de cientistas.
+
+A partir das informações fornecidas, esta demanda então será inserida na base de dados e uma notificação será enviada a todos os cientistas que se encaixem nos parâmetros da demanda. Ao acessar a plataforma, o cientista poderá então visualizar a lista de demandas as quais está apto a atender, podendo assim confirmar sua intenção de atendê-lá. Ao fazê-lo, a empresa que gerou a demanda terá incluído na lista de possíveis parceiros o cientista, podendo assim iniciar as tratativas para a formação de uma parceria.
+
+Um bom exemplo de forma de cadastro de demandas é a \gls{ptepa} \cite{PlataformaPTEPA}, cujo objetivo é promover o desenvolvimento e inovação tecnológico no setor de pesca e aquicultura espanhol. Nela é possível realizar o cadastro de demandas fornecendo informações similares as descritas anteriormente.
 
 \begin{figure}[htb]
     \caption{Fluxo de uso}
