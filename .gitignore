@@ -74,3 +74,6 @@ Relatorio/readme.md
 *.blg
 
 *.synctex(busy)
+/Api/.idea
+/Api/Api/obj
+/Api/Api/bin
