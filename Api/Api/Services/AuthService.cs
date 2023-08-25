@@ -1,7 +1,9 @@
 using Microsoft.IdentityModel.Tokens;
 using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
+using Api.Domain.Data;
 using Api.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -12,15 +14,17 @@ namespace Api.Services
     {
         private readonly string secret;
         private readonly double sessionTime;
+        private readonly DataContext context;
         private readonly IConfiguration configuration;
 
-        public AuthService(IConfiguration configuration)
+        public AuthService(IConfiguration configuration, DataContext context)
         {
             this.configuration = configuration;
+            this.context = context;
             secret = configuration["AppSettings:Secret"];
 
             if (string.IsNullOrEmpty(secret))
-                throw new ArgumentNullException("O secret não foi configurado");
+                throw new ArgumentNullException(nameof(secret));
 
             if (!double.TryParse(configuration["AppSettings:SessionTime"], out sessionTime))
                 sessionTime = 24;
@@ -30,13 +34,13 @@ namespace Api.Services
         {
             return new LoginResponse
             {
-                Token = GerarToken(login.Usuario),
+                Token = GenerateToken(login.Usuario),
                 Expiracao = DateTime.UtcNow.AddHours(sessionTime)
             };
         }
 
         #region Private Methods
-        private string GerarToken(string id)
+        private string GenerateToken(string id)
         {
             return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(
                 issuer: "UTFPR",

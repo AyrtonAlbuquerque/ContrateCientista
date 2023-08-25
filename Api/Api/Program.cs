@@ -1,13 +1,13 @@
+using Api.Domain.Data;
+using Api.Extensions;
 using Api.Services;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Scrutor;
-using System.Net.Mail;
-using System.Net;
-using System.Net.Http.Headers;
 
 
 namespace Api
@@ -26,7 +26,7 @@ namespace Api
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Contrate um Cientista",
-                    Version = "1.0.0",
+                    Version = "1.0",
                     Description = "API Contrate Um Cientista",
                     Contact = new OpenApiContact
                     {
@@ -47,7 +47,10 @@ namespace Api
             });
 
             // Add Database
-
+            builder.Services.AddDbContext<DataContext>(options => options
+                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+                .UseLazyLoadingProxies()
+            );
 
             // Add Services
             builder.Services.Scan(scan => scan
@@ -55,7 +58,8 @@ namespace Api
                 .AddClasses(classes => classes.InExactNamespaces("Api.Services"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsImplementedInterfaces()
-                .WithScopedLifetime());
+                .WithScopedLifetime()
+            );
 
             // Add Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -68,7 +72,7 @@ namespace Api
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = "UTFPR",
                     ValidAudience = "DIREC",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"] ?? throw new Exception("Token secret não configurado.")))
                 };
             });
 
@@ -80,6 +84,7 @@ namespace Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+            app.ApplyMigrations();
             app.Run();
         }
     }

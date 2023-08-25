@@ -77,3 +77,6 @@ Relatorio/readme.md
 /Api/.idea
 /Api/Api/obj
 /Api/Api/bin
+/.vscode
+/Api/Api/Domain/Migrations/obj
+/Api/Api.sln.DotSettings.user
