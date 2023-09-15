@@ -12,5 +12,6 @@ namespace Api.Domain.Model
         public virtual DateTime FoundationDate { get; set; }
         public virtual IEnumerable<Software> Softwares { get; set; }
         public virtual IEnumerable<Equipment> Equipments { get; set; }
+        public virtual IEnumerable<SocialMedia> SocialMedias { get; set; }
     }
 }
