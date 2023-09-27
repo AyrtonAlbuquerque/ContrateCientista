@@ -80,3 +80,5 @@ Relatorio/readme.md
 /.vscode
 /Api/Api/Domain/Migrations/obj
 /Api/Api.sln.DotSettings.user
+/Api/Api/*.user
+/Api/.vs

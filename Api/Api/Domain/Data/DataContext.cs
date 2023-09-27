@@ -5,10 +5,6 @@ namespace Api.Domain.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-        }
-
         // Tables
         public DbSet<Laboratory> Laboratory => Set<Laboratory>();
         public DbSet<Address> Address => Set<Address>();
@@ -16,5 +12,12 @@ namespace Api.Domain.Data
         public DbSet<Person> Person => Set<Person>();
         public DbSet<Software> Software => Set<Software>();
         public DbSet<SocialMedia> SocialMedia => Set<SocialMedia>();
+        public DbSet<Company> Company => Set<Company>();
+        public DbSet<Demand> Demand => Set<Demand>();
+        public DbSet<Match> Match => Set<Match>();
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
     }
 }
