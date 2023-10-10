@@ -82,3 +82,8 @@ Relatorio/readme.md
 /Api/Api.sln.DotSettings.user
 /Api/Api/*.user
 /Api/.vs
+/LanguageApi/venv
+/LanguageApi/.idea
+/LanguageApi/models/__pycache__
+/LanguageApi/routes/__pycache__
+/LanguageApi/services/__pycache__
