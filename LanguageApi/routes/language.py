@@ -10,7 +10,7 @@ router = APIRouter(prefix="/language", tags=["Language Processing"])
 
 @cbv(router)
 class Language:
-    def __init__(self, bert=Depends(BertService)):
+    def __init__(self, bert: BertService = Depends(BertService)):
         self.bert = bert
 
     @router.post("/extract", response_model=Keywords, responses={400: {"model": Message}})

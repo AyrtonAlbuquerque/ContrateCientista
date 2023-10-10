@@ -8,7 +8,7 @@ class BertService:
 
     def extract(self, text) -> Keywords:
         result = Keywords(keywords=[])
-        keywords = self.model.extract_keywords(text, keyphrase_ngram_range=(1, 1), stop_words=None)
+        keywords = self.model.extract_keywords(text, keyphrase_ngram_range=(1, 1))
 
         for word, score in keywords:
             result.keywords.append(Word(word=word, score=score))
