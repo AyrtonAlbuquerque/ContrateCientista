@@ -87,3 +87,5 @@ Relatorio/readme.md
 /LanguageApi/models/__pycache__
 /LanguageApi/routes/__pycache__
 /LanguageApi/services/__pycache__
+/LanguageApi/__pycache__
+/LanguageApi/contracts/__pycache__

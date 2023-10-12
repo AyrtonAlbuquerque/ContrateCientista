@@ -1,14 +1,16 @@
 from keybert import KeyBERT
-from models.keywords import Keywords, Word
+from settings import Settings
+from contracts.keywords import Keywords, Word
+from contracts.demand import Demand
 
 
 class BertService:
     def __init__(self):
-        self.model = KeyBERT(model='paraphrase-multilingual-MiniLM-L12-v2')
+        self.model = KeyBERT(model=Settings.model)
 
-    def extract(self, text) -> Keywords:
+    def extract(self, demand: Demand) -> Keywords:
         result = Keywords(keywords=[])
-        keywords = self.model.extract_keywords(text, keyphrase_ngram_range=(1, 1))
+        keywords = self.model.extract_keywords(demand.description)
 
         for word, score in keywords:
             result.keywords.append(Word(word=word, score=score))

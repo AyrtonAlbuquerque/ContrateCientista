@@ -1,21 +1,23 @@
-from fastapi import APIRouter, Depends
+from typing import Annotated
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi_restful.cbv import cbv
 from services.bert import BertService
-from models.demand import Demand
-from models.keywords import Keywords
-from models.message import Message
+from services.token import BearerToken
+from contracts.demand import Demand
+from contracts.keywords import Keywords
+from contracts.error import Error
 
-router = APIRouter(prefix="/language", tags=["Language Processing"])
+router = APIRouter(prefix="/language", tags=["Language"])
 
 
 @cbv(router)
 class Language:
-    def __init__(self, bert: BertService = Depends(BertService)):
+    def __init__(self, bert: Annotated[BertService, Depends()]):
         self.bert = bert
 
-    @router.post("/extract", response_model=Keywords, responses={400: {"model": Message}})
-    async def post(self, demand: Demand) -> Keywords | Message:
+    @router.post("/extract", name="Keyword Extraction", dependencies=[Depends(BearerToken())], response_model=Keywords, responses={400: {"model": Error}})
+    async def post(self, demand: Demand) -> Keywords:
         try:
-            return self.bert.extract(demand.description)
+            return self.bert.extract(demand)
         except Exception as e:
-            return Message(message=str(e))
+            raise e if e is HTTPException else HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
