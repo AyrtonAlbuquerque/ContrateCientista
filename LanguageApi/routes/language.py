@@ -20,4 +20,4 @@ class Language:
         try:
             return self.bert.extract(demand)
         except Exception as e:
-            raise e if e is HTTPException else HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+            raise e if type(e) is HTTPException else HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
