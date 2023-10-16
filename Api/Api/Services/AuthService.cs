@@ -35,7 +35,7 @@ namespace Api.Services
             return new LoginResponse
             {
                 Token = GenerateToken(login.Usuario),
-                Expiracao = DateTime.UtcNow.AddHours(sessionTime)
+                Expiration = (DateTime.UtcNow.AddHours(sessionTime) - DateTime.UtcNow).TotalMilliseconds
             };
         }
 

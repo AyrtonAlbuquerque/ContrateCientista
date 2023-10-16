@@ -11,7 +11,6 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Scrutor;
 using Refit;
-using System.Net.Http.Headers;
 
 
 namespace Api
@@ -24,7 +23,7 @@ namespace Api
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddRouting();
+            builder.Services.AddRouting(options => options.LowercaseUrls = true);
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo

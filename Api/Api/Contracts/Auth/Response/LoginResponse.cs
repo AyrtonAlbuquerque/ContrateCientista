@@ -9,7 +9,7 @@ namespace Api.Contracts.Auth.Response
         public string Token { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("expiracao")]
-        public DateTime? Expiracao { get; set; }
+        [JsonPropertyName("expiration")]
+        public double? Expiration { get; set; }
     }
 }

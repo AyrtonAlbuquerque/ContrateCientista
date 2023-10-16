@@ -3,7 +3,6 @@ using Api.Contracts.LanguageApi;
 
 namespace Api.Services.Interfaces
 {
-    [Headers("Authorization: Bearer")]
     public interface ILanguageService
     {
         [Post("/language/extract")]
