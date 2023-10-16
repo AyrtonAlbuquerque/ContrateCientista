@@ -12,15 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230927162737_DemandSchema")]
-    partial class DemandSchema
+    [Migration("20231016034519_PopulateDemand")]
+    partial class PopulateDemand
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -130,8 +130,11 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.Equipment", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Area")
                         .HasColumnType("text");
@@ -172,8 +175,8 @@ namespace Api.Domain.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FoundationDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("FoundationDate")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -246,8 +249,11 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.SocialMedia", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("LaboratoryId")
                         .HasColumnType("integer");
@@ -267,8 +273,11 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.Software", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Area")
                         .HasColumnType("text");

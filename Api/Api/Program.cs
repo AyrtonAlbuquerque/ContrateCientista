@@ -1,6 +1,8 @@
 using Api.Domain.Data;
 using Api.Extensions;
+using Api.Handlers;
 using Api.Services;
+using Api.Services.Interfaces;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Scrutor;
+using Refit;
+using System.Net.Http.Headers;
 
 
 namespace Api
@@ -51,6 +55,12 @@ namespace Api
                 .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
                 .UseLazyLoadingProxies()
             );
+
+            // Language API
+            builder.Services.AddScoped<LanguageTokenHandler>();
+            builder.Services.AddRefitClient<ILanguageService>()
+                .ConfigureHttpClient(c => { c.BaseAddress = new Uri(builder.Configuration["LanguageApi:Url"] ?? throw new Exception("Language API URL não configurada.")); })
+                .AddHttpMessageHandler<LanguageTokenHandler>();
 
             // Add Services
             builder.Services.Scan(scan => scan

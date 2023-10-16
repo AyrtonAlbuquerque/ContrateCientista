@@ -12,15 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230825022523_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20231016022913_PopulateSocialMedia")]
+    partial class PopulateSocialMedia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -62,10 +62,79 @@ namespace Api.Domain.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Api.Domain.Model.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("Api.Domain.Model.Demand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Benefits")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Keywords")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ResponsibleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Restrictions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ResponsibleId");
+
+                    b.ToTable("Demand");
+                });
+
             modelBuilder.Entity("Api.Domain.Model.Equipment", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Area")
                         .HasColumnType("text");
@@ -106,8 +175,8 @@ namespace Api.Domain.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FoundationDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("FoundationDate")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -122,6 +191,35 @@ namespace Api.Domain.Migrations
                     b.HasIndex("ResponsibleId");
 
                     b.ToTable("Laboratory");
+                });
+
+            modelBuilder.Entity("Api.Domain.Model.Match", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DemandId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LaboratoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Score")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandId");
+
+                    b.HasIndex("LaboratoryId");
+
+                    b.ToTable("Match");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.Person", b =>
@@ -151,8 +249,11 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.SocialMedia", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("LaboratoryId")
                         .HasColumnType("integer");
@@ -172,8 +273,11 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.Software", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Area")
                         .HasColumnType("text");
@@ -192,6 +296,21 @@ namespace Api.Domain.Migrations
                     b.HasIndex("LaboratoryId");
 
                     b.ToTable("Software");
+                });
+
+            modelBuilder.Entity("Api.Domain.Model.Demand", b =>
+                {
+                    b.HasOne("Api.Domain.Model.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("Api.Domain.Model.Person", "Responsible")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Responsible");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.Equipment", b =>
@@ -218,10 +337,25 @@ namespace Api.Domain.Migrations
                     b.Navigation("Responsible");
                 });
 
+            modelBuilder.Entity("Api.Domain.Model.Match", b =>
+                {
+                    b.HasOne("Api.Domain.Model.Demand", "Demand")
+                        .WithMany()
+                        .HasForeignKey("DemandId");
+
+                    b.HasOne("Api.Domain.Model.Laboratory", "Laboratory")
+                        .WithMany()
+                        .HasForeignKey("LaboratoryId");
+
+                    b.Navigation("Demand");
+
+                    b.Navigation("Laboratory");
+                });
+
             modelBuilder.Entity("Api.Domain.Model.SocialMedia", b =>
                 {
                     b.HasOne("Api.Domain.Model.Laboratory", "Laboratory")
-                        .WithMany()
+                        .WithMany("SocialMedias")
                         .HasForeignKey("LaboratoryId");
 
                     b.Navigation("Laboratory");
@@ -239,6 +373,8 @@ namespace Api.Domain.Migrations
             modelBuilder.Entity("Api.Domain.Model.Laboratory", b =>
                 {
                     b.Navigation("Equipments");
+
+                    b.Navigation("SocialMedias");
 
                     b.Navigation("Softwares");
                 });
