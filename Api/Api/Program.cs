@@ -57,7 +57,10 @@ namespace Api
             );
 
             // Language API
-            builder.Services.AddScoped<LanguageTokenHandler>();
+            builder.Services.AddHttpClient<LanguageTokenHandler>((services, client) =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["LanguageApi:Url"] ?? throw new Exception("Language API URL não configurada."));
+            });
             builder.Services.AddRefitClient<ILanguageService>()
                 .ConfigureHttpClient(c => { c.BaseAddress = new Uri(builder.Configuration["LanguageApi:Url"] ?? throw new Exception("Language API URL não configurada.")); })
                 .AddHttpMessageHandler<LanguageTokenHandler>();

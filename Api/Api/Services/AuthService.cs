@@ -27,7 +27,7 @@ namespace Api.Services
                 throw new ArgumentNullException(nameof(secret));
 
             if (!double.TryParse(configuration["AppSettings:SessionTime"], out sessionTime))
-                sessionTime = 24;
+                sessionTime = 1;
         }
 
         public async Task<LoginResponse> Login(Login login)
@@ -35,7 +35,8 @@ namespace Api.Services
             return new LoginResponse
             {
                 Token = GenerateToken(login.Usuario),
-                Expiration = (DateTime.UtcNow.AddHours(sessionTime) - DateTime.UtcNow).TotalMilliseconds
+                Type = "Bearer",
+                Expires = (DateTime.UtcNow.AddHours(sessionTime) - DateTime.UtcNow).TotalMilliseconds
             };
         }
 

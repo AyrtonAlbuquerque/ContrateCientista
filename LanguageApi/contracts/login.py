@@ -8,6 +8,6 @@ class Login(BaseModel):
 
 
 class Token(BaseModel):
-    token: str
+    value: str
     type: str
-    expiration: Optional[float]
+    expires: Optional[float]

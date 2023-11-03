@@ -5,15 +5,15 @@ namespace Api.Contracts.LanguageApi
     public class Token
     {
         [JsonRequired]
-        [JsonPropertyName("token")]
-        public string AccessToken { get; set; }
+        [JsonPropertyName("value")]
+        public string Value { get; set; }
 
         [JsonRequired]
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("expiration")]
-        public decimal? Expiration { get; set; }
+        [JsonPropertyName("expires")]
+        public decimal? Expires { get; set; }
     }
 }
