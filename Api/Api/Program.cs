@@ -40,10 +40,11 @@ namespace Api
                 });
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "\"Bearer\" {token}",
-                    In = ParameterLocation.Header,
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization Bearer Token."
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
                 options.CustomSchemaIds(Type => Type.ToString());

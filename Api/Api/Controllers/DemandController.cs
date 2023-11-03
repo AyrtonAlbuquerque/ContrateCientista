@@ -28,7 +28,7 @@ namespace Api.Controllers
             }
             catch(Exception e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new { Erro = $"Ocorreu um erro ao testar extrair as palavras chaves para essa demanda. {(e.InnerException ?? e).Message}" });
+                return StatusCode(StatusCodes.Status400BadRequest, new { Erro = $"Ocorreu um erro ao tentar extrair as palavras chaves para essa demanda. {(e.InnerException ?? e).Message}" });
             }
         }
     }
