@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
                     controller: loginController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Please enter your login';
+                       return 'Por favor, insira seu login';
                       }
                       return null;
                     },
@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Please enter your password';
+                       return 'Por favor, insira sua password';
                       }
                       return null;
                     },
@@ -76,7 +76,7 @@ class LoginPage extends StatelessWidget {
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill input')),
+                          const SnackBar(content: Text('Por favor, preencha todos os campos')),
                         );
                       }
                     },
