@@ -1,3 +1,4 @@
+using Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
@@ -18,16 +19,19 @@ namespace Api.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
         public async Task<ActionResult<LoginResponse>> Post(Login login)
         {
             try
             {
                 return Ok(await authService.Login(login));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new { Erro = "Ocorreu um erro ao realizar o login. Por favor tente novamente mais tarde." });
+                return StatusCode(StatusCodes.Status400BadRequest, new Error
+                {
+                    Message = $"Ocorreu um erro ao realizar o login: {(e.InnerException ?? e).Message}"
+                });
             }
         }
     }

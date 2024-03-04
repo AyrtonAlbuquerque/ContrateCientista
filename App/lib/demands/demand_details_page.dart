@@ -15,7 +15,7 @@ class Demand {
 
 
 class DemandDetailsPage extends StatelessWidget {
-  DemandDetailsPage({Key? key, required this.demand, required this.isLab}) : super(key: key);
+  const DemandDetailsPage({Key? key, required this.demand, required this.isLab}) : super(key: key);
   final Demand demand;
   final bool isLab;
 

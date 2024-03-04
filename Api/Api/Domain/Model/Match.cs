@@ -1,6 +1,8 @@
+using Api.Domain.Model.Base;
+
 namespace Api.Domain.Model
 {
-    public class Match
+    public class Match : BaseTable
     {
         public virtual int Id { get; protected set; }
         public virtual Demand Demand { get; set; }

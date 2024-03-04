@@ -3,7 +3,7 @@ import 'package:app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class LabHomePage extends StatelessWidget {
-  LabHomePage({Key? key, required this.login}) : super(key: key);
+  const LabHomePage({Key? key, required this.login}) : super(key: key);
   final String login;
 
   @override
@@ -29,7 +29,7 @@ class LabHomePage extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.home,
             ),
             title: const Text('Demandas'),
@@ -45,7 +45,7 @@ class LabHomePage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.train,
             ),
             title: const Text('Configurações'),
@@ -54,7 +54,7 @@ class LabHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SettingsPage(
+                  builder: (context) => const SettingsPage(
                     title: 'Configurações',
                   )),
               );

@@ -1,9 +1,7 @@
-import 'dart:math';
 
 import 'package:app/demands/create_demand_page.dart';
 import 'package:app/demands/demand_details_page.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
 
 List<Map<String,dynamic>> demands = [
     {

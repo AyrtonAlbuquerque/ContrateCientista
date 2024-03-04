@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Api.Contracts.LanguageApi
@@ -6,10 +7,10 @@ namespace Api.Contracts.LanguageApi
     {
         [JsonRequired]
         [JsonPropertyName("username")]
-        public string Usuario { get; set; }
+        public string Username { get; set; }
 
         [JsonRequired]
         [JsonPropertyName("password")]
-        public string Senha { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using Api.Domain.Data;
+using Api.Domain.Repository;
 using Api.Extensions;
 using Api.Handlers;
 using Api.Services;
@@ -20,10 +21,16 @@ namespace Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var url = builder.Configuration["LanguageApi:Url"];
+            var key = builder.Configuration["AppSettings:Secret"];
+
+            ArgumentException.ThrowIfNullOrEmpty(url);
+            ArgumentException.ThrowIfNullOrEmpty(key);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddRouting(options => options.LowercaseUrls = true);
+            builder.Services.AddMappings();
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -53,17 +60,24 @@ namespace Api
             // Add Database
             builder.Services.AddDbContext<DataContext>(options => options
                 .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-                .UseLazyLoadingProxies()
-            );
+                .UseLazyLoadingProxies());
 
             // Language API
-            builder.Services.AddHttpClient<LanguageTokenHandler>((services, client) =>
+            builder.Services.AddHttpClient<LanguageTokenHandler>(client =>
             {
-                client.BaseAddress = new Uri(builder.Configuration["LanguageApi:Url"] ?? throw new Exception("Language API URL não configurada."));
+                client.BaseAddress = new Uri(url);
             });
             builder.Services.AddRefitClient<ILanguageService>()
-                .ConfigureHttpClient(c => { c.BaseAddress = new Uri(builder.Configuration["LanguageApi:Url"] ?? throw new Exception("Language API URL não configurada.")); })
+                .ConfigureHttpClient(c => { c.BaseAddress = new Uri(url); })
                 .AddHttpMessageHandler<LanguageTokenHandler>();
+
+            // Add Repositories
+            builder.Services.Scan(scan => scan
+                .FromAssemblyOf<AddressRepository>()
+                .AddClasses(classes => classes.InExactNamespaces("Api.Domain.Repository"))
+                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
 
             // Add Services
             builder.Services.Scan(scan => scan
@@ -71,8 +85,7 @@ namespace Api
                 .AddClasses(classes => classes.InExactNamespaces("Api.Services"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsImplementedInterfaces()
-                .WithScopedLifetime()
-            );
+                .WithScopedLifetime());
 
             // Add Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -85,7 +98,7 @@ namespace Api
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = "UTFPR",
                     ValidAudience = "DIREC",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"] ?? throw new Exception("Token secret não configurado.")))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                 };
             });
 

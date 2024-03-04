@@ -38,8 +38,8 @@ namespace Api.Handlers
         {
             var request = JsonSerializer.Serialize(new Login
             {
-                Usuario = configuration["LanguageApi:Username"],
-                Senha = configuration["LanguageApi:Password"]
+                Username = configuration["LanguageApi:Username"],
+                Password = configuration["LanguageApi:Password"]
             });
             var response = client.PostAsync("auth/login", new StringContent(request, Encoding.UTF8, "application/json")).Result;
 

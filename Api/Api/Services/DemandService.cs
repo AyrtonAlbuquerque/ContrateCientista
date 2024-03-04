@@ -1,17 +1,14 @@
 using Api.Contracts.LanguageApi;
-using Api.Domain.Data;
 using Api.Services.Interfaces;
 
 namespace Api.Services
 {
     public class DemandService : IDemandService
     {
-        private readonly DataContext context;
         private readonly ILanguageService languageService;
 
-        public DemandService(DataContext context, ILanguageService languageService)
+        public DemandService(ILanguageService languageService)
         {
-            this.context = context;
             this.languageService = languageService;
         }
 

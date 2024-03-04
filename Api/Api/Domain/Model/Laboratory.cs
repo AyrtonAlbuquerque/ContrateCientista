@@ -1,6 +1,8 @@
+using Api.Domain.Model.Base;
+
 namespace Api.Domain.Model
 {
-    public class Laboratory
+    public class Laboratory : BaseTable
     {
         public virtual int Id { get; protected set; }
         public virtual string Name { get; set; }

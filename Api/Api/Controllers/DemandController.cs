@@ -1,3 +1,4 @@
+using Api.Contracts;
 using Api.Contracts.LanguageApi;
 using Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -19,16 +20,19 @@ namespace Api.Controllers
 
         [HttpPost("extract")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Keyword))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
         public async Task<ActionResult<Keyword>> Post(Demand demand)
         {
             try
             {
                 return Ok(await demandService.ExtractKeywords(demand));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new { Erro = $"Ocorreu um erro ao tentar extrair as palavras chaves para essa demanda. {(e.InnerException ?? e).Message}" });
+                return StatusCode(StatusCodes.Status400BadRequest, new Error
+                {
+                    Message = $"Ocorreu um erro ao executar a extracao de palavras chave: {(e.InnerException ?? e).Message}"
+                });
             }
         }
     }

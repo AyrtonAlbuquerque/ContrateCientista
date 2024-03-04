@@ -1,6 +1,8 @@
+using Api.Domain.Model.Base;
+
 namespace Api.Domain.Model
 {
-    public class SocialMedia
+    public class SocialMedia : BaseTable
     {
         public virtual int Id { get; protected set; }
         public virtual string Type { get; set; }
