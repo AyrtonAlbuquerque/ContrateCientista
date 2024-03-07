@@ -15,5 +15,6 @@ namespace Api.Domain.Model
         public virtual IEnumerable<Software> Softwares { get; set; }
         public virtual IEnumerable<Equipment> Equipments { get; set; }
         public virtual IEnumerable<SocialMedia> SocialMedias { get; set; }
+        public virtual IEnumerable<Match> Matches { get; set; }
     }
 }

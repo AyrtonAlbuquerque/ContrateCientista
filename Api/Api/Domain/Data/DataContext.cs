@@ -1,3 +1,4 @@
+using Api.Domain.Map;
 using Api.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,11 @@ namespace Api.Domain.Data
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AddressMap).Assembly);
         }
     }
 }
