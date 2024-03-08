@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class LaboratoryRepository : Repository<Laboratory>, ILaboratoryRepository
+    public class LaboratoryRepository(DataContext context) : Repository<Laboratory>(context), ILaboratoryRepository
     {
-        public LaboratoryRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

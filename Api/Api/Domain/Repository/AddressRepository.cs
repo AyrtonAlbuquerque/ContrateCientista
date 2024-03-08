@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class AddressRepository : Repository<Address>, IAddressRepository
+    public class AddressRepository(DataContext context) : Repository<Address>(context), IAddressRepository
     {
-        public AddressRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

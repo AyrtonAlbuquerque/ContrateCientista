@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class SocialMediaRepository : Repository<SocialMedia>, ISocialMediaRepository
+    public class SocialMediaRepository(DataContext context) : Repository<SocialMedia>(context), ISocialMediaRepository
     {
-        public SocialMediaRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

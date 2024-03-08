@@ -2,6 +2,7 @@ using Api.Domain.Data;
 using Api.Domain.Repository;
 using Api.Extensions;
 using Api.Handlers;
+using Api.Middleware;
 using Api.Services;
 using Api.Services.Interfaces;
 using System.Text;
@@ -110,6 +111,7 @@ namespace Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.ApplyMigrations();
             app.Run();
         }

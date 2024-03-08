@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class CompanyRepository(DataContext context) : Repository<Company>(context), ICompanyRepository
     {
-        public CompanyRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

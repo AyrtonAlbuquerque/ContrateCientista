@@ -22,17 +22,7 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
         public async Task<ActionResult<LoginResponse>> Post(Login login)
         {
-            try
-            {
-                return Ok(await authService.Login(login));
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, new Error
-                {
-                    Message = $"Ocorreu um erro ao realizar o login: {(e.InnerException ?? e).Message}"
-                });
-            }
+            return Ok(await authService.Login(login));
         }
     }
 }

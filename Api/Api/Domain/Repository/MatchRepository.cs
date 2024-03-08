@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class MatchRepository : Repository<Match>, IMatchRepository
+    public class MatchRepository(DataContext context) : Repository<Match>(context), IMatchRepository
     {
-        public MatchRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class PersonRepository : Repository<Person>, IPersonRepository
+    public class PersonRepository(DataContext context) : Repository<Person>(context), IPersonRepository
     {
-        public PersonRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

@@ -8,10 +8,7 @@ namespace Api.Domain.Repository
     {
     }
 
-    public class DemandRepository : Repository<Demand>, IDemandRepository
+    public class DemandRepository(DataContext context) : Repository<Demand>(context), IDemandRepository
     {
-        public DemandRepository(DataContext context) : base(context)
-        {
-        }
     }
 }
