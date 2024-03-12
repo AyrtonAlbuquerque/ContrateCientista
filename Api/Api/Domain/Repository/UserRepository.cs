@@ -7,6 +7,8 @@ namespace Api.Domain.Repository
     public interface IUserRepository : IRepository<User>
     {
         Task<User> GetAsync(string email, string password);
+
+        Task<bool> ExistsAsync(string email);
     }
 
     public class UserRepository(DataContext context) : Repository<User>(context), IUserRepository
@@ -15,6 +17,12 @@ namespace Api.Domain.Repository
         {
             return await GetAsync(q => q
                 .Where(u => u.Email == email && u.Password == password));
+        }
+
+        public async Task<bool> ExistsAsync(string email)
+        {
+            return await ExistsAsync(q => q
+                .Where(u => u.Email == email));
         }
     }
 }

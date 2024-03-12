@@ -9,6 +9,6 @@ namespace Api.Domain.Model
         public virtual string Cnpj { get; set; }
         public virtual string Email { get; set; }
         public virtual string Description { get; set; }
-        public virtual IEnumerable<Demand> Demands { get; set; }
+        public virtual ICollection<Demand> Demands { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240307001830_PopulateDemand")]
-    partial class PopulateDemand
+    [Migration("20240312145733_PopulateLaboratory")]
+    partial class PopulateLaboratory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

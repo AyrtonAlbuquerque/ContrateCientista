@@ -12,9 +12,9 @@ namespace Api.Domain.Model
         public virtual string Description { get; set; }
         public virtual string Certificates { get; set; }
         public virtual string FoundationDate { get; set; }
-        public virtual IEnumerable<Software> Softwares { get; set; }
-        public virtual IEnumerable<Equipment> Equipments { get; set; }
-        public virtual IEnumerable<SocialMedia> SocialMedias { get; set; }
-        public virtual IEnumerable<Match> Matches { get; set; }
+        public virtual ICollection<Software> Softwares { get; set; }
+        public virtual ICollection<Equipment> Equipments { get; set; }
+        public virtual ICollection<SocialMedia> SocialMedias { get; set; }
+        public virtual ICollection<Match> Matches { get; set; }
     }
 }
