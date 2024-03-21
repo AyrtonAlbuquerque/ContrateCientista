@@ -2,14 +2,14 @@ using System.Text.Json.Serialization;
 
 namespace Api.Contracts.LanguageApi
 {
-    public class Word
+    public class Words
     {
         [JsonRequired]
-        [JsonPropertyName("word")]
+        [JsonPropertyName("text")]
         public string Text { get; set; }
 
         [JsonRequired]
-        [JsonPropertyName("score")]
-        public decimal Score { get; set; }
+        [JsonPropertyName("weight")]
+        public decimal Weight { get; set; }
     }
 }

@@ -15,7 +15,6 @@ namespace Api.Domain.Map
             // Properties
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Score).IsRequired();
-            builder.Property(x => x.Status).IsRequired();
 
             // Relationships
             builder.HasOne(x => x.Laboratory)
@@ -26,6 +25,11 @@ namespace Api.Domain.Map
             builder.HasOne(x => x.Demand)
                 .WithMany(d => d.Matches)
                 .HasForeignKey("DemandId")
+                .IsRequired();
+
+            builder.HasOne(x => x.Status)
+                .WithMany()
+                .HasForeignKey("StatusId")
                 .IsRequired();
         }
     }

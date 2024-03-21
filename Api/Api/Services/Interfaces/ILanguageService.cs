@@ -6,6 +6,6 @@ namespace Api.Services.Interfaces
     public interface ILanguageService
     {
         [Post("/language/extract")]
-        Task<Keyword> Extract([Body] Demand demand);
+        Task<Keyword> Extract([Body] Description description);
     }
 }

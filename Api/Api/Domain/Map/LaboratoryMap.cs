@@ -25,6 +25,7 @@ namespace Api.Domain.Map
             builder.Navigation(x => x.Softwares);
             builder.Navigation(x => x.Equipments);
             builder.Navigation(x => x.SocialMedias);
+            builder.Navigation(x => x.Keywords);
 
             builder.HasOne(x => x.Address)
                 .WithMany()

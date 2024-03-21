@@ -63,6 +63,19 @@ namespace Api.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Status",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Status", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Demand",
                 columns: table => new
                 {
@@ -75,7 +88,6 @@ namespace Api.Domain.Migrations
                     Benefits = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     Details = table.Column<string>(type: "text", nullable: true),
                     Restrictions = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
-                    Keywords = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     ResponsibleId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -149,6 +161,32 @@ namespace Api.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Keyword",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Weight = table.Column<decimal>(type: "numeric", nullable: false),
+                    DemandId = table.Column<int>(type: "integer", nullable: true),
+                    LaboratoryId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Keyword", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Keyword_Demand_DemandId",
+                        column: x => x.DemandId,
+                        principalTable: "Demand",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Keyword_Laboratory_LaboratoryId",
+                        column: x => x.LaboratoryId,
+                        principalTable: "Laboratory",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Match",
                 columns: table => new
                 {
@@ -157,7 +195,7 @@ namespace Api.Domain.Migrations
                     DemandId = table.Column<int>(type: "integer", nullable: false),
                     LaboratoryId = table.Column<int>(type: "integer", nullable: false),
                     Score = table.Column<decimal>(type: "numeric", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false)
+                    StatusId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,6 +210,12 @@ namespace Api.Domain.Migrations
                         name: "FK_Match_Laboratory_LaboratoryId",
                         column: x => x.LaboratoryId,
                         principalTable: "Laboratory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Match_Status_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -267,6 +311,16 @@ namespace Api.Domain.Migrations
                 column: "LaboratoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Keyword_DemandId",
+                table: "Keyword",
+                column: "DemandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Keyword_LaboratoryId",
+                table: "Keyword",
+                column: "LaboratoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Laboratory_AddressId",
                 table: "Laboratory",
                 column: "AddressId");
@@ -285,6 +339,11 @@ namespace Api.Domain.Migrations
                 name: "IX_Match_LaboratoryId",
                 table: "Match",
                 column: "LaboratoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Match_StatusId",
+                table: "Match",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SocialMedia_LaboratoryId",
@@ -325,6 +384,9 @@ namespace Api.Domain.Migrations
                 name: "Equipment");
 
             migrationBuilder.DropTable(
+                name: "Keyword");
+
+            migrationBuilder.DropTable(
                 name: "Match");
 
             migrationBuilder.DropTable(
@@ -338,6 +400,9 @@ namespace Api.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Demand");
+
+            migrationBuilder.DropTable(
+                name: "Status");
 
             migrationBuilder.DropTable(
                 name: "Laboratory");

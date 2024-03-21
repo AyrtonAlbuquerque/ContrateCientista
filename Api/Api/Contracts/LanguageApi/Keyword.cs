@@ -6,6 +6,6 @@ namespace Api.Contracts.LanguageApi
     {
         [JsonRequired]
         [JsonPropertyName("keywords")]
-        public IEnumerable<Word> Keywords { get; set; }
+        public ICollection<Words> Keywords { get; set; }
     }
 }

@@ -1,10 +1,10 @@
 from pydantic import BaseModel, Field
 
 
-class Word(BaseModel):
-    word: str
-    score: float = Field(ge=0, le=1)
+class Words(BaseModel):
+    text: str
+    weight: float = Field(ge=-1, le=1)
 
 
 class Keywords(BaseModel):
-    keywords: list[Word]
+    keywords: list[Words] = []

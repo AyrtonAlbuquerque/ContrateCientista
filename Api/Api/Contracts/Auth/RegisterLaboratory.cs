@@ -34,14 +34,18 @@ namespace Api.Contracts.Auth
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("softwares")]
-        public IEnumerable<Software> Softwares { get; set; }
+        public ICollection<Software> Softwares { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("equipments")]
-        public IEnumerable<Equipment> Equipments { get; set; }
+        public ICollection<Equipment> Equipments { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("socialMedias")]
-        public IEnumerable<SocialMedia> SocialMedias { get; set; }
+        public ICollection<SocialMedia> SocialMedias { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("keywords")]
+        public ICollection<string> Keywords { get; set; }
     }
 }

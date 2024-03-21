@@ -4,6 +4,7 @@ using Api.Utilities;
 using Mapster;
 using Address = Api.Domain.Model.Address;
 using Equipment = Api.Domain.Model.Equipment;
+using Keyword = Api.Domain.Model.Keyword;
 using Software = Api.Domain.Model.Software;
 
 namespace Api.Extensions
@@ -24,22 +25,26 @@ namespace Api.Extensions
                     Description = source.Description
                 });
 
-            TypeAdapterConfig<RegisterLaboratory, User>
+            TypeAdapterConfig<(Api.Contracts.LanguageApi.Keyword keywords, RegisterLaboratory laboratory), User>
                 .NewConfig()
-                .Map(dest => dest.Email, source => source.Responsible.Email)
-                .Map(dest => dest.Password, source => ValidationHelper.HashPassword(source.Responsible.Password))
+                .Map(dest => dest.Email, source => source.laboratory.Responsible.Email)
+                .Map(dest => dest.Password, source => ValidationHelper.HashPassword(source.laboratory.Responsible.Password))
                 .Map(dest => dest.Laboratory, source => new Laboratory
                 {
-                    Name = source.Name,
-                    Code = source.Code,
-                    Description = source.Description,
-                    Certificates = source.Certificates,
-                    FoundationDate = source.FoundationDate,
-                    Responsible = source.Responsible.Adapt<Person>(),
-                    Address = source.Address.Adapt<Address>(),
-                    Softwares = source.Softwares.Adapt<ICollection<Software>>(),
-                    Equipments = source.Equipments.Adapt<ICollection<Equipment>>(),
-                    SocialMedias = source.SocialMedias.Adapt<ICollection<SocialMedia>>()
+                    Name = source.laboratory.Name,
+                    Code = source.laboratory.Code,
+                    Description = source.laboratory.Description,
+                    Certificates = source.laboratory.Certificates,
+                    FoundationDate = source.laboratory.FoundationDate,
+                    Responsible = source.laboratory.Responsible.Adapt<Person>(),
+                    Address = source.laboratory.Address.Adapt<Address>(),
+                    Softwares = source.laboratory.Softwares.Adapt<ICollection<Software>>(),
+                    Equipments = source.laboratory.Equipments.Adapt<ICollection<Equipment>>(),
+                    SocialMedias = source.laboratory.SocialMedias.Adapt<ICollection<SocialMedia>>(),
+                    Keywords = source.laboratory.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1})
+                        .Concat(source.keywords.Keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight }))
+                        .Distinct()
+                        .ToList()
                 });
 
             return services;

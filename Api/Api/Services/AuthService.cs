@@ -1,6 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
+using Api.Contracts.LanguageApi;
 using Api.Domain.Model;
 using Api.Domain.Repository;
 using Api.Exceptions;
@@ -10,6 +11,7 @@ using Mapster;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Login = Api.Contracts.Auth.Login;
 
 namespace Api.Services
 {
@@ -18,11 +20,16 @@ namespace Api.Services
         private readonly string secret;
         private readonly double sessionTime;
         private readonly IUserRepository userRepository;
+        private readonly ILanguageService languageService;
 
-        public AuthService(IConfiguration configuration, IUserRepository userRepository)
+        public AuthService(
+            IConfiguration configuration,
+            IUserRepository userRepository,
+            ILanguageService languageService)
         {
             this.secret = configuration["AppSettings:Secret"];
             this.userRepository = userRepository;
+            this.languageService = languageService;
 
             ArgumentException.ThrowIfNullOrEmpty(secret);
 
@@ -65,7 +72,8 @@ namespace Api.Services
             if (await userRepository.ExistsAsync(laboratory.Responsible.Email)) BadRequestException.Throw("E-mail já cadastrado.");
             if (!ValidationHelper.ValidatePassword(laboratory.Responsible.Password)) BadRequestException.Throw("Senha inválida. A senha feve conter pelo menos 8 caracteres, uma letra e um número.");
 
-            var user = await userRepository.InsertAsync(laboratory.Adapt<User>());
+            var keywords = await languageService.Extract(new Description { Text = laboratory.Description });
+            var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
 
             return new LoginResponse
             {

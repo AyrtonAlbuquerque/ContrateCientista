@@ -3,6 +3,7 @@ using System;
 using Api.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240320203358_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,10 +128,6 @@ namespace Api.Domain.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("text");
 
-                    b.Property<string>("Keywords")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
                     b.Property<int>("ResponsibleId")
                         .HasColumnType("integer");
 
@@ -178,6 +177,37 @@ namespace Api.Domain.Migrations
                     b.HasIndex("LaboratoryId");
 
                     b.ToTable("Equipment");
+                });
+
+            modelBuilder.Entity("Api.Domain.Model.Keyword", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DemandId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LaboratoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandId");
+
+                    b.HasIndex("LaboratoryId");
+
+                    b.ToTable("Keyword");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.Laboratory", b =>
@@ -240,7 +270,7 @@ namespace Api.Domain.Migrations
                     b.Property<decimal>("Score")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("StatusId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -248,6 +278,8 @@ namespace Api.Domain.Migrations
                     b.HasIndex("DemandId");
 
                     b.HasIndex("LaboratoryId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Match");
                 });
@@ -338,6 +370,24 @@ namespace Api.Domain.Migrations
                     b.ToTable("Software");
                 });
 
+            modelBuilder.Entity("Api.Domain.Model.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
+                });
+
             modelBuilder.Entity("Api.Domain.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -406,6 +456,21 @@ namespace Api.Domain.Migrations
                     b.Navigation("Laboratory");
                 });
 
+            modelBuilder.Entity("Api.Domain.Model.Keyword", b =>
+                {
+                    b.HasOne("Api.Domain.Model.Demand", "Demand")
+                        .WithMany("Keywords")
+                        .HasForeignKey("DemandId");
+
+                    b.HasOne("Api.Domain.Model.Laboratory", "Laboratory")
+                        .WithMany("Keywords")
+                        .HasForeignKey("LaboratoryId");
+
+                    b.Navigation("Demand");
+
+                    b.Navigation("Laboratory");
+                });
+
             modelBuilder.Entity("Api.Domain.Model.Laboratory", b =>
                 {
                     b.HasOne("Api.Domain.Model.Address", "Address")
@@ -439,9 +504,17 @@ namespace Api.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Api.Domain.Model.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Demand");
 
                     b.Navigation("Laboratory");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.SocialMedia", b =>
@@ -488,12 +561,16 @@ namespace Api.Domain.Migrations
 
             modelBuilder.Entity("Api.Domain.Model.Demand", b =>
                 {
+                    b.Navigation("Keywords");
+
                     b.Navigation("Matches");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.Laboratory", b =>
                 {
                     b.Navigation("Equipments");
+
+                    b.Navigation("Keywords");
 
                     b.Navigation("Matches");
 

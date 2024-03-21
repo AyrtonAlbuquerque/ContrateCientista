@@ -4,6 +4,6 @@ namespace Api.Services.Interfaces
 {
     public interface IDemandService
     {
-        Task<Keyword> ExtractKeywords(Demand demand);
+        Task<Keyword> ExtractKeywords(Description description);
     }
 }
