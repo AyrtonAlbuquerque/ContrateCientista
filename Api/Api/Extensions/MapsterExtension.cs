@@ -43,7 +43,8 @@ namespace Api.Extensions
                     SocialMedias = source.laboratory.SocialMedias.Adapt<ICollection<SocialMedia>>(),
                     Keywords = source.laboratory.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1})
                         .Concat(source.keywords.Keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight }))
-                        .Distinct()
+                        .GroupBy(x => x.Text)
+                        .Select(x => x.OrderByDescending(k => k.Weight).First())
                         .ToList()
                 });
 

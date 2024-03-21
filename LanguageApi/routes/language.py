@@ -1,21 +1,18 @@
-from typing import Annotated
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi_restful.cbv import cbv
+from fastapi import Depends, HTTPException, status
+from classy_fastapi import Routable, post
 from services.bert import BertService
 from services.token import BearerToken
 from contracts.description import Description
 from contracts.keywords import Keywords
 from contracts.error import Error
 
-router = APIRouter(prefix="/language", tags=["Language"])
 
+class Language(Routable):
+    def __init__(self):
+        super().__init__(prefix="/language", tags=["Language"], dependencies=[Depends(BearerToken())], responses={400: {"model": Error}})
+        self.bert = BertService()
 
-@cbv(router)
-class Language:
-    def __init__(self, bert: Annotated[BertService, Depends()]):
-        self.bert = bert
-
-    @router.post("/extract", name="Keyword/Keyphrase Extraction", dependencies=[Depends(BearerToken())], response_model=Keywords, responses={400: {"model": Error}})
+    @post("/extract", response_model=Keywords)
     async def post(self, description: Description) -> Keywords:
         try:
             return self.bert.extract(description)

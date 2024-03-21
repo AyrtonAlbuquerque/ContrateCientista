@@ -1,19 +1,16 @@
-from typing import Annotated
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi_restful.cbv import cbv
+from fastapi import HTTPException, status
+from classy_fastapi import Routable, post
 from services.token import TokenService
 from contracts.login import Login, Token
 from contracts.error import Error
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
 
+class Auth(Routable):
+    def __init__(self):
+        super().__init__(prefix="/auth", tags=["Authentication"], responses={400: {"model": Error}})
+        self.token = TokenService()
 
-@cbv(router)
-class Auth:
-    def __init__(self, token: Annotated[TokenService, Depends()]):
-        self.token = token
-
-    @router.post("/login", name="Login", response_model=Token, responses={400: {"model": Error}})
+    @post("/login", response_model=Token)
     async def post(self, login: Login) -> Token:
         try:
             return self.token.generate(login)

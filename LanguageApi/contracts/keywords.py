@@ -7,4 +7,4 @@ class Words(BaseModel):
 
 
 class Keywords(BaseModel):
-    keywords: list[Words] = []
+    keywords: list[Words]
