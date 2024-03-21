@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from classy_fastapi import Routable, post
 from services.bert import BertService
 from services.token import BearerToken
@@ -14,7 +14,4 @@ class Language(Routable):
 
     @post("/extract", response_model=Keywords)
     async def post(self, description: Description) -> Keywords:
-        try:
-            return self.bert.extract(description)
-        except Exception as e:
-            raise e if type(e) is HTTPException else HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+        return self.bert.extract(description)
