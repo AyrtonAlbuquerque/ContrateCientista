@@ -1,10 +1,8 @@
 import 'package:app/home/lab_home_page.dart';
-import 'package:app/signin/signin_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class SigninLaboratoryPage extends StatelessWidget {
+  SigninLaboratoryPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController loginController = TextEditingController();
@@ -13,6 +11,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Registrar Laboratório'),
+        backgroundColor: const Color.fromARGB(255, 255, 166, 0),
+      ),
       body: Form(
         key: _formKey,
         child: Align(
@@ -57,42 +59,15 @@ class LoginPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
-                    child: const Text('Login'),
+                    child: const Text('Criar'),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        if (loginController.text == "test@gmail.com" &&
-                                      passwordController.text == "test123") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LabHomePage(
-                                login: loginController.text,
-                              )),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Credenciais inválidas')),
-                            );
-                        }
+                        // enviar dados
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Por favor, preencha todos os campos')),
                         );
                       }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: TextButton(
-                    child: const Text('Sign in'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SigninPage()),
-                      );
                     },
                   ),
                 ),
