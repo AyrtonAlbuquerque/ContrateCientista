@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Api.Contracts.Auth
+namespace Api.Contracts.Common
 {
     public class Responsible
     {
@@ -12,7 +12,7 @@ namespace Api.Contracts.Auth
         [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("password")]
         public string Password { get; set; }
 

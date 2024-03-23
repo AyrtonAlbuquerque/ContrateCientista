@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Api.Contracts
+namespace Api.Contracts.Common
 {
     public class SocialMedia
     {

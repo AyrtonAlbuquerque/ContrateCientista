@@ -5,7 +5,7 @@ from flair.models import SequenceTagger
 from flair.splitter import SegtokSentenceSplitter
 from keyphrase_vectorizers import KeyphraseCountVectorizer
 from settings import Settings
-from contracts.keywords import Keywords, Words
+from contracts.keyword import Keyword
 from contracts.description import Description
 
 
@@ -13,17 +13,17 @@ class BertService:
     def __init__(self):
         self.tagger = SequenceTagger.load('pos')
         self.splitter = SegtokSentenceSplitter()
-        self.model = KeyBERT(model=TransformerDocumentEmbeddings(Settings.model))
+        self.model = KeyBERT(model=TransformerDocumentEmbeddings(Settings.bert_model))
         self.vectorizer = KeyphraseCountVectorizer(spacy_pipeline=Settings.pipeline, stop_words=Settings.stop_words, custom_pos_tagger=self.pos_tagger)
 
-    def extract(self, description: Description) -> Keywords:
-        result = Keywords(keywords=[])
-        keywords = self.model.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
+    def extract(self, description: Description) -> List[Keyword]:
+        keywords = []
+        result = self.model.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
 
-        for text, weight in keywords:
-            result.keywords.append(Words(text=text, weight=weight))
+        for text, weight in result:
+            keywords.append(Keyword(text=text, weight=weight))
 
-        return result
+        return keywords
 
     def pos_tagger(self, raw_documents: List[str]) -> List[tuple]:
         tags = []

@@ -1,3 +1,4 @@
+using Api.Contracts.Common;
 using System.Text.Json.Serialization;
 
 namespace Api.Contracts.Demand.Response
@@ -32,12 +33,8 @@ namespace Api.Contracts.Demand.Response
         [JsonPropertyName("restrictions")]
         public string Restrictions { get; set; }
 
-        [JsonRequired]
-        [JsonPropertyName("company")]
-        public Company Company { get; set; }
-
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("keywords")]
-        public ICollection<Keyword> Keywords { get; set; }
+        [JsonPropertyName("laboratories")]
+        public ICollection<Laboratory> Laboratories { get; set; }
     }
 }

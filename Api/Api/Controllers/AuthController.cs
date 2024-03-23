@@ -1,7 +1,7 @@
-using Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
+using Api.Contracts.Common;
 using Api.Services.Interfaces;
 
 namespace Api.Controllers

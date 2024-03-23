@@ -70,9 +70,9 @@ namespace Api.Services
         public async Task<LoginResponse> Register(RegisterLaboratory laboratory)
         {
             if (await userRepository.ExistsAsync(laboratory.Responsible.Email)) BadRequestException.Throw("E-mail já cadastrado.");
-            if (!ValidationHelper.ValidatePassword(laboratory.Responsible.Password)) BadRequestException.Throw("Senha inválida. A senha feve conter pelo menos 8 caracteres, uma letra e um número.");
+            if (!ValidationHelper.ValidatePassword(laboratory.Responsible.Password)) BadRequestException.Throw("Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
 
-            var keywords = await languageService.Extract(new Description { Text = laboratory.Description });
+            var keywords = await languageService.ExtractBERT(new Description { Text = laboratory.Description });
             var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
 
             return new LoginResponse

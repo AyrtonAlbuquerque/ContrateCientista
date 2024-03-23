@@ -5,6 +5,7 @@ using Mapster;
 using Address = Api.Domain.Model.Address;
 using Equipment = Api.Domain.Model.Equipment;
 using Keyword = Api.Domain.Model.Keyword;
+using SocialMedia = Api.Domain.Model.SocialMedia;
 using Software = Api.Domain.Model.Software;
 
 namespace Api.Extensions
@@ -25,8 +26,9 @@ namespace Api.Extensions
                     Description = source.Description
                 });
 
-            TypeAdapterConfig<(Api.Contracts.LanguageApi.Keyword keywords, RegisterLaboratory laboratory), User>
+            TypeAdapterConfig<(ICollection<Api.Contracts.Common.Keyword> keywords, RegisterLaboratory laboratory), User>
                 .NewConfig()
+                .Ignore(dest => dest.Id)
                 .Map(dest => dest.Email, source => source.laboratory.Responsible.Email)
                 .Map(dest => dest.Password, source => ValidationHelper.HashPassword(source.laboratory.Responsible.Password))
                 .Map(dest => dest.Laboratory, source => new Laboratory
@@ -42,7 +44,7 @@ namespace Api.Extensions
                     Equipments = source.laboratory.Equipments.Adapt<ICollection<Equipment>>(),
                     SocialMedias = source.laboratory.SocialMedias.Adapt<ICollection<SocialMedia>>(),
                     Keywords = source.laboratory.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1})
-                        .Concat(source.keywords.Keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight }))
+                        .Concat(source.keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight }))
                         .GroupBy(x => x.Text)
                         .Select(x => x.OrderByDescending(k => k.Weight).First())
                         .ToList()

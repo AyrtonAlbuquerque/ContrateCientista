@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Api.Contracts.Auth
+namespace Api.Contracts.Common
 {
     public class Address
     {

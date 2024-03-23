@@ -1,11 +1,9 @@
-using Api.Contracts;
+using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
-using Api.Contracts.LanguageApi;
 using Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Keyword = Api.Contracts.LanguageApi.Keyword;
 
 namespace Api.Controllers
 {
@@ -24,9 +22,9 @@ namespace Api.Controllers
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateDemandResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<CreateDemandResponse>> Post(CreateDemand demand)
+        public async Task<ActionResult<CreateDemandResponse>> Post(CreateDemand createDemand)
         {
-            return Ok();
+            return Ok(await demandService.Create(createDemand));
         }
     }
 }

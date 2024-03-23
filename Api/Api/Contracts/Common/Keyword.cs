@@ -1,12 +1,12 @@
 using System.Text.Json.Serialization;
 
-namespace Api.Contracts.Demand.Response
+namespace Api.Contracts.Common
 {
     public class Keyword
     {
         [JsonRequired]
-        [JsonPropertyName("word")]
-        public string Word { get; set; }
+        [JsonPropertyName("text")]
+        public string Text { get; set; }
 
         [JsonRequired]
         [JsonPropertyName("weight")]

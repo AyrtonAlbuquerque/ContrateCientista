@@ -1,9 +1,10 @@
-using Api.Contracts.LanguageApi;
+using Api.Contracts.Demand;
+using Api.Contracts.Demand.Response;
 
 namespace Api.Services.Interfaces
 {
     public interface IDemandService
     {
-        Task<Keyword> ExtractKeywords(Description description);
+        Task<CreateDemandResponse> Create(CreateDemand createDemand);
     }
 }

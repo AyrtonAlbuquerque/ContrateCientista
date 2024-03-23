@@ -1,3 +1,4 @@
+using Api.Contracts.Auth;
 using Api.Contracts.LanguageApi;
 using System.Net.Http.Headers;
 using System.Text;
@@ -38,7 +39,7 @@ namespace Api.Handlers
         {
             var request = JsonSerializer.Serialize(new Login
             {
-                Username = configuration["LanguageApi:Username"],
+                Email = configuration["LanguageApi:Email"],
                 Password = configuration["LanguageApi:Password"]
             });
             var response = client.PostAsync("auth/login", new StringContent(request, Encoding.UTF8, "application/json")).Result;

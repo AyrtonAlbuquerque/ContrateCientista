@@ -8,6 +8,8 @@ namespace Api.Domain.Repository
     {
         Task<User> GetAsync(string email, string password);
 
+        Task<User> GetAsync(string email);
+
         Task<bool> ExistsAsync(string email);
     }
 
@@ -17,6 +19,12 @@ namespace Api.Domain.Repository
         {
             return await GetAsync(q => q
                 .Where(u => u.Email == email && u.Password == password));
+        }
+
+        public async Task<User> GetAsync(string email)
+        {
+            return await GetAsync(q => q
+                .Where(u => u.Email == email));
         }
 
         public async Task<bool> ExistsAsync(string email)

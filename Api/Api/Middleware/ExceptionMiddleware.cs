@@ -1,4 +1,4 @@
-using Api.Contracts;
+using Api.Contracts.Common;
 using Api.Exceptions;
 
 namespace Api.Middleware
