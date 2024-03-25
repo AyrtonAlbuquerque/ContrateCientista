@@ -37,7 +37,7 @@ namespace Api.Services
             if (user.Company == null) BadRequestException.Throw("Usuário não possui permissão para criar demandas");
 
             var laboratories = await laboratoryRepository.SelectAsync();
-            var keywords = await languageService.ExtractGPT(new Description { Text = $"{createDemand.Title}. {createDemand.Description}. {createDemand.Details}" });
+            var keywords = await languageService.ExtractGpt(new Description { Text = $"{createDemand.Title}. {createDemand.Description}. {createDemand.Details}" });
 
             throw new NotImplementedException();
         }

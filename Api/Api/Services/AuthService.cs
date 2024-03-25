@@ -72,7 +72,7 @@ namespace Api.Services
             if (await userRepository.ExistsAsync(laboratory.Responsible.Email)) BadRequestException.Throw("E-mail já cadastrado.");
             if (!ValidationHelper.ValidatePassword(laboratory.Responsible.Password)) BadRequestException.Throw("Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
 
-            var keywords = await languageService.ExtractBERT(new Description { Text = laboratory.Description });
+            var keywords = await languageService.ExtractBert(new Description { Text = laboratory.Description });
             var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
 
             return new LoginResponse

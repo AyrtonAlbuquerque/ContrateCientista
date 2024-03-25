@@ -17,13 +17,7 @@ class BertService:
         self.vectorizer = KeyphraseCountVectorizer(spacy_pipeline=Settings.pipeline, stop_words=Settings.stop_words, custom_pos_tagger=self.pos_tagger)
 
     def extract(self, description: Description) -> List[Keyword]:
-        keywords = []
-        result = self.model.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
-
-        for text, weight in result:
-            keywords.append(Keyword(text=text, weight=weight))
-
-        return keywords
+        return [Keyword(text=text, weight=weight) for text, weight in self.model.extract_keywords(docs=description.text, vectorizer=self.vectorizer) if weight >= Settings.keyword_threshhold]
 
     def pos_tagger(self, raw_documents: List[str]) -> List[tuple]:
         tags = []
