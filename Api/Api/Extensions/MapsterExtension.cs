@@ -1,10 +1,13 @@
 using Api.Contracts.Auth;
+using Api.Contracts.Demand;
+using Api.Contracts.LanguageApi;
 using Api.Domain.Model;
 using Api.Utilities;
 using Mapster;
 using Address = Api.Domain.Model.Address;
 using Equipment = Api.Domain.Model.Equipment;
 using Keyword = Api.Domain.Model.Keyword;
+using Laboratory = Api.Domain.Model.Laboratory;
 using SocialMedia = Api.Domain.Model.SocialMedia;
 using Software = Api.Domain.Model.Software;
 
@@ -49,6 +52,23 @@ namespace Api.Extensions
                         .Select(x => x.OrderByDescending(k => k.Weight).First())
                         .ToList()
                 });
+
+            TypeAdapterConfig<CreateDemand, Description>
+                .NewConfig()
+                .Map(dest => dest.Text, source => $"{source.Title}. {source.Description}. {source.Details}");
+
+            TypeAdapterConfig< (CreateDemand demand, ICollection<Laboratory> laboratories), Analyze>
+                .NewConfig()
+                .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
+                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory
+                {
+                    Id = x.Id,
+                    Keywords = x.Keywords.Select(k => new Api.Contracts.Common.Keyword
+                    {
+                        Text = k.Text,
+                        Weight = k.Weight
+                    }).ToList()
+                }).ToList());
 
             return services;
         }

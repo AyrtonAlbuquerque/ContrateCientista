@@ -31,6 +31,7 @@ namespace Api
             builder.Services.AddControllers();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddMemoryCache();
             builder.Services.AddRouting(options => options.LowercaseUrls = true);
             builder.Services.AddMappings();
             builder.Services.AddSwaggerGen(options =>

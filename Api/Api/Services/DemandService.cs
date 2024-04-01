@@ -5,6 +5,7 @@ using Api.Domain.Enums;
 using Api.Domain.Repository;
 using Api.Exceptions;
 using Api.Services.Interfaces;
+using Mapster;
 
 namespace Api.Services
 {
@@ -34,10 +35,11 @@ namespace Api.Services
         {
             var user = await userService.GetUserAsync();
 
-            if (user.Company == null) BadRequestException.Throw("Usuário não possui permissão para criar demandas");
+            BadRequestException.ThrowIfNull(user.Company, "Usuário não possui permissão para criar demandas");
 
             var laboratories = await laboratoryRepository.SelectAsync();
-            var keywords = await languageService.ExtractGpt(new Description { Text = $"{createDemand.Title}. {createDemand.Description}. {createDemand.Details}" });
+            var keywords = await languageService.ExtractGpt(createDemand.Adapt<Description>());
+            var analysis = await languageService.Analyze((createDemand, laboratories).Adapt<Analyze>());
 
             throw new NotImplementedException();
         }

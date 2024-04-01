@@ -8,19 +8,19 @@ namespace Api.Domain.Repository.Base
         Task<int> CountAsync();
         T Get(object id);
         Task<T> GetAsync(object id);
-        IList<T> Select();
-        Task<IList<T>> SelectAsync();
+        ICollection<T> Select();
+        Task<ICollection<T>> SelectAsync();
         T Insert(T item);
         Task<T> InsertAsync(T item);
-        IList<T> Insert(ICollection<T> items);
-        Task<IList<T>> InsertAsync(ICollection<T> items);
+        ICollection<T> Insert(ICollection<T> items);
+        Task<ICollection<T>> InsertAsync(ICollection<T> items);
         T Update(T item);
         Task<T> UpdateAsync(T item);
-        IList<T> Update(ICollection<T> items);
-        Task<IList<T>> UpdateAsync(ICollection<T> items);
+        ICollection<T> Update(ICollection<T> items);
+        Task<ICollection<T>> UpdateAsync(ICollection<T> items);
         T Delete(T item);
         Task<T> DeleteAsync(T item);
-        IList<T> Delete(ICollection<T> items);
-        Task<IList<T>> DeleteAsync(ICollection<T> items);
+        ICollection<T> Delete(ICollection<T> items);
+        Task<ICollection<T>> DeleteAsync(ICollection<T> items);
     }
 }

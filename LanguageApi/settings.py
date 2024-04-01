@@ -8,6 +8,9 @@ class Settings:
     ngram_size: int = 5
     keyword_threshhold: float = 0.6
 
+    #SBERT
+    sbert_model: str = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2" # list of pre-treined models: https://www.sbert.net/docs/pretrained_models.html and on hub: https://huggingface.co/sentence-transformers
+
     # Bert
     bert_model: str = "neuralmind/bert-large-portuguese-cased"
     pipeline: str = "pt_core_news_lg" # ["pt_core_news_lg" => accuracy] or ["pt_core_news_sm" => efficiency]
