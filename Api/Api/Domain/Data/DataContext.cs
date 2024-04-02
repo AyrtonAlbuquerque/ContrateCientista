@@ -16,6 +16,8 @@ namespace Api.Domain.Data
         public DbSet<Demand> Demand => Set<Demand>();
         public DbSet<Match> Match => Set<Match>();
         public DbSet<User> User => Set<User>();
+        public DbSet<Keyword> Keyword => Set<Keyword>();
+        public DbSet<Status> Status => Set<Status>();
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

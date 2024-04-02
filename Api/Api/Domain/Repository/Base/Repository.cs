@@ -72,23 +72,23 @@ namespace Api.Domain.Repository.Base
             return await filter(entity.AsQueryable<T>()).SingleOrDefaultAsync();
         }
 
-        public IList<T> Select()
+        public ICollection<T> Select()
         {
             return entity.ToList();
         }
 
-        protected IList<T> Select(Func<IQueryable<T>, IQueryable<T>> filter)
+        protected ICollection<T> Select(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
             return filter(entity.AsQueryable<T>()).ToList();
         }
 
-        public async Task<IList<T>> SelectAsync()
+        public async Task<ICollection<T>> SelectAsync()
         {
             return await entity.ToListAsync();
         }
 
-        protected async Task<IList<T>> SelectAsync(Func<IQueryable<T>, IQueryable<T>> filter)
+        protected async Task<ICollection<T>> SelectAsync(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
             return await filter(entity.AsQueryable<T>()).ToListAsync();
@@ -105,7 +105,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public IList<T> Insert(ICollection<T> items)
+        public ICollection<T> Insert(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 
@@ -129,7 +129,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public async Task<IList<T>> InsertAsync(ICollection<T> items)
+        public async Task<ICollection<T>> InsertAsync(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 
@@ -153,7 +153,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public IList<T> Update(ICollection<T> items)
+        public ICollection<T> Update(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 
@@ -177,7 +177,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public async Task<IList<T>> UpdateAsync(ICollection<T> items)
+        public async Task<ICollection<T>> UpdateAsync(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 
@@ -201,7 +201,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public IList<T> Delete(ICollection<T> items)
+        public ICollection<T> Delete(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 
@@ -225,7 +225,7 @@ namespace Api.Domain.Repository.Base
             return item;
         }
 
-        public async Task<IList<T>> DeleteAsync(ICollection<T> items)
+        public async Task<ICollection<T>> DeleteAsync(ICollection<T> items)
         {
             ArgumentNullException.ThrowIfNull(items);
 

@@ -35,18 +35,18 @@ class TokenService:
     def __init__(self):
         self.secret = Settings.secret
         self.minutes = Settings.minutes
-        self.username = Settings.username
+        self.email = Settings.email
         self.password = Settings.password
         self.algorithm = Settings.algorithm
 
     def generate(self, login: Login) -> Token:
         expires = time.time() + (self.minutes * 60)
 
-        if login.username != self.username or login.password != self.password:
+        if login.email != self.email or login.password != self.password:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials")
 
         return Token(
-            value=jwt.encode({'user': login.username, 'expires': expires}, self.secret, algorithm=self.algorithm),
+            value=jwt.encode({'user': login.email, 'expires': expires}, self.secret, algorithm=self.algorithm),
             type='Bearer',
             expires=expires
         )

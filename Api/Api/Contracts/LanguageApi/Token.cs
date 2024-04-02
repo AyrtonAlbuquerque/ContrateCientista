@@ -14,6 +14,6 @@ namespace Api.Contracts.LanguageApi
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("expires")]
-        public decimal? Expires { get; set; }
+        public double? Expires { get; set; }
     }
 }

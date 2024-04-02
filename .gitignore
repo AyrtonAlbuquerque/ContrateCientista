@@ -91,3 +91,5 @@ Relatorio/readme.md
 /LanguageApi/contracts/__pycache__
 /Relatorio/.idea
 /Api/.vscode
+/LanguageApi/.vscode
+/LanguageApi/middleware/__pycache__

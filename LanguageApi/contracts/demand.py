@@ -1,5 +1,8 @@
-from pydantic import BaseModel
+from typing import List
+from pydantic import BaseModel, Field
+from contracts.laboratory import Laboratory
 
 
 class Demand(BaseModel):
-    description: str
+    text: str
+    laboratories: List[Laboratory]

@@ -1,21 +1,14 @@
-from typing import Annotated
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi_restful.cbv import cbv
+from classy_fastapi import Routable, post
 from services.token import TokenService
 from contracts.login import Login, Token
 from contracts.error import Error
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
 
+class Auth(Routable):
+    def __init__(self):
+        super().__init__(prefix="/auth", tags=["Auth"], responses={400: {"model": Error}})
+        self.token = TokenService()
 
-@cbv(router)
-class Auth:
-    def __init__(self, token: Annotated[TokenService, Depends()]):
-        self.token = token
-
-    @router.post("/login", name="Login", response_model=Token, responses={400: {"model": Error}})
-    async def post(self, login: Login) -> Token:
-        try:
-            return self.token.generate(login)
-        except Exception as e:
-            raise e if type(e) is HTTPException else HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    @post("/login", response_model=Token)
+    async def login(self, login: Login) -> Token:
+        return self.token.generate(login)

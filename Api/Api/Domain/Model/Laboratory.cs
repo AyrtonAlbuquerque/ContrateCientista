@@ -16,5 +16,6 @@ namespace Api.Domain.Model
         public virtual ICollection<Equipment> Equipments { get; set; }
         public virtual ICollection<SocialMedia> SocialMedias { get; set; }
         public virtual ICollection<Match> Matches { get; set; }
+        public virtual ICollection<Keyword> Keywords { get; set; }
     }
 }

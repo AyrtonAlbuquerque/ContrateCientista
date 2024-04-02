@@ -20,10 +20,10 @@ namespace Api.Domain.Map
             builder.Property(x => x.Benefits).HasMaxLength(1000);
             builder.Property(x => x.Details);
             builder.Property(x => x.Restrictions).HasMaxLength(1000);
-            builder.Property(x => x.Keywords).HasMaxLength(255);
 
             // Relationships
             builder.Navigation(x => x.Matches);
+            builder.Navigation(x => x.Keywords);
 
             builder.HasOne(x => x.Company)
                 .WithMany(c => c.Demands)
