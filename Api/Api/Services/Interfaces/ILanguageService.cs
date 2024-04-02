@@ -23,6 +23,6 @@ namespace Api.Services.Interfaces
         Task<ICollection<Keyword>> ExtractYake([Body] Description description);
 
         [Post("/analyze/demand")]
-        Task<ICollection<AnalyzeResponse>> Analyze(Analyze analyze);
+        Task<ICollection<AnalyzeResponse>> Analyze([Body] Analyze analyze);
     }
 }
