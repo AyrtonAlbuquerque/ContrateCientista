@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CreateDemandPage extends StatelessWidget {
   CreateDemandPage({Key? key}) : super(key: key);
 
@@ -23,107 +22,102 @@ class CreateDemandPage extends StatelessWidget {
         key: _formKey,
         child: Align(
           alignment: Alignment.center,
-            child: Column(
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Título'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Título'),
                     controller: titleController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira um título';
+                        return 'Por favor, insira um título';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Descrição'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Descrição'),
                     controller: descriptionController,
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira uma descrição';
+                        return 'Por favor, insira uma descrição';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Departamento'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Departamento'),
                     controller: descriptionController,
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira um departamento';
+                        return 'Por favor, insira um departamento';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Benefícios'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Benefícios'),
                     controller: benefitsController,
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira os benefícios';
+                        return 'Por favor, insira os benefícios';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Detalhes'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Detalhes'),
                     controller: detailsController,
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira os detalhes';
+                        return 'Por favor, insira os detalhes';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Restrições'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Restrições'),
                     controller: restrictionsController,
                     obscureText: true,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
                     child: const Text('Criar'),
                     onPressed: () {
@@ -131,14 +125,16 @@ class CreateDemandPage extends StatelessWidget {
                         // pega a company do usuario logado, e envia para o back
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Por favor, preencha todos os campos')),
+                          const SnackBar(
+                              content:
+                                  Text('Por favor, preencha todos os campos')),
                         );
                       }
                     },
                   ),
                 ),
-            ]),
-          ),
+              ]),
+        ),
       ),
     );
   }

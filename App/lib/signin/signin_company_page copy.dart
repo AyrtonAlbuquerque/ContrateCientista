@@ -19,45 +19,44 @@ class SigninCompanyPage extends StatelessWidget {
         key: _formKey,
         child: Align(
           alignment: Alignment.center,
-            child: Column(
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Login'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Login'),
                     controller: loginController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira seu login';
+                        return 'Por favor, insira seu login';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Senha'
-                    ),
+                        border: OutlineInputBorder(), hintText: 'Senha'),
                     controller: passwordController,
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                       return 'Por favor, insira sua senha';
+                        return 'Por favor, insira sua senha';
                       }
                       return null;
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
                     child: const Text('Criar'),
                     onPressed: () {
@@ -65,14 +64,16 @@ class SigninCompanyPage extends StatelessWidget {
                         // enviar dados
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Por favor, preencha todos os campos')),
+                          const SnackBar(
+                              content:
+                                  Text('Por favor, preencha todos os campos')),
                         );
                       }
                     },
                   ),
                 ),
-            ]),
-          ),
+              ]),
+        ),
       ),
     );
   }

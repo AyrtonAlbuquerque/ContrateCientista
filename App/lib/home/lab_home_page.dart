@@ -6,6 +6,10 @@ class LabHomePage extends StatelessWidget {
   const LabHomePage({Key? key, required this.login}) : super(key: key);
   final String login;
 
+  // TODO: busca dados do usuario
+  // TODO: busca demandas que o laboratorio logado é elegivel
+  // TODO: adicionar menu com dados do laboratorio para edicao
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +42,7 @@ class LabHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DemandsPage(
-                    title: 'Demands',
-                  )),
+                  builder: (context) => DemandsPage(isLab: true)),
               );
             },
           ),

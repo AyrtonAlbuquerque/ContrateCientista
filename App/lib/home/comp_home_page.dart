@@ -2,9 +2,12 @@ import 'package:app/demands/demands_page.dart';
 import 'package:app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
-class LabHomePage extends StatelessWidget {
-  const LabHomePage({Key? key, required this.login}) : super(key: key);
+class CompHomePage extends StatelessWidget {
+  const CompHomePage({Key? key, required this.login}) : super(key: key);
   final String login;
+
+  // TODO: busca dados do usuario
+  // TODO: busca demandas do usuario logado
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class LabHomePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DemandsPage(
-                    title: 'Demands',
+                    isLab: false,
                   )),
               );
             },
