@@ -12,7 +12,7 @@ class PersonDetailsPage extends StatelessWidget {
   final String title;
   final bool isLab;
 
-  Person person = Person(
+  final Person person = Person(
       id: '6f344ab8-956b-4604-8697-54550a09fabf',
       name: 'Walmor Cardoso Godoi',
       department: 'DAFIS',

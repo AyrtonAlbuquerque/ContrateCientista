@@ -1,6 +1,4 @@
-import 'package:app/address/address.dart';
 import 'package:app/equipments/equipments.dart';
-import 'package:app/person/person.dart';
 import 'package:app/social-medias/social_media.dart';
 import 'package:app/softwares/software.dart';
 

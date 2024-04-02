@@ -15,7 +15,7 @@ class LabDetailsPage extends StatelessWidget {
   final String labId;
   final bool isLab;
 
-  Lab lab = Lab(
+  final Lab lab = Lab(
     id: '9600f5b9-491a-455a-b43c-4552e7655947',
     name: 'Laboratório de Luminescência Estimulada e Dosimetria',
     code: 'LLED',

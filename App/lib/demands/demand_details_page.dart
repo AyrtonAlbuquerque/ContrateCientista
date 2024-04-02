@@ -2,7 +2,6 @@ import 'package:app/demands/demand.dart';
 import 'package:app/labs/lab.dart';
 import 'package:flutter/material.dart';
 import 'package:app/labs/labs_page.dart';
-import 'package:app/labs/lab_details_page.dart';
 
 Demand demand = Demand(
     id: '8f779a42-0fd7-4dad-8511-7d97b648afe6',

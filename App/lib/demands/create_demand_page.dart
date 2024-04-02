@@ -4,12 +4,12 @@ class CreateDemandPage extends StatelessWidget {
   CreateDemandPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController departmentController = TextEditingController();
-  TextEditingController benefitsController = TextEditingController();
-  TextEditingController detailsController = TextEditingController();
-  TextEditingController restrictionsController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController departmentController = TextEditingController();
+  final TextEditingController benefitsController = TextEditingController();
+  final TextEditingController detailsController = TextEditingController();
+  final TextEditingController restrictionsController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

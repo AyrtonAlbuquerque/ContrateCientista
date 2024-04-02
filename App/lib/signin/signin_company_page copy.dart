@@ -1,12 +1,11 @@
-import 'package:app/home/lab_home_page.dart';
 import 'package:flutter/material.dart';
 
 class SigninCompanyPage extends StatelessWidget {
   SigninCompanyPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController loginController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

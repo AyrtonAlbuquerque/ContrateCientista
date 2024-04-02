@@ -7,7 +7,7 @@ class AddressDetailsPage extends StatelessWidget {
   final String addressId;
   final bool isLab;
 
-  Address address = Address(
+  final Address address = Address(
       id: 'ae6f5db2-0e44-4a0f-b60a-bf6956d7604e',
       street: 'Av. Sete de Setembro',
       number: '3165',
