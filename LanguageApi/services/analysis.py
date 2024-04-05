@@ -1,15 +1,14 @@
-from typing import List
-from settings import Settings
+from sentence_transformers import SentenceTransformer, util
 from contracts.demand import Demand
 from contracts.responses import AnalysisResponse
-from sentence_transformers import SentenceTransformer, util
+from services.interfaces.ianalysis import IAnalysisService
 
 
-class AnalyzerService:
-    def __init__(self):
-        self.model = SentenceTransformer(Settings.sbert_model)
+class AnalysisService(IAnalysisService):
+    def __init__(self, model: SentenceTransformer):
+        self.model = model
 
-    def analyze(self, demand: Demand) -> List[AnalysisResponse]:
+    def analyze(self, demand: Demand) -> list[AnalysisResponse]:
         response = []
         embedding = self.model.encode(demand.text, convert_to_tensor=True)
 

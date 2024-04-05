@@ -1,14 +1,14 @@
 from classy_fastapi import Routable, post
-from services.token import TokenService
-from contracts.login import Login, Token
 from contracts.error import Error
+from contracts.login import Login, Token
+from services.interfaces.iauthentication import IAuthenticationService
 
 
 class Auth(Routable):
-    def __init__(self):
+    def __init__(self, auth: IAuthenticationService):
         super().__init__(prefix="/auth", tags=["Auth"], responses={400: {"model": Error}})
-        self.token = TokenService()
+        self.auth = auth
 
     @post("/login", response_model=Token)
     async def login(self, login: Login) -> Token:
-        return self.token.generate(login)
+        return self.auth.generate_token(login)
