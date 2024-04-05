@@ -22,16 +22,16 @@ class BearerToken(HTTPBearer):
                 token = jwt.decode(credentials.credentials, self.secret, algorithms=[self.algorithm])
 
                 if not credentials.scheme == "Bearer":
-                    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authentication scheme.")
+                    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication scheme.")
 
                 if token['expires'] < time.time():
-                    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Token expired")
+                    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
             except DecodeError:
-                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token")
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
             return credentials.credentials
         else:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
 
 class AuthenticationService(IAuthenticationService):
@@ -46,7 +46,7 @@ class AuthenticationService(IAuthenticationService):
         expires = time.time() + (self.minutes * 60)
 
         if login.email != self.email or login.password != self.password:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
         return Token(
             value=jwt.encode({'user': login.email, 'expires': expires}, self.secret, algorithm=self.algorithm),
