@@ -18,6 +18,8 @@ namespace Api.Domain.Map
             builder.Property(x => x.Link).IsRequired().HasMaxLength(512);
 
             // Relationships
+            builder.Navigation(x => x.Laboratory);
+
             builder.HasOne(x => x.Laboratory)
                 .WithMany(l => l.SocialMedias)
                 .HasForeignKey("LaboratoryId")

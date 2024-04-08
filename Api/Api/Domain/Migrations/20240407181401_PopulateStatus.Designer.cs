@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240322235356_PopulateStatus")]
+    [Migration("20240407181401_PopulateStatus")]
     partial class PopulateStatus
     {
         /// <inheritdoc />
@@ -310,6 +310,9 @@ namespace Api.Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email", "Phone")
+                        .IsUnique();
+
                     b.ToTable("Person");
                 });
 
@@ -460,11 +463,13 @@ namespace Api.Domain.Migrations
                 {
                     b.HasOne("Api.Domain.Model.Demand", "Demand")
                         .WithMany("Keywords")
-                        .HasForeignKey("DemandId");
+                        .HasForeignKey("DemandId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Api.Domain.Model.Laboratory", "Laboratory")
                         .WithMany("Keywords")
-                        .HasForeignKey("LaboratoryId");
+                        .HasForeignKey("LaboratoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Demand");
 

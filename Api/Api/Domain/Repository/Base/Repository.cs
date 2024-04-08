@@ -58,7 +58,7 @@ namespace Api.Domain.Repository.Base
         protected T Get(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
-            return filter(entity.AsNoTracking()).SingleOrDefault();
+            return filter(entity.AsQueryable<T>()).SingleOrDefault();
         }
 
         public async Task<T> GetAsync(object id)
@@ -69,29 +69,29 @@ namespace Api.Domain.Repository.Base
         protected async Task<T> GetAsync(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
-            return await filter(entity.AsNoTracking()).SingleOrDefaultAsync();
+            return await filter(entity.AsQueryable<T>()).SingleOrDefaultAsync();
         }
 
         public ICollection<T> Select()
         {
-            return entity.AsNoTracking().ToList();
+            return entity.AsQueryable<T>().ToList();
         }
 
         protected ICollection<T> Select(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
-            return filter(entity.AsNoTracking()).ToList();
+            return filter(entity.AsQueryable<T>()).ToList();
         }
 
         public async Task<ICollection<T>> SelectAsync()
         {
-            return await entity.AsNoTracking().ToListAsync();
+            return await entity.AsQueryable<T>().ToListAsync();
         }
 
         protected async Task<ICollection<T>> SelectAsync(Func<IQueryable<T>, IQueryable<T>> filter)
         {
             ArgumentNullException.ThrowIfNull(filter);
-            return await filter(entity.AsNoTracking()).ToListAsync();
+            return await filter(entity.AsQueryable<T>()).ToListAsync();
         }
 
         public T Insert(T item)
@@ -99,7 +99,7 @@ namespace Api.Domain.Repository.Base
             ArgumentNullException.ThrowIfNull(item);
 
             context.ChangeTracker.Clear();
-            entity.Add(item);
+            entity.Attach(item);
             context.SaveChanges();
             context.ChangeTracker.Clear();
 
@@ -113,11 +113,11 @@ namespace Api.Domain.Repository.Base
             if (!items.Any()) return Enumerable.Empty<T>().ToList();
 
             context.ChangeTracker.Clear();
-            entity.AddRange(items);
+            entity.AttachRange(items);
             context.SaveChanges();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
 
         public async Task<T> InsertAsync(T item)
@@ -125,7 +125,7 @@ namespace Api.Domain.Repository.Base
             ArgumentNullException.ThrowIfNull(item);
 
             context.ChangeTracker.Clear();
-            await entity.AddAsync(item);
+            entity.Attach(item);
             await context.SaveChangesAsync();
             context.ChangeTracker.Clear();
 
@@ -139,18 +139,17 @@ namespace Api.Domain.Repository.Base
             if (items.Count == 0) return Enumerable.Empty<T>().ToList();
 
             context.ChangeTracker.Clear();
-            await entity.AddRangeAsync(items);
+            entity.AttachRange(items);
             await context.SaveChangesAsync();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
 
         public T Update(T item)
         {
             ArgumentNullException.ThrowIfNull(item);
 
-            context.ChangeTracker.Clear();
             entity.Update(item);
             context.SaveChanges();
             context.ChangeTracker.Clear();
@@ -164,19 +163,17 @@ namespace Api.Domain.Repository.Base
 
             if (items.Count == 0) return Enumerable.Empty<T>().ToList();
 
-            context.ChangeTracker.Clear();
             entity.UpdateRange(items);
             context.SaveChanges();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
 
         public async Task<T> UpdateAsync(T item)
         {
             ArgumentNullException.ThrowIfNull(item);
 
-            context.ChangeTracker.Clear();
             entity.Update(item);
             await context.SaveChangesAsync();
             context.ChangeTracker.Clear();
@@ -190,12 +187,11 @@ namespace Api.Domain.Repository.Base
 
             if (items.Count == 0) return Enumerable.Empty<T>().ToList();
 
-            context.ChangeTracker.Clear();
             entity.UpdateRange(items);
             await context.SaveChangesAsync();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
 
         public T Delete(T item)
@@ -221,7 +217,7 @@ namespace Api.Domain.Repository.Base
             context.SaveChanges();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
 
         public async Task<T> DeleteAsync(T item)
@@ -247,7 +243,7 @@ namespace Api.Domain.Repository.Base
             await context.SaveChangesAsync();
             context.ChangeTracker.Clear();
 
-            return items.ToList();
+            return items;
         }
     }
 }

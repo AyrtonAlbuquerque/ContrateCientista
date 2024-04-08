@@ -1,3 +1,4 @@
+using Api.Contracts.Common;
 using System.Text.Json.Serialization;
 
 namespace Api.Contracts.Demand
@@ -27,6 +28,10 @@ namespace Api.Contracts.Demand
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("restrictions")]
         public string Restrictions { get; set; }
+
+        [JsonRequired]
+        [JsonPropertyName("responsible")]
+        public Responsible Responsible { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("keywords")]

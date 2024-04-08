@@ -178,12 +178,14 @@ namespace Api.Domain.Migrations
                         name: "FK_Keyword_Demand_DemandId",
                         column: x => x.DemandId,
                         principalTable: "Demand",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Keyword_Laboratory_LaboratoryId",
                         column: x => x.LaboratoryId,
                         principalTable: "Laboratory",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -344,6 +346,12 @@ namespace Api.Domain.Migrations
                 name: "IX_Match_StatusId",
                 table: "Match",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_Email_Phone",
+                table: "Person",
+                columns: new[] { "Email", "Phone" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SocialMedia_LaboratoryId",

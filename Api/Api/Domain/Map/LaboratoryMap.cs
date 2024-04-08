@@ -21,11 +21,13 @@ namespace Api.Domain.Map
             builder.Property(x => x.FoundationDate).HasMaxLength(10);
 
             // Relationships
-            builder.Navigation(x => x.Matches);
-            builder.Navigation(x => x.Softwares);
-            builder.Navigation(x => x.Equipments);
-            builder.Navigation(x => x.SocialMedias);
-            builder.Navigation(x => x.Keywords);
+            builder.Navigation(x => x.Matches).AutoInclude();
+            builder.Navigation(x => x.Softwares).AutoInclude();
+            builder.Navigation(x => x.Equipments).AutoInclude();
+            builder.Navigation(x => x.SocialMedias).AutoInclude();
+            builder.Navigation(x => x.Keywords).AutoInclude();
+            builder.Navigation(x => x.Address).AutoInclude();
+            builder.Navigation(x => x.Responsible).AutoInclude();
 
             builder.HasOne(x => x.Address)
                 .WithMany()

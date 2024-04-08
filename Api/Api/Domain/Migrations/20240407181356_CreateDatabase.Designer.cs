@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240320203358_CreateDatabase")]
+    [Migration("20240407181356_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Api.Domain.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -310,6 +310,9 @@ namespace Api.Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email", "Phone")
+                        .IsUnique();
+
                     b.ToTable("Person");
                 });
 
@@ -460,11 +463,13 @@ namespace Api.Domain.Migrations
                 {
                     b.HasOne("Api.Domain.Model.Demand", "Demand")
                         .WithMany("Keywords")
-                        .HasForeignKey("DemandId");
+                        .HasForeignKey("DemandId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Api.Domain.Model.Laboratory", "Laboratory")
                         .WithMany("Keywords")
-                        .HasForeignKey("LaboratoryId");
+                        .HasForeignKey("LaboratoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Demand");
 

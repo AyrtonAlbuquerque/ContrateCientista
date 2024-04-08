@@ -93,3 +93,4 @@ Relatorio/readme.md
 /Api/.vscode
 /LanguageApi/.vscode
 /LanguageApi/middleware/__pycache__
+/LanguageApi/services/interfaces/__pycache__

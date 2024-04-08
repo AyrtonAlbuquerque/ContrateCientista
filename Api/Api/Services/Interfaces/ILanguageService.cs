@@ -1,4 +1,5 @@
 using Refit;
+using System.Configuration;
 using Api.Contracts.Common;
 using Api.Contracts.LanguageApi;
 using Api.Contracts.LanguageApi.Response;
@@ -24,5 +25,30 @@ namespace Api.Services.Interfaces
 
         [Post("/analyze/demand")]
         Task<ICollection<AnalyzeResponse>> Analyze([Body] Analyze analyze);
+
+        Task<ICollection<Keyword>> Extract(Description description)
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+            var model = configuration["AppSettings:ExtractionModel"];
+
+            switch (model?.ToLower())
+            {
+                case "gpt":
+                    return ExtractGpt(description);
+                case "aws":
+                    return ExtractAws(description);
+                case "bert":
+                    return ExtractBert(description);
+                case "yake":
+                    return ExtractYake(description);
+                case "azure":
+                    return ExtractAzure(description);
+                default:
+                    return ExtractBert(description);
+            }
+        }
     }
 }

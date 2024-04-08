@@ -18,6 +18,9 @@ namespace Api.Domain.Map
             builder.Property(x => x.Department).HasMaxLength(255);
             builder.Property(x => x.Email).HasMaxLength(255);
             builder.Property(x => x.Phone).HasMaxLength(20);
+
+            // Indexes
+            builder.HasIndex(x => new { x.Email, x.Phone }).IsUnique();
         }
     }
 }

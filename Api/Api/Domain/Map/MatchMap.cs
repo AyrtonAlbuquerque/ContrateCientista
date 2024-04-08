@@ -17,6 +17,10 @@ namespace Api.Domain.Map
             builder.Property(x => x.Score).IsRequired();
 
             // Relationships
+            builder.Navigation(x => x.Laboratory);
+            builder.Navigation(x => x.Demand);
+            builder.Navigation(x => x.Status);
+
             builder.HasOne(x => x.Laboratory)
                 .WithMany(l => l.Matches)
                 .HasForeignKey("LaboratoryId")

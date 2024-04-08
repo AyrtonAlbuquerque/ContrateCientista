@@ -19,6 +19,8 @@ namespace Api.Domain.Map
             builder.Property(x => x.Area).HasMaxLength(255);
 
             // Relationships
+            builder.Navigation(x => x.Laboratory);
+
             builder.HasOne(x => x.Laboratory)
                 .WithMany(l => l.Equipments)
                 .HasForeignKey("LaboratoryId")

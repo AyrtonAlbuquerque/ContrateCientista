@@ -18,13 +18,18 @@ namespace Api.Domain.Map
             builder.Property(x => x.Weight).IsRequired();
 
             // Relationships
+            builder.Navigation(x => x.Demand);
+            builder.Navigation(x => x.Laboratory);
+
             builder.HasOne(x => x.Demand)
                 .WithMany(d => d.Keywords)
-                .HasForeignKey("DemandId");
+                .HasForeignKey("DemandId")
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Laboratory)
                 .WithMany(l => l.Keywords)
-                .HasForeignKey("LaboratoryId");
+                .HasForeignKey("LaboratoryId")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -18,6 +18,9 @@ namespace Api.Domain.Map
             builder.Property(x => x.Password).IsRequired().HasMaxLength(255);
 
             // Relationships
+            builder.Navigation(x => x.Company);
+            builder.Navigation(x => x.Laboratory);
+
             builder.HasOne(x => x.Company)
                 .WithMany()
                 .HasForeignKey("CompanyId");

@@ -7,13 +7,13 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Api.Handlers
 {
-    public class LanguageTokenHandler : DelegatingHandler
+    public class LanguageHandler : DelegatingHandler
     {
         private HttpClient client;
         private IConfiguration configuration;
         private readonly IMemoryCache memoryCache;
 
-        public LanguageTokenHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache)
+        public LanguageHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache)
         {
             this.client = client;
             this.configuration = configuration;

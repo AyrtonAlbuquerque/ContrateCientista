@@ -66,13 +66,13 @@ namespace Api
                 .UseLazyLoadingProxies());
 
             // Language API
-            builder.Services.AddHttpClient<LanguageTokenHandler>(client =>
+            builder.Services.AddHttpClient<LanguageHandler>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
             builder.Services.AddRefitClient<ILanguageService>()
                 .ConfigureHttpClient(c => { c.BaseAddress = new Uri(url); })
-                .AddHttpMessageHandler<LanguageTokenHandler>();
+                .AddHttpMessageHandler<LanguageHandler>();
 
             // Add Repositories
             builder.Services.Scan(scan => scan
