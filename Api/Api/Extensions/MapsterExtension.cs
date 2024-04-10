@@ -4,11 +4,9 @@ using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
 using Api.Contracts.LanguageApi;
 using Api.Contracts.LanguageApi.Response;
-using Api.Domain.Enums;
 using Api.Domain.Model;
 using Api.Utilities;
 using Mapster;
-using System.Collections;
 using Address = Api.Domain.Model.Address;
 using Equipment = Api.Domain.Model.Equipment;
 using Keyword = Api.Domain.Model.Keyword;
@@ -38,7 +36,7 @@ namespace Api.Extensions
                     Description = source.Description
                 });
 
-            TypeAdapterConfig<(ICollection<Api.Contracts.Common.Keyword> keywords, RegisterLaboratory laboratory), User>
+            TypeAdapterConfig<(IList<Api.Contracts.Common.Keyword> keywords, RegisterLaboratory laboratory), User>
                 .NewConfig()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.Email, source => source.laboratory.Responsible.Email)
@@ -52,9 +50,9 @@ namespace Api.Extensions
                     FoundationDate = source.laboratory.FoundationDate,
                     Responsible = source.laboratory.Responsible.Adapt<Person>(),
                     Address = source.laboratory.Address.Adapt<Address>(),
-                    Softwares = source.laboratory.Softwares.Adapt<ICollection<Software>>(),
-                    Equipments = source.laboratory.Equipments.Adapt<ICollection<Equipment>>(),
-                    SocialMedias = source.laboratory.SocialMedias.Adapt<ICollection<SocialMedia>>(),
+                    Softwares = source.laboratory.Softwares.Adapt<IList<Software>>(),
+                    Equipments = source.laboratory.Equipments.Adapt<IList<Equipment>>(),
+                    SocialMedias = source.laboratory.SocialMedias.Adapt<IList<SocialMedia>>(),
                     Keywords = source.laboratory.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1})
                         .Concat(source.keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight }))
                         .GroupBy(x => x.Text)
@@ -66,7 +64,11 @@ namespace Api.Extensions
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.Title}. {source.Description}. {source.Details}");
 
-            TypeAdapterConfig< (CreateDemand demand, ICollection<Laboratory> laboratories), Analyze>
+            TypeAdapterConfig<UpdateDemand, Description>
+                .NewConfig()
+                .Map(dest => dest.Text, source => $"{source.Title}. {source.Description}. {source.Details}");
+
+            TypeAdapterConfig< (CreateDemand demand, IList<Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory
@@ -79,7 +81,20 @@ namespace Api.Extensions
                     }).ToList()
                 }).ToList());
 
-            TypeAdapterConfig<(CreateDemand demand, ICollection<Api.Contracts.Common.Keyword> keywords), Demand>
+            TypeAdapterConfig< (UpdateDemand demand, IList<Laboratory> laboratories), Analyze>
+                .NewConfig()
+                .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
+                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory
+                {
+                    Id = x.Id,
+                    Keywords = x.Keywords.Select(k => new Api.Contracts.Common.Keyword
+                    {
+                        Text = k.Text,
+                        Weight = k.Weight
+                    }).ToList()
+                }).ToList());
+
+            TypeAdapterConfig<(CreateDemand demand, IList<Api.Contracts.Common.Keyword> keywords), Demand>
                 .NewConfig()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.Title, source => source.demand.Title)
@@ -95,7 +110,7 @@ namespace Api.Extensions
                     .Select(x => x.OrderByDescending(k => k.Weight).First())
                     .ToList());
 
-            TypeAdapterConfig<(Demand demand, ICollection<Laboratory> laboratories, ICollection<AnalyzeResponse> analysis), CreateDemandResponse>
+            TypeAdapterConfig<(Demand demand, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), CreateDemandResponse>
                 .NewConfig()
                 .Map(dest => dest.Id, source => source.demand.Id)
                 .Map(dest => dest.Title, source => source.demand.Title)
@@ -115,9 +130,34 @@ namespace Api.Extensions
                     FoundationDate = x.FoundationDate,
                     Responsible = x.Responsible.Adapt<Responsible>(),
                     Address = x.Address.Adapt<Contracts.Common.Address>(),
-                    Softwares = x.Softwares.Adapt<ICollection<Contracts.Common.Software>>(),
-                    Equipments = x.Equipments.Adapt<ICollection<Contracts.Common.Equipment>>(),
-                    SocialMedias = x.SocialMedias.Adapt<ICollection<Contracts.Common.SocialMedia>>()
+                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
+                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
+                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
+                }).ToList());
+
+            TypeAdapterConfig<(Demand demand, IList<Laboratory> laboratories), UpdateDemandResponse>
+                .NewConfig()
+                .Map(dest => dest.Id, source => source.demand.Id)
+                .Map(dest => dest.Title, source => source.demand.Title)
+                .Map(dest => dest.Description, source => source.demand.Description)
+                .Map(dest => dest.Department, source => source.demand.Department)
+                .Map(dest => dest.Benefits, source => source.demand.Benefits)
+                .Map(dest => dest.Details, source => source.demand.Details)
+                .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
+                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
+                {
+                    Id = x.Id,
+                    Score = source.demand.Matches.FirstOrDefault(m => m.Id == x.Id).Score,
+                    Name = x.Name,
+                    Code = x.Code,
+                    Description = x.Description,
+                    Certificates = x.Certificates,
+                    FoundationDate = x.FoundationDate,
+                    Responsible = x.Responsible.Adapt<Responsible>(),
+                    Address = x.Address.Adapt<Contracts.Common.Address>(),
+                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
+                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
+                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
                 }).ToList());
 
             return services;

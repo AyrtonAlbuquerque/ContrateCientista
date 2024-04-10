@@ -11,7 +11,12 @@ namespace Api.Exceptions
 
         public static void ThrowIfNull([NotNull] object argument, string message, int statusCode = 400, Exception innerException = null, [CallerArgumentExpression(nameof(argument))] string paramName = null)
         {
-            if (argument is null) throw new ApiException(message is null ? paramName : message, statusCode, innerException);
+            if (argument is null) throw new ApiException(message ?? paramName, statusCode, innerException);
+        }
+
+        public static void ThrowIf([NotNull] bool condition, string message, int statusCode = 400, Exception innerException = null, [CallerArgumentExpression(nameof(condition))] string paramName = null)
+        {
+            if (condition) throw new ApiException(message ?? paramName, statusCode, innerException);
         }
 
         public static void Throw(string message, int statusCode = 400, Exception innerException = null)

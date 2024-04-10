@@ -26,5 +26,13 @@ namespace Api.Controllers
         {
             return Ok(await demandService.Create(createDemand));
         }
+
+        [HttpPut("update")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateDemandResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<UpdateDemandResponse>> Put(UpdateDemand updateDemand)
+        {
+            return Ok(await demandService.Update(updateDemand));
+        }
     }
 }

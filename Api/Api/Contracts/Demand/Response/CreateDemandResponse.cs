@@ -35,6 +35,6 @@ namespace Api.Contracts.Demand.Response
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("laboratories")]
-        public ICollection<Laboratory> Laboratories { get; set; }
+        public IList<Laboratory> Laboratories { get; set; }
     }
 }

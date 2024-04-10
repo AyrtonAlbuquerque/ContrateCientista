@@ -11,6 +11,6 @@ namespace Api.Contracts.LanguageApi
 
         [JsonRequired]
         [JsonPropertyName("keywords")]
-        public ICollection<Keyword> Keywords { get; set; }
+        public IList<Keyword> Keywords { get; set; }
     }
 }

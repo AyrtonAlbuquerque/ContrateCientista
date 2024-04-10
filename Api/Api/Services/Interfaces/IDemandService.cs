@@ -6,5 +6,6 @@ namespace Api.Services.Interfaces
     public interface IDemandService
     {
         Task<CreateDemandResponse> Create(CreateDemand createDemand);
+        Task<UpdateDemandResponse> Update(UpdateDemand updateDemand);
     }
 }

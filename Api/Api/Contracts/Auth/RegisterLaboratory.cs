@@ -7,6 +7,6 @@ namespace Api.Contracts.Auth
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("keywords")]
-        public ICollection<string> Keywords { get; set; }
+        public IList<string> Keywords { get; set; }
     }
 }

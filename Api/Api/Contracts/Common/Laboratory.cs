@@ -42,14 +42,14 @@ namespace Api.Contracts.Common
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("softwares")]
-        public ICollection<Software> Softwares { get; set; }
+        public IList<Software> Softwares { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("equipments")]
-        public ICollection<Equipment> Equipments { get; set; }
+        public IList<Equipment> Equipments { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("socialMedias")]
-        public ICollection<SocialMedia> SocialMedias { get; set; }
+        public IList<SocialMedia> SocialMedias { get; set; }
     }
 }

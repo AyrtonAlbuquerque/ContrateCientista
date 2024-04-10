@@ -57,7 +57,7 @@ namespace Api
                     Description = "JWT Authorization Bearer Token."
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
-                options.CustomSchemaIds(Type => Type.ToString());
+                options.CustomSchemaIds(type => type.ToString());
             });
 
             // Add Database

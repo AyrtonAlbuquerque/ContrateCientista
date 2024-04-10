@@ -10,6 +10,6 @@ namespace Api.Contracts.LanguageApi
 
         [JsonRequired]
         [JsonPropertyName("laboratories")]
-        public ICollection<Laboratory> Laboratories { get; set; }
+        public IList<Laboratory> Laboratories { get; set; }
     }
 }

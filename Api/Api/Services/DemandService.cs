@@ -6,6 +6,7 @@ using Api.Domain.Model;
 using Api.Domain.Repository;
 using Api.Exceptions;
 using Api.Services.Interfaces;
+using IListExtension;
 using Mapster;
 
 namespace Api.Services
@@ -17,6 +18,7 @@ namespace Api.Services
         private readonly IPersonRepository personRepository;
         private readonly IStatusRepository statusRepository;
         private readonly IDemandRepository demandRepository;
+        private readonly IKeywordRepository keywordRepository;
         private readonly ILaboratoryRepository laboratoryRepository;
 
         public DemandService(
@@ -25,6 +27,7 @@ namespace Api.Services
             IPersonRepository personRepository,
             IStatusRepository statusRepository,
             IDemandRepository demandRepository,
+            IKeywordRepository keywordRepository,
             ILaboratoryRepository laboratoryRepository)
         {
             this.userService = userService;
@@ -32,6 +35,7 @@ namespace Api.Services
             this.personRepository = personRepository;
             this.statusRepository = statusRepository;
             this.demandRepository = demandRepository;
+            this.keywordRepository = keywordRepository;
             this.laboratoryRepository = laboratoryRepository;
         }
 
@@ -39,7 +43,7 @@ namespace Api.Services
         {
             var user = await userService.GetUserAsync();
 
-            BadRequestException.ThrowIfNull(user.Company, "Usuário não possui permissão para criar demandas");
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para criar demandas");
 
             var status = await statusRepository.SelectAsync();
             var person = await personRepository.GetAsync(createDemand.Responsible.Email, createDemand.Responsible.Phone);
@@ -61,6 +65,41 @@ namespace Api.Services
             await demandRepository.InsertAsync(demand);
 
             return (demand, laboratories, analysis).Adapt<CreateDemandResponse>();
+        }
+
+        public async Task<UpdateDemandResponse> Update(UpdateDemand updateDemand)
+        {
+            var user = await userService.GetUserAsync();
+            var demand = await demandRepository.GetAsync(updateDemand.Id);
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para criar demandas");
+            NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
+            ForbiddenException.ThrowIf(demand.Company != user.Company, "Usuário não possui permissão para alterar demandas de outra empresa");
+
+            var laboratories = await laboratoryRepository.SelectAsync();
+            var person = await personRepository.GetAsync(updateDemand.Responsible.Email, updateDemand.Responsible.Phone);
+            var keywords = await languageService.Extract(updateDemand.Adapt<Description>());
+            var analysis = await languageService.Analyze((updateDemand, laboratories).Adapt<Analyze>());
+
+            await keywordRepository.DeleteAsync(demand.Keywords);
+
+            demand.Title = updateDemand.Title ?? demand.Title;
+            demand.Description = updateDemand.Description ?? demand.Description;
+            demand.Department = updateDemand.Department ?? demand.Department;
+            demand.Benefits = updateDemand.Benefits ?? demand.Benefits;
+            demand.Details = updateDemand.Details ?? demand.Details;
+            demand.Restrictions = updateDemand.Restrictions ?? demand.Restrictions;
+            demand.Responsible = (person != demand.Responsible) ? person : demand.Responsible;
+            demand.Matches.ForEach(match => match.Score = analysis.FirstOrDefault(x => x.Id == match.Laboratory.Id)?.Score ?? match.Score);
+            demand.Keywords.AddRange(keywords
+                .Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight })
+                .Concat(updateDemand.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1 }))
+                .GroupBy(x => x.Text)
+                .Select(x => x.OrderByDescending(k => k.Weight).First()));
+
+            await demandRepository.UpdateAsync(demand);
+
+            return (demand, laboratories).Adapt<UpdateDemandResponse>();
         }
     }
 }

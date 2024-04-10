@@ -52,9 +52,9 @@ namespace Api.Services
 
         public async Task<LoginResponse> Register(RegisterCompany company)
         {
-            if (await userRepository.ExistsAsync(company.Email)) BadRequestException.Throw("E-mail já cadastrado.");
-            if (!ValidationHelper.ValidatePassword(company.Password)) BadRequestException.Throw("Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
-            if (!ValidationHelper.ValidateCNPJ(company.Cnpj)) BadRequestException.Throw("CNPJ inválido.");
+            BadRequestException.ThrowIf(await userRepository.ExistsAsync(company.Email), "E-mail já cadastrado.");
+            BadRequestException.ThrowIf(!ValidationHelper.ValidatePassword(company.Password), "Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
+            BadRequestException.ThrowIf(!ValidationHelper.ValidateCNPJ(company.Cnpj), "CNPJ inválido.");
 
             var user = await userRepository.InsertAsync(company.Adapt<User>());
 
@@ -69,10 +69,10 @@ namespace Api.Services
 
         public async Task<LoginResponse> Register(RegisterLaboratory laboratory)
         {
-            if (await userRepository.ExistsAsync(laboratory.Responsible.Email)) BadRequestException.Throw("E-mail já cadastrado.");
-            if (!ValidationHelper.ValidatePassword(laboratory.Responsible.Password)) BadRequestException.Throw("Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
+            BadRequestException.ThrowIf(await userRepository.ExistsAsync(laboratory.Responsible.Email), "E-mail já cadastrado.");
+            BadRequestException.ThrowIf(!ValidationHelper.ValidatePassword(laboratory.Responsible.Password), "Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
 
-            var keywords = await languageService.ExtractBert(new Description { Text = laboratory.Description });
+            var keywords = await languageService.Extract(new Description { Text = laboratory.Description });
             var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
 
             return new LoginResponse
