@@ -13,6 +13,7 @@ namespace Api.Domain.Model
         public virtual string Details { get; set; }
         public virtual string Restrictions { get; set; }
         public virtual Person Responsible { get; set; }
+        public virtual Status Status { get; set; }
         public virtual IList<Match> Matches { get; set; }
         public virtual IList<Keyword> Keywords { get; set; }
     }

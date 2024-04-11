@@ -7,5 +7,6 @@ namespace Api.Services.Interfaces
     {
         Task<CreateDemandResponse> Create(CreateDemand createDemand);
         Task<UpdateDemandResponse> Update(UpdateDemand updateDemand);
+        Task Finalize(int id);
     }
 }

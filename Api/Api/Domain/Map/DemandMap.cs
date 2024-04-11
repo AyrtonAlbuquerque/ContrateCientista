@@ -26,6 +26,7 @@ namespace Api.Domain.Map
             builder.Navigation(x => x.Keywords).AutoInclude();
             builder.Navigation(x => x.Company).AutoInclude();
             builder.Navigation(x => x.Responsible).AutoInclude();
+            builder.Navigation(x => x.Status).AutoInclude();
 
             builder.HasOne(x => x.Company)
                 .WithMany(c => c.Demands)
@@ -35,6 +36,11 @@ namespace Api.Domain.Map
             builder.HasOne(x => x.Responsible)
                 .WithMany()
                 .HasForeignKey("ResponsibleId")
+                .IsRequired();
+
+            builder.HasOne(x => x.Status)
+                .WithMany()
+                .HasForeignKey("StatusId")
                 .IsRequired();
         }
     }

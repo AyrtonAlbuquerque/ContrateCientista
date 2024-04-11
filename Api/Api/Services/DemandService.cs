@@ -50,17 +50,7 @@ namespace Api.Services
             var laboratories = await laboratoryRepository.SelectAsync();
             var keywords = await languageService.Extract(createDemand.Adapt<Description>());
             var analysis = await languageService.Analyze((createDemand, laboratories).Adapt<Analyze>());
-            var demand = (createDemand, keywords).Adapt<Demand>();
-
-            demand.Company = user.Company;
-            demand.Responsible = person ?? createDemand.Responsible.Adapt<Person>();
-            demand.Matches = analysis.Select(x => new Match
-            {
-                Score = x.Score,
-                Demand = demand,
-                Laboratory = laboratories.FirstOrDefault(l => l.Id == x.Id),
-                Status = status.FirstOrDefault(s => s.Id == (int)MatchStatus.Analysed)
-            }).ToList();
+            var demand = (createDemand, user, person, status, keywords, laboratories, analysis).Adapt<Demand>();
 
             await demandRepository.InsertAsync(demand);
 
@@ -72,12 +62,12 @@ namespace Api.Services
             var user = await userService.GetUserAsync();
             var demand = await demandRepository.GetAsync(updateDemand.Id);
 
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para criar demandas");
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para atualizar demandas");
             NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
             ForbiddenException.ThrowIf(demand.Company != user.Company, "Usuário não possui permissão para alterar demandas de outra empresa");
 
             var laboratories = await laboratoryRepository.SelectAsync();
-            var person = await personRepository.GetAsync(updateDemand.Responsible.Email, updateDemand.Responsible.Phone);
+            var person = await personRepository.GetAsync(updateDemand.Responsible?.Email, updateDemand.Responsible?.Phone);
             var keywords = await languageService.Extract(updateDemand.Adapt<Description>());
             var analysis = await languageService.Analyze((updateDemand, laboratories).Adapt<Analyze>());
 
@@ -89,10 +79,9 @@ namespace Api.Services
             demand.Benefits = updateDemand.Benefits ?? demand.Benefits;
             demand.Details = updateDemand.Details ?? demand.Details;
             demand.Restrictions = updateDemand.Restrictions ?? demand.Restrictions;
-            demand.Responsible = (person != demand.Responsible) ? person : demand.Responsible;
+            demand.Responsible = person != demand.Responsible ? person ?? updateDemand.Responsible.Adapt<Person>() : demand.Responsible;
             demand.Matches.ForEach(match => match.Score = analysis.FirstOrDefault(x => x.Id == match.Laboratory.Id)?.Score ?? match.Score);
-            demand.Keywords.AddRange(keywords
-                .Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight })
+            demand.Keywords.AddRange(keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight })
                 .Concat(updateDemand.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1 }))
                 .GroupBy(x => x.Text)
                 .Select(x => x.OrderByDescending(k => k.Weight).First()));
@@ -100,6 +89,21 @@ namespace Api.Services
             await demandRepository.UpdateAsync(demand);
 
             return (demand, laboratories).Adapt<UpdateDemandResponse>();
+        }
+
+        public async Task Finalize(int id)
+        {
+            var user = await userService.GetUserAsync();
+            var demand = await demandRepository.GetAsync(id);
+            var status = await statusRepository.SelectAsync();
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para finalizar demandas");
+            NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
+            ForbiddenException.ThrowIf(demand.Company != user.Company, "Usuário não possui permissão para finalizar demandas de outra empresa");
+
+            demand.Status = status.FirstOrDefault(x => x.Id == (int)MatchStatus.Finalized);
+
+            await demandRepository.UpdateAsync(demand);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Api.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Domain.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240411155147_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,6 +135,9 @@ namespace Api.Domain.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
+                    b.Property<int>("StatusId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -142,6 +148,8 @@ namespace Api.Domain.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("ResponsibleId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Demand");
                 });
@@ -264,19 +272,17 @@ namespace Api.Domain.Migrations
                     b.Property<int>("LaboratoryId")
                         .HasColumnType("integer");
 
+                    b.Property<bool?>("Liked")
+                        .HasColumnType("boolean");
+
                     b.Property<decimal>("Score")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DemandId");
 
                     b.HasIndex("LaboratoryId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("Match");
                 });
@@ -386,6 +392,18 @@ namespace Api.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Analysed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Finalized"
+                        });
                 });
 
             modelBuilder.Entity("Api.Domain.Model.User", b =>
@@ -440,9 +458,17 @@ namespace Api.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Api.Domain.Model.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
 
                     b.Navigation("Responsible");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.Equipment", b =>
@@ -506,17 +532,9 @@ namespace Api.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Model.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Demand");
 
                     b.Navigation("Laboratory");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Api.Domain.Model.SocialMedia", b =>

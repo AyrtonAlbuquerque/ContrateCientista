@@ -3,6 +3,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Api.Domain.Migrations
 {
     /// <inheritdoc />
@@ -76,38 +78,6 @@ namespace Api.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Demand",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<int>(type: "integer", nullable: false),
-                    Department = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    Benefits = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
-                    Details = table.Column<string>(type: "text", nullable: true),
-                    Restrictions = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
-                    ResponsibleId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Demand", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Demand_Company_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Company",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Demand_Person_ResponsibleId",
-                        column: x => x.ResponsibleId,
-                        principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Laboratory",
                 columns: table => new
                 {
@@ -139,6 +109,45 @@ namespace Api.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Demand",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    Department = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Benefits = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    Details = table.Column<string>(type: "text", nullable: true),
+                    Restrictions = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    ResponsibleId = table.Column<int>(type: "integer", nullable: false),
+                    StatusId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Demand", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Demand_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Demand_Person_ResponsibleId",
+                        column: x => x.ResponsibleId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Demand_Status_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Equipment",
                 columns: table => new
                 {
@@ -156,68 +165,6 @@ namespace Api.Domain.Migrations
                         name: "FK_Equipment_Laboratory_LaboratoryId",
                         column: x => x.LaboratoryId,
                         principalTable: "Laboratory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Keyword",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Weight = table.Column<decimal>(type: "numeric", nullable: false),
-                    DemandId = table.Column<int>(type: "integer", nullable: true),
-                    LaboratoryId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Keyword", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Keyword_Demand_DemandId",
-                        column: x => x.DemandId,
-                        principalTable: "Demand",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Keyword_Laboratory_LaboratoryId",
-                        column: x => x.LaboratoryId,
-                        principalTable: "Laboratory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Match",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DemandId = table.Column<int>(type: "integer", nullable: false),
-                    LaboratoryId = table.Column<int>(type: "integer", nullable: false),
-                    Score = table.Column<decimal>(type: "numeric", nullable: false),
-                    StatusId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Match", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Match_Demand_DemandId",
-                        column: x => x.DemandId,
-                        principalTable: "Demand",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Match_Laboratory_LaboratoryId",
-                        column: x => x.LaboratoryId,
-                        principalTable: "Laboratory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Match_Status_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Status",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,6 +238,71 @@ namespace Api.Domain.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Keyword",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Weight = table.Column<decimal>(type: "numeric", nullable: false),
+                    DemandId = table.Column<int>(type: "integer", nullable: true),
+                    LaboratoryId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Keyword", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Keyword_Demand_DemandId",
+                        column: x => x.DemandId,
+                        principalTable: "Demand",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Keyword_Laboratory_LaboratoryId",
+                        column: x => x.LaboratoryId,
+                        principalTable: "Laboratory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Match",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DemandId = table.Column<int>(type: "integer", nullable: false),
+                    LaboratoryId = table.Column<int>(type: "integer", nullable: false),
+                    Score = table.Column<decimal>(type: "numeric", nullable: false),
+                    Liked = table.Column<bool>(type: "boolean", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Match", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Match_Demand_DemandId",
+                        column: x => x.DemandId,
+                        principalTable: "Demand",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Match_Laboratory_LaboratoryId",
+                        column: x => x.LaboratoryId,
+                        principalTable: "Laboratory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Status",
+                columns: new[] { "Id", "Description" },
+                values: new object[,]
+                {
+                    { 1, "Analysed" },
+                    { 2, "Finalized" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Company_Email",
                 table: "Company",
@@ -306,6 +318,11 @@ namespace Api.Domain.Migrations
                 name: "IX_Demand_ResponsibleId",
                 table: "Demand",
                 column: "ResponsibleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Demand_StatusId",
+                table: "Demand",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Equipment_LaboratoryId",
@@ -341,11 +358,6 @@ namespace Api.Domain.Migrations
                 name: "IX_Match_LaboratoryId",
                 table: "Match",
                 column: "LaboratoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Match_StatusId",
-                table: "Match",
-                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Person_Email_Phone",
@@ -410,13 +422,13 @@ namespace Api.Domain.Migrations
                 name: "Demand");
 
             migrationBuilder.DropTable(
-                name: "Status");
-
-            migrationBuilder.DropTable(
                 name: "Laboratory");
 
             migrationBuilder.DropTable(
                 name: "Company");
+
+            migrationBuilder.DropTable(
+                name: "Status");
 
             migrationBuilder.DropTable(
                 name: "Address");

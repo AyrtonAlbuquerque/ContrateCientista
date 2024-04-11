@@ -4,7 +4,7 @@ namespace Api.Domain.Model
 {
     public class Status : BaseTable
     {
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; init; }
         public virtual string Description { get; set; }
     }
 }

@@ -15,11 +15,11 @@ namespace Api.Domain.Map
             // Properties
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Score).IsRequired();
+            builder.Property(x => x.Liked);
 
             // Relationships
             builder.Navigation(x => x.Laboratory);
             builder.Navigation(x => x.Demand);
-            builder.Navigation(x => x.Status);
 
             builder.HasOne(x => x.Laboratory)
                 .WithMany(l => l.Matches)
@@ -29,11 +29,6 @@ namespace Api.Domain.Map
             builder.HasOne(x => x.Demand)
                 .WithMany(d => d.Matches)
                 .HasForeignKey("DemandId")
-                .IsRequired();
-
-            builder.HasOne(x => x.Status)
-                .WithMany()
-                .HasForeignKey("StatusId")
                 .IsRequired();
         }
     }

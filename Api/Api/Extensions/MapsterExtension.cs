@@ -4,8 +4,10 @@ using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
 using Api.Contracts.LanguageApi;
 using Api.Contracts.LanguageApi.Response;
+using Api.Domain.Enums;
 using Api.Domain.Model;
 using Api.Utilities;
+using IListExtension;
 using Mapster;
 using Address = Api.Domain.Model.Address;
 using Equipment = Api.Domain.Model.Equipment;
@@ -94,7 +96,7 @@ namespace Api.Extensions
                     }).ToList()
                 }).ToList());
 
-            TypeAdapterConfig<(CreateDemand demand, IList<Api.Contracts.Common.Keyword> keywords), Demand>
+            TypeAdapterConfig<(CreateDemand demand, User user, Person person, IList<Status> status, IList<Api.Contracts.Common.Keyword> keywords, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), Demand>
                 .NewConfig()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.Title, source => source.demand.Title)
@@ -103,37 +105,25 @@ namespace Api.Extensions
                 .Map(dest => dest.Benefits, source => source.demand.Benefits)
                 .Map(dest => dest.Details, source => source.demand.Details)
                 .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
+                .Map(dest => dest.Status, source => source.status.FirstOrDefault(s => s.Id == (int)MatchStatus.Analysed))
                 .Map(dest => dest.Keywords, source => source.keywords
                     .Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight })
                     .Concat(source.demand.Keywords.Select(x => new Keyword { Text = x.ToLower(), Weight = 1 }))
                     .GroupBy(x => x.Text)
                     .Select(x => x.OrderByDescending(k => k.Weight).First())
-                    .ToList());
-
-            TypeAdapterConfig<(Demand demand, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), CreateDemandResponse>
-                .NewConfig()
-                .Map(dest => dest.Id, source => source.demand.Id)
-                .Map(dest => dest.Title, source => source.demand.Title)
-                .Map(dest => dest.Description, source => source.demand.Description)
-                .Map(dest => dest.Department, source => source.demand.Department)
-                .Map(dest => dest.Benefits, source => source.demand.Benefits)
-                .Map(dest => dest.Details, source => source.demand.Details)
-                .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
-                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
+                    .ToList())
+                .AfterMapping((source, dest) =>
                 {
-                    Id = x.Id,
-                    Score = source.analysis.FirstOrDefault(a => a.Id == x.Id).Score,
-                    Name = x.Name,
-                    Code = x.Code,
-                    Description = x.Description,
-                    Certificates = x.Certificates,
-                    FoundationDate = x.FoundationDate,
-                    Responsible = x.Responsible.Adapt<Responsible>(),
-                    Address = x.Address.Adapt<Contracts.Common.Address>(),
-                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
-                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
-                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
-                }).ToList());
+                    dest.Company = source.user.Company;
+                    dest.Responsible = source.person ?? source.demand.Responsible.Adapt<Person>();
+                    dest.Matches = source.analysis.Select(x => new Match
+                    {
+                        Score = x.Score,
+                        Liked = false,
+                        Demand = dest,
+                        Laboratory = source.laboratories.FirstOrDefault(l => l.Id == x.Id)
+                    }).ToList();
+                });
 
             TypeAdapterConfig<(Demand demand, IList<Laboratory> laboratories), UpdateDemandResponse>
                 .NewConfig()
@@ -144,10 +134,43 @@ namespace Api.Extensions
                 .Map(dest => dest.Benefits, source => source.demand.Benefits)
                 .Map(dest => dest.Details, source => source.demand.Details)
                 .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
+                .Map(dest => dest.Responsible, source => source.demand.Responsible.Adapt<Responsible>())
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
                 {
                     Id = x.Id,
-                    Score = source.demand.Matches.FirstOrDefault(m => m.Id == x.Id).Score,
+                    Name = x.Name,
+                    Code = x.Code,
+                    Description = x.Description,
+                    Certificates = x.Certificates,
+                    FoundationDate = x.FoundationDate,
+                    Responsible = x.Responsible.Adapt<Responsible>(),
+                    Address = x.Address.Adapt<Contracts.Common.Address>(),
+                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
+                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
+                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
+                }).ToList())
+                .AfterMapping((source, dest) =>
+                {
+                    dest.Laboratories.ForEach(laboratory =>
+                    {
+                        laboratory.Score = source.demand.Matches.FirstOrDefault(m => m.Laboratory.Id == laboratory.Id)?.Score;
+                    });
+                });
+
+            TypeAdapterConfig<(Demand demand, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), CreateDemandResponse>
+                .NewConfig()
+                .Map(dest => dest.Id, source => source.demand.Id)
+                .Map(dest => dest.Title, source => source.demand.Title)
+                .Map(dest => dest.Description, source => source.demand.Description)
+                .Map(dest => dest.Department, source => source.demand.Department)
+                .Map(dest => dest.Benefits, source => source.demand.Benefits)
+                .Map(dest => dest.Details, source => source.demand.Details)
+                .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
+                .Map(dest => dest.Responsible, source => source.demand.Responsible.Adapt<Responsible>())
+                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
+                {
+                    Id = x.Id,
+                    Score = source.analysis.FirstOrDefault(a => a.Id == x.Id).Score,
                     Name = x.Name,
                     Code = x.Code,
                     Description = x.Description,

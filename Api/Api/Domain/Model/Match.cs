@@ -8,6 +8,6 @@ namespace Api.Domain.Model
         public virtual Demand Demand { get; set; }
         public virtual Laboratory Laboratory { get; set; }
         public virtual decimal Score { get; set; }
-        public virtual Status Status { get; set; }
+        public virtual bool? Liked { get; set; }
     }
 }

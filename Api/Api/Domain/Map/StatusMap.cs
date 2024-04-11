@@ -16,6 +16,12 @@ namespace Api.Domain.Map
             // Properties
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Description).IsRequired().HasMaxLength(50);
+
+            // Data
+            builder.HasData(
+                new Status { Id = 1, Description = "Analysed" },
+                new Status { Id = 2, Description = "Finalized" }
+            );
         }
     }
 }

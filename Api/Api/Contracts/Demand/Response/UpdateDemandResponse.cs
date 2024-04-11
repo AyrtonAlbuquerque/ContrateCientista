@@ -34,6 +34,10 @@ public class UpdateDemandResponse
     public string Restrictions { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("responsible")]
+    public Responsible Responsible { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("laboratories")]
     public IList<Laboratory> Laboratories { get; set; }
 }

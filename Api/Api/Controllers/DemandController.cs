@@ -34,5 +34,12 @@ namespace Api.Controllers
         {
             return Ok(await demandService.Update(updateDemand));
         }
+
+        [HttpPatch("finalize/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task Patch(int id)
+        {
+            await demandService.Finalize(id);
+        }
     }
 }
