@@ -11,4 +11,4 @@ class Auth(Routable):
 
     @post("/login", response_model=Token)
     async def login(self, login: Login) -> Token:
-        return self.auth.generate_token(login)
+        return await self.auth.generate_token(login)

@@ -42,7 +42,7 @@ class AuthenticationService(IAuthenticationService):
         self.password = os.environ["PASSWORD"]
         self.algorithm = os.environ["ALGORITHM"]
 
-    def generate_token(self, login: Login) -> Token:
+    async def generate_token(self, login: Login) -> Token:
         expires = time.time() + (self.minutes * 60)
 
         if login.email != self.email or login.password != self.password:

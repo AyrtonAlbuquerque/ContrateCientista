@@ -5,5 +5,5 @@ from contracts.responses import AnalysisResponse
 
 class IAnalysisService(ABC):
     @abstractmethod
-    def analyze(self, demand: Demand) -> list[AnalysisResponse]:
+    async def analyze(self, demand: Demand) -> list[AnalysisResponse]:
         pass

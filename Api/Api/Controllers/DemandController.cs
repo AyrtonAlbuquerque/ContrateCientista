@@ -41,5 +41,21 @@ namespace Api.Controllers
         {
             await demandService.Finalize(id);
         }
+
+        [HttpGet("list")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Demand>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<IList<Demand>>> Get()
+        {
+            return Ok(await demandService.List());
+        }
+
+        [HttpGet("matches/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Match>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<IList<Match>>> GetMatches(int id)
+        {
+            return Ok(await demandService.ListMatches(id));
+        }
     }
 }

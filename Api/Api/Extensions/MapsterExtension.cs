@@ -15,6 +15,9 @@ using Keyword = Api.Domain.Model.Keyword;
 using Laboratory = Api.Domain.Model.Laboratory;
 using SocialMedia = Api.Domain.Model.SocialMedia;
 using Software = Api.Domain.Model.Software;
+using Status = Api.Domain.Model.Status;
+using Demand = Api.Domain.Model.Demand;
+using Match  = Api.Domain.Model.Match;
 
 namespace Api.Extensions
 {
@@ -182,6 +185,19 @@ namespace Api.Extensions
                     Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
                     SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
                 }).ToList());
+
+            TypeAdapterConfig<Demand, Contracts.Common.Demand>
+                .NewConfig()
+                .Map(dest => dest.Responsible, source => source.Responsible.Adapt<Responsible>())
+                .Map(dest => dest.Status, source => (Contracts.Common.Status)source.Status.Id)
+                .Map(dest => dest.Keywords, source => source.Keywords.Select(k => k.Text).ToList());
+
+            TypeAdapterConfig<Match, Contracts.Common.Match>
+                .NewConfig()
+                .Map(dest => dest, source => source.Id)
+                .Map(dest => dest.Score, source => source.Score)
+                .Map(dest => dest.Liked, source => source.Liked)
+                .Map(dest => dest.Laboratory, source => source.Laboratory.Adapt<Contracts.Common.Laboratory>());
 
             return services;
         }

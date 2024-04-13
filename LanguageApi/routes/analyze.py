@@ -14,4 +14,4 @@ class Analyze(Routable):
 
     @post("/demand", response_model=list[AnalysisResponse])
     async def analyze_demand(self, demand: Demand) -> list[AnalysisResponse]:
-        return self.analyzer.analyze(demand)
+        return await self.analyzer.analyze(demand)

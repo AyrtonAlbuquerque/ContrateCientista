@@ -1,3 +1,4 @@
+using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
 using Api.Contracts.LanguageApi;
@@ -8,6 +9,9 @@ using Api.Exceptions;
 using Api.Services.Interfaces;
 using IListExtension;
 using Mapster;
+using Demand = Api.Domain.Model.Demand;
+using Keyword = Api.Domain.Model.Keyword;
+using Match = Api.Contracts.Common.Match;
 
 namespace Api.Services
 {
@@ -104,6 +108,34 @@ namespace Api.Services
             demand.Status = status.FirstOrDefault(x => x.Id == (int)MatchStatus.Finalized);
 
             await demandRepository.UpdateAsync(demand);
+        }
+
+        public async Task<IList<Contracts.Common.Demand>> List()
+        {
+            var user = await userService.GetUserAsync();
+            var result = new List<Contracts.Common.Demand>();
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar demandas como um laboratório, utilize o endpoint /laboratory/demands/{id}");
+
+            var demands = await demandRepository.SelectAsync(user.Company);
+
+            demands.ForEach(x => result.Add(x.Adapt<Contracts.Common.Demand>()));
+
+            return result;
+        }
+
+        public async Task<IList<Match>> ListMatches(int id)
+        {
+            var user = await userService.GetUserAsync();
+            var demand = await demandRepository.GetAsync(id);
+            var result = new List<Match>();
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar os matches como um laboratório, utilize o endpoint /laboratory/matches");
+            NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
+
+            demand.Matches.ForEach(x => result.Add(x.Adapt<Match>()));
+
+            return result.OrderByDescending(x => x.Score).ToList();
         }
     }
 }

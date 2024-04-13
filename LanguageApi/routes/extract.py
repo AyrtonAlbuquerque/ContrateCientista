@@ -14,20 +14,20 @@ class Extract(Routable):
 
     @post("/bert", response_model=list[Keyword])
     async def extract_bert(self, description: Description) -> list[Keyword]:
-        return self.extractor.extract_bert(description)
+        return await self.extractor.extract_bert(description)
 
     @post("/gpt", response_model=list[Keyword])
     async def extract_gpt(self, description: Description) -> list[Keyword]:
-        return self.extractor.extract_gpt(description)
+        return await self.extractor.extract_gpt(description)
 
     @post("/aws", response_model=list[Keyword])
     async def extract_aws(self, description: Description) -> list[Keyword]:
-        return self.extractor.extract_aws(description)
+        return await self.extractor.extract_aws(description)
 
     @post("/azure", response_model=list[Keyword])
     async def extract_azure(self, description: Description) -> list[Keyword]:
-        return self.extractor.extract_azure(description)
+        return await self.extractor.extract_azure(description)
 
     @post("/yake", response_model=list[Keyword])
     async def extract_yake(self, description: Description) -> list[Keyword]:
-        return self.extractor.extract_yake(description)
+        return await self.extractor.extract_yake(description)

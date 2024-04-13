@@ -32,14 +32,14 @@ class ExtractionService(IExtractionService):
         self.temperature = float(os.environ["TEMPERATURE"])
         self.threshhold = float(os.environ["KEYWORD_THRESHHOLD"])
 
-    def extract_aws(self, description: Description) -> list[Keyword]:
+    async def extract_aws(self, description: Description) -> list[Keyword]:
         response = self.aws.detect_key_phrases(Text=description.text, LanguageCode=self.language).get("KeyPhrases")
         keywords = [keyword for keyword in response if keyword.get("Score") >= self.threshhold]
         keywords.sort(key=lambda x: x.get("Score"), reverse=True)
 
         return [Keyword(text=keyword.get("Text"), weight=round(keyword.get("Score"), 4)) for keyword in keywords]
 
-    def extract_gpt(self, description: Description) -> list[Keyword]:
+    async def extract_gpt(self, description: Description) -> list[Keyword]:
         response = json.loads(self.gpt.chat.completions.create(
             model=self.model,
             messages=[
@@ -61,17 +61,17 @@ class ExtractionService(IExtractionService):
 
         return [Keyword(text=keyword.get("text"), weight=keyword.get("weight")) for keyword in keywords]
 
-    def extract_bert(self, description: Description) -> list[Keyword]:
+    async def extract_bert(self, description: Description) -> list[Keyword]:
         return [Keyword(text=text, weight=weight)
                 for text, weight in self.bert.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
                 if weight >= self.threshhold]
 
-    def extract_yake(self, description: Description) -> list[Keyword]:
+    async def extract_yake(self, description: Description) -> list[Keyword]:
         return [Keyword(text=text, weight=round((1 - weight), 4))
                 for text, weight in self.yake.extract_keywords(description.text)
                 if round((1 - weight), 4) >= self.threshhold]
 
-    def extract_azure(self, description: Description) -> list[Keyword]:
+    async def extract_azure(self, description: Description) -> list[Keyword]:
         return [Keyword(text=keyword, weight=self.threshhold)
                 for keyword in self.azure.extract_key_phrases([description.text], language=self.language)[0].get("key_phrases")]
 

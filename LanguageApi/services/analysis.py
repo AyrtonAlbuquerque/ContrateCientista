@@ -8,19 +8,10 @@ class AnalysisService(IAnalysisService):
     def __init__(self, model: SentenceTransformer):
         self.model = model
 
-    def analyze(self, demand: Demand) -> list[AnalysisResponse]:
-        response = []
+    async def analyze(self, demand: Demand) -> list[AnalysisResponse]:
         embedding = self.model.encode(demand.text, convert_to_tensor=True)
 
-        for laboratory in demand.laboratories:
-            score = 0
-
-            if len(laboratory.keywords) > 0:
-                for keyword in laboratory.keywords:
-                    score += util.cos_sim(self.model.encode(keyword.text, convert_to_tensor=True), embedding).item() * keyword.weight
-
-                score /= len(laboratory.keywords)
-
-            response.append(AnalysisResponse(id=laboratory.id, score=round(score, 4)))
-
-        return response
+        return [AnalysisResponse(id=laboratory.id, score=round(sum(laboratory.keywords[item.get('corpus_id')].weight * item.get('score')
+            for item in util.semantic_search(embedding, self.model.encode([keyword.text for keyword in laboratory.keywords]), top_k=len(laboratory.keywords))[0]) / len(laboratory.keywords), 4)
+                if len(laboratory.keywords) > 0 else 0)
+            for laboratory in demand.laboratories]
