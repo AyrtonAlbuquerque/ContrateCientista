@@ -54,6 +54,3 @@ app.add_middleware(ExceptionMiddleware)
 app.include_router(services.resolve(Auth).router)
 app.include_router(services.resolve(Analyze).router)
 app.include_router(services.resolve(Extract).router)
-
-if __name__ == "__main__":
-    uvicorn.run(app)
