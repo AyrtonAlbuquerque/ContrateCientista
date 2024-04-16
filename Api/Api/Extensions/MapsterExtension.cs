@@ -73,7 +73,7 @@ namespace Api.Extensions
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.Title}. {source.Description}. {source.Details}");
 
-            TypeAdapterConfig< (CreateDemand demand, IList<Laboratory> laboratories), Analyze>
+            TypeAdapterConfig<(CreateDemand demand, IList<Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory
@@ -86,7 +86,7 @@ namespace Api.Extensions
                     }).ToList()
                 }).ToList());
 
-            TypeAdapterConfig< (UpdateDemand demand, IList<Laboratory> laboratories), Analyze>
+            TypeAdapterConfig<(UpdateDemand demand, IList<Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory

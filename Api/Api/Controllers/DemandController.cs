@@ -57,5 +57,13 @@ namespace Api.Controllers
         {
             return Ok(await demandService.ListMatches(id));
         }
+
+        [HttpGet("match/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Match))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<Match>> GetMatch(int id)
+        {
+            return Ok(await demandService.GetMatch(id));
+        }
     }
 }
