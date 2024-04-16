@@ -8,8 +8,8 @@ class LoginPage extends StatelessWidget {
   final String title;
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController loginController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +76,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  // builder: (context) => CompHomePage(
-                                  //       login: loginController.text,
-                                  //     )),
-                                  builder: (context) => LabHomePage(
+                                  builder: (context) => CompHomePage(
                                         login: loginController.text,
                                       )),
                             );

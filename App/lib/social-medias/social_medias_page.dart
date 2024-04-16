@@ -15,7 +15,7 @@ class SocialMediasPage extends StatelessWidget {
         child: ListView(
           children: [
             const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                padding: EdgeInsets.only(left: 16, top: 16),
                 child: Text('Redes sociais',
                     style: TextStyle(fontWeight: FontWeight.bold))),
             ...socialMedias

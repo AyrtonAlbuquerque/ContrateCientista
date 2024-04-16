@@ -1,5 +1,5 @@
 import 'package:app/softwares/software.dart';
-import 'package:app/softwares/software_details_page.dart';
+import 'package:app/softwares/software_description_modal.dart';
 import 'package:flutter/material.dart';
 
 class SoftwaresPage extends StatelessWidget {
@@ -15,7 +15,7 @@ class SoftwaresPage extends StatelessWidget {
         child: ListView(
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              padding: EdgeInsets.only(left: 16, top: 16),
               child: Text('Softwares',
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ),
@@ -40,7 +40,7 @@ class SoftwaresPage extends StatelessWidget {
                 DataColumn(
                   label: Expanded(
                     child: Text(
-                      'Detalhes',
+                      'Descrição',
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
@@ -69,13 +69,13 @@ class SoftwaresPage extends StatelessWidget {
                         DataCell(IconButton(
                           icon: const Icon(Icons.article_outlined),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SoftwareDetailsPage(
-                                        software: e,
-                                        isLab: isLab,
-                                      )),
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SoftwareDetailsPage(
+                                  software: e
+                                );
+                              },
                             );
                           },
                         ))

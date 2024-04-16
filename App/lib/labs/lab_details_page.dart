@@ -32,7 +32,7 @@ class LabDetailsPage extends StatelessWidget {
       description: 'Nunca é demais lembrar o peso e o significado destes problemas, uma vez que o consenso sobre a necessidade de qualificação prepara-nos para enfrentar situações atípicas decorrentes do levantamento das variáveis envolvidas.'
       )],
     socialMedias: [SocialMedia(type: 'Instagram', link: 'https://www.instagram.com/')],
-    softwares: [Software(name: 'Matlab', description: 'Institucional', area: 'Area 2')]
+    softwares: [Software(name: 'Matlab', description: 'Todavia, a consolidação das estruturas afeta positivamente a correta previsão do fluxo de informações.', area: 'Area 2')]
   );
 
   @override

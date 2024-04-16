@@ -26,12 +26,13 @@ class CreateDemandPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Text('Título *'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Título'),
+                        border: OutlineInputBorder()),
                     controller: titleController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -41,12 +42,13 @@ class CreateDemandPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Text('Descrição'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Descrição'),
+                        border: OutlineInputBorder()),
                     controller: descriptionController,
                     obscureText: true,
                     validator: (value) {
@@ -57,12 +59,13 @@ class CreateDemandPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Text('Departamento *'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Departamento'),
+                        border: OutlineInputBorder()),
                     controller: descriptionController,
                     obscureText: true,
                     validator: (value) {
@@ -73,12 +76,13 @@ class CreateDemandPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Text('Benefícios *'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Benefícios'),
+                        border: OutlineInputBorder()),
                     controller: benefitsController,
                     obscureText: true,
                     validator: (value) {
@@ -89,12 +93,13 @@ class CreateDemandPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Text('Detalhes *'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Detalhes'),
+                        border: OutlineInputBorder()),
                     controller: detailsController,
                     obscureText: true,
                     validator: (value) {
@@ -105,12 +110,13 @@ class CreateDemandPage extends StatelessWidget {
                     },
                   ),
                 ),
+                const Text('Restrições'),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Restrições'),
+                        border: OutlineInputBorder()),
                     controller: restrictionsController,
                     obscureText: true,
                   ),

@@ -20,7 +20,7 @@ class LabsPage extends StatelessWidget {
           children: [
             Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                    const EdgeInsets.only(left: 16, top: 16),
                 child: Text(title,
                     style: const TextStyle(fontWeight: FontWeight.bold))),
             DataTable(

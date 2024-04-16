@@ -1,3 +1,4 @@
+import 'package:app/labs/lab_form_page.dart';
 import 'package:flutter/material.dart';
 
 class SigninLaboratoryPage extends StatelessWidget {
@@ -57,10 +58,14 @@ class SigninLaboratoryPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
-                    child: const Text('Criar'),
+                    child: const Text('Próximo'),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // enviar dados
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LabFormPage(login: loginController.text, password: passwordController.text)),
+                          );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
