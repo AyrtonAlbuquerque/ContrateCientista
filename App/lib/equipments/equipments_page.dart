@@ -1,4 +1,4 @@
-import 'package:app/equipments/equipment_details_page.dart';
+import 'package:app/equipments/equipment_description_modal.dart';
 import 'package:app/equipments/equipments.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class EquipmentsPage extends StatelessWidget {
         child: ListView(
           children: [
             const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                padding: EdgeInsets.only(left: 16, top: 16),
                 child: Text('Equipamentos',
                     style: TextStyle(fontWeight: FontWeight.bold))),
             DataTable(
@@ -39,7 +39,7 @@ class EquipmentsPage extends StatelessWidget {
                 DataColumn(
                   label: Expanded(
                     child: Text(
-                      'Detalhes',
+                      'Descrição',
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
@@ -68,13 +68,13 @@ class EquipmentsPage extends StatelessWidget {
                         DataCell(IconButton(
                           icon: const Icon(Icons.article_outlined),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EquipmentDetailsPage(
-                                        equipment: e,
-                                        isLab: isLab,
-                                      )),
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return EquipmentDetailsPage(
+                                  equipment: e
+                                );
+                              },
                             );
                           },
                         ))
