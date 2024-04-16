@@ -1,4 +1,3 @@
-using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
 using Api.Contracts.LanguageApi;
@@ -151,6 +150,20 @@ namespace Api.Services
             ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para visualizar matches de outra empresa");
 
             return match.Adapt<Match>();
+        }
+
+        public async Task Like(Like like)
+        {
+            var user = await userService.GetUserAsync();
+            var match = await matchRepository.GetAsync(like.Match);
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para dar like em um match como um laboratório, utilize o endpoint /laboratory/like");
+            NotFoundException.ThrowIfNull(match, "Match não encontrado");
+            ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para dar like em matches de outra empresa");
+
+            match.Liked = like.Liked;
+
+            await matchRepository.UpdateAsync(match);
         }
     }
 }

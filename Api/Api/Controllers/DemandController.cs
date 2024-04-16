@@ -36,6 +36,7 @@ namespace Api.Controllers
         }
 
         [HttpPatch("finalize/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
         public async Task Patch(int id)
         {
@@ -64,6 +65,14 @@ namespace Api.Controllers
         public async Task<ActionResult<Match>> GetMatch(int id)
         {
             return Ok(await demandService.GetMatch(id));
+        }
+
+        [HttpPost("like")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task Like(Like like)
+        {
+            await demandService.Like(like);
         }
     }
 }
