@@ -1,17 +1,21 @@
 import 'package:app/address/address_form_page.dart';
-import 'package:app/equipments/equipment_form_page.dart';
+import 'package:app/equipments/equipments.dart';
+import 'package:app/equipments/equipments_page.dart';
+import 'package:app/labs/lab.dart';
 import 'package:app/person/person_form_page.dart';
-import 'package:app/social-medias/social_media_form_page.dart';
-import 'package:app/softwares/software_form_page.dart';
+import 'package:app/social-medias/social_media.dart';
+import 'package:app/social-medias/social_medias_page.dart';
+import 'package:app/softwares/software.dart';
+import 'package:app/softwares/softwares_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class LabFormPage extends StatelessWidget {
-  LabFormPage({Key? key, this.login, this.password, this.id}) : super(key: key);
+  LabFormPage({Key? key, this.login, this.password, this.lab}) : super(key: key);
 
   final String? login;
   final String? password;
-  final String? id;
+  final Lab? lab;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
@@ -40,16 +44,15 @@ class LabFormPage extends StatelessWidget {
       TextEditingController();
   final TextEditingController labAreaController = TextEditingController();
 
-  final TextEditingController softwareNameController = TextEditingController();
-  final TextEditingController softwareDescriptionController =
-      TextEditingController();
-  final TextEditingController softwareAreaController = TextEditingController();
+  List<Equipment> equipments = [];
+  List<SocialMedia> socialMedias = [];
+  List<Software> softwares = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(id != null ? 'Laboratório' : 'Criar conta de laboratório'),
+        title: Text(lab != null ? 'Laboratório' : 'Criar conta de laboratório'),
         backgroundColor: const Color.fromARGB(255, 255, 166, 0),
       ),
       body: SingleChildScrollView(
@@ -120,17 +123,26 @@ class LabFormPage extends StatelessWidget {
               departmentController: personDepartmentController,
               emailController: personEmailController,
               phoneController: personPhoneController),
-          AddressFormPage(streetController: streetController, numberController: numberController, neighborhoodController: neighborhoodController, cityController: cityController, stateController: stateController, countryController: countryController, extraController: extraController),
-          // EquipmentFormPage(nameController: labNameController, descriptionController: labDescriptionController, areaController: labAreaController),
-          // SocialMediaFormPage(typeController: typeController, linkController: linkController),
-          // SoftwareFormPage(nameController: softwareNameController, descriptionController: softwareDescriptionController, areaController: softwareAreaController),
+          AddressFormPage(
+              streetController: streetController,
+              numberController: numberController,
+              neighborhoodController: neighborhoodController,
+              cityController: cityController,
+              stateController: stateController,
+              countryController: countryController,
+              extraController: extraController),
+          SocialMediasPage(
+              socialMedias: socialMedias, isLab: true, create: lab == null),
+          EquipmentsPage(
+              equipments: equipments, isLab: true, create: lab == null),
+          SoftwaresPage(softwares: softwares, isLab: true, create: lab == null),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: ElevatedButton(
               child: const Text('Salvar'),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  if (id != null) {
+                  if (lab != null) {
                     // TODO: atualizar lab
                   } else {
                     // TODO: criar lab

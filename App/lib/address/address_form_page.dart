@@ -26,9 +26,13 @@ class AddressFormPage extends StatelessWidget {
     return Container(
       alignment: Alignment.topLeft,
       child: Column(children: [
-        const Padding(
-            padding: EdgeInsets.only(top: 12, bottom: 12),
-            child: Text('Endereço', style: TextStyle(fontWeight: FontWeight.bold))),
+        const Row(children: [
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Text('Endereço',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start))
+        ]),
         Form(
           key: _formKey,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [

@@ -43,7 +43,16 @@ class SocialMediaFormPage extends StatelessWidget {
                 }
                 return null;
               },),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: ElevatedButton(
+              child: const Text('Salvar'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ),
         ]),
       ),
     );

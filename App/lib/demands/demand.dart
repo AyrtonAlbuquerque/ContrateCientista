@@ -28,7 +28,7 @@ class Demand {
 }
 
 class DemandDetail extends Demand {
-  List<ElegibleLabs>? labs;
+  List<ElegibleLabs> labs;
   DemandDetail(
       {super.id,
       required super.title,
@@ -39,5 +39,8 @@ class DemandDetail extends Demand {
       required super.details,
       required super.restrictions,
       required super.keywords,
-      this.labs});
+      List<ElegibleLabs>? eligibleLabs}): labs = eligibleLabs ?? [];
+    static DemandDetail fromMap(Map<String, dynamic> map) {
+      return DemandDetail(id: map['id'], title: map['title'], company: map['company'], description: map['description'], department: map['department'], benefits: map['benefits'], details: map['details'], restrictions: map['restrictions'], keywords: map['keywords'], eligibleLabs: map['labs']);
+  }
 }

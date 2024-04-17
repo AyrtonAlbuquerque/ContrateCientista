@@ -45,6 +45,7 @@ class Lab {
 }
 
 class ElegibleLabs extends Lab {
+  double match;
   ElegibleLabs(
       {super.id,
       required super.name,
@@ -53,5 +54,25 @@ class ElegibleLabs extends Lab {
       required super.addressId,
       required super.description,
       required super.certificates,
-      required super.foundationDate});
+      required super.foundationDate,
+      required this.match,
+      super.equipments,
+      super.socialMedias,
+      super.softwares});
+
+  static ElegibleLabs fromMap(Map<String, dynamic> map) {
+    return ElegibleLabs(
+        id: map['id'],
+        name: map['name'],
+        code: map['code'],
+        responsibleId: map['responsibleId'],
+        addressId: map['addressId'],
+        description: map['description'],
+        certificates: map['certificates'],
+        foundationDate: map['foundationDate'],
+        match: map['match'],
+        equipments: map['equipments'],
+        socialMedias: map['socialMedias'],
+        softwares: map['softwares']);
+  }
 }

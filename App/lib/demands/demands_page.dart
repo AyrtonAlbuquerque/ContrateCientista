@@ -1,7 +1,24 @@
-import 'package:app/demands/create_demand_page.dart';
+import 'package:app/demands/demand_form_page.dart';
 import 'package:app/demands/demand.dart';
 import 'package:app/demands/demand_details_page.dart';
+import 'package:app/labs/lab.dart';
 import 'package:flutter/material.dart';
+
+List<Map<String, dynamic>> listOfLabs = [
+  {
+    'id': '9600f5b9-491a-455a-b43c-4552e7655947',
+    'name': 'Laboratório de Luminescência Estimulada e Dosimetria',
+    'code': 'LLED',
+    'responsibleId': '2',
+    'addressId': '2',
+    'description':
+        'Pesquisa#Ensino: Desenvolvimento de instrumentação e detectores luminescentes para medidas de radiação ionizante',
+    'certificates': 'CNEN',
+    'foundationDate': '2013-2018',
+    'match': 98
+  }
+];
+List<ElegibleLabs> labs = listOfLabs.map((map) => ElegibleLabs.fromMap(map)).toList();
 
 List<Map<String, dynamic>> listOfDemands = [
   {
@@ -17,7 +34,8 @@ List<Map<String, dynamic>> listOfDemands = [
         'Formação: Graduação em Engenharia Mecânica, Engenharia de Materiais ou Engenharia Química. Pré-requisitos em conhecimentos específicos: Conhecimento em métodos de pintura; Idiomas: Inglês, francês será um diferencial.',
     'restrictions':
         'A literatura mostra a utilização de revestimento regenerativo como alternativa aos métodos de pintura convencional e galvanizada, o que pode ser uma oportunidade interessante para a qualidade percebida das nossas peças metálicas. Para avaliar essa possibilidade, propõe-se fazer um estudo comparativo entre peças pintadas com revestimento regenerativo, pintura convencional e galvanização e verificar se possuem desempenho similar.',
-    'keywords': 'keywordA, keywordB, keywordC'
+    'keywords': 'keywordA, keywordB, keywordC',
+    'labs': labs
   },
   {
     'id': 'faebbf1e-39ac-4b6d-b30b-e1baa585be10',
@@ -51,7 +69,8 @@ List<Map<String, dynamic>> listOfDemands = [
     'keywords': 'keywordA, keywordB, keywordC'
   }
 ];
-List<Demand> demands = listOfDemands.map((map) => Demand.fromMap(map)).toList();
+
+List<DemandDetail> demands = listOfDemands.map((map) => DemandDetail.fromMap(map)).toList();
 
 class DemandsPage extends StatelessWidget {
   DemandsPage({Key? key, required this.isLab}) : super(key: key);
@@ -77,14 +96,14 @@ class DemandsPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CreateDemandPage()),
+                            builder: (context) => DemandFormPage()),
                       );
                     }),
               )
             ],
             DataTable(
-              columns: const <DataColumn>[
-                DataColumn(
+              columns: <DataColumn>[
+                const DataColumn(
                   label: Expanded(
                     child: Text(
                       'Título',
@@ -92,15 +111,16 @@ class DemandsPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                DataColumn(
-                  label: Expanded(
-                    child: Text(
-                      'Corporação',
-                      style: TextStyle(fontStyle: FontStyle.italic),
+                if (isLab)
+                  const DataColumn(
+                    label: Expanded(
+                      child: Text(
+                        'Corporação',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
                     ),
                   ),
-                ),
-                DataColumn(
+                const DataColumn(
                   label: Expanded(
                     child: Text(
                       'Detalhes',
@@ -121,27 +141,43 @@ class DemandsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        DataCell(
-                          Text(
-                            e.company,
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
+                        if (isLab)
+                          DataCell(
+                            Text(
+                              e.company,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
                             ),
                           ),
-                        ),
-                        DataCell(IconButton(
-                          icon: const Icon(Icons.article_outlined),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DemandDetailsPage(
-                                        demandId: e.id ?? '',
-                                        isLab: isLab,
-                                      )),
-                            );
-                          },
-                        )),
+                        DataCell(Row(children: [
+                          IconButton(
+                            icon: const Icon(Icons.article_outlined),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DemandDetailsPage(
+                                          demandId: e.id ?? '',
+                                          isLab: isLab,
+                                        )),
+                              );
+                            },
+                          ),
+                          if (!isLab && e.labs.isNotEmpty)
+                            IconButton(
+                              icon: const Icon(Icons.edit_outlined),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DemandFormPage(
+                                            demand: e,
+                                          )),
+                                );
+                              },
+                            )
+                        ])),
                       ],
                     ),
                   )

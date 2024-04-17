@@ -20,9 +20,13 @@ class PersonFormPage extends StatelessWidget {
     return Container(
         alignment: Alignment.topLeft,
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          const Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 12),
-              child: Text('Responsável', style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.start)),
+          const Row(children: [
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Text('Responsável',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start))
+          ]),
           Form(
             key: _formKey,
             child:

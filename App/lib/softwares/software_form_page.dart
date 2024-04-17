@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class SoftwareFormPage extends StatelessWidget {
   SoftwareFormPage(
       {Key? key,
@@ -46,6 +47,15 @@ class SoftwareFormPage extends StatelessWidget {
             child: TextFormField(
                 decoration: const InputDecoration(border: OutlineInputBorder()),
                 controller: areaController),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: ElevatedButton(
+              child: const Text('Salvar'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
           ),
         ]),
       ),

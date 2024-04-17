@@ -1,19 +1,25 @@
+import 'package:app/companies/company.dart';
+import 'package:app/companies/company_form_page.dart';
 import 'package:app/demands/demands_page.dart';
+import 'package:app/home/user.dart';
 import 'package:app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class CompHomePage extends StatelessWidget {
-  const CompHomePage({Key? key, required this.login}) : super(key: key);
+  CompHomePage({Key? key, required this.login}) : super(key: key);
   final String login;
 
   // TODO: busca dados do usuario
   // TODO: busca demandas do usuario logado
+  User user = User(email: 'test@gmail.com', company: Company(name: 'Company Test', cnpj: '123435624341', email: 'test@gmail.com', description: 'Evidentemente, o comprometimento entre as equipes apresenta tendências no sentido de aprovar a manutenção das condições financeiras e administrativas exigidas.'));
 
   @override
   Widget build(BuildContext context) {
+    List<String> allInitialLetters = user.company!.name.split(' ').map((l) => l[0]).toList();
+    final initialLetters = allInitialLetters[0] + allInitialLetters[1];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Compania'),
+        title: const Text('Organização'),
         backgroundColor: const Color.fromARGB(255, 255, 166, 0),
       ),
       body: const Center(
@@ -21,14 +27,13 @@ class CompHomePage extends StatelessWidget {
       ),
       drawer: Drawer(
       child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const UserAccountsDrawerHeader(
-            accountEmail: Text("user@mail.com"),
-            accountName: Text("Seu zé"),
+          UserAccountsDrawerHeader(
+            accountEmail: Text(user.email),
+            accountName: Text(user.company!.name),
             currentAccountPicture: CircleAvatar(
-              child: Text("SZ"),
+              child: Text(initialLetters),
             ),
           ),
           ListTile(
@@ -49,17 +54,16 @@ class CompHomePage extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
-              Icons.train,
+              Icons.person_outline,
             ),
-            title: const Text('Configurações'),
+            title: const Text('Perfil'),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SettingsPage(
-                    title: 'Configurações',
-                  )),
+                  builder: (context) => CompanyFormPage(company: user.company),
+                )
               );
             },
           ),

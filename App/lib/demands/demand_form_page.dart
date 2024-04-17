@@ -1,7 +1,10 @@
+import 'package:app/demands/demand.dart';
 import 'package:flutter/material.dart';
 
-class CreateDemandPage extends StatelessWidget {
-  CreateDemandPage({Key? key}) : super(key: key);
+class DemandFormPage extends StatelessWidget {
+  DemandFormPage({Key? key, this.demand}) : super(key: key);
+
+  final Demand? demand;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
@@ -13,6 +16,14 @@ class CreateDemandPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (demand != null) {
+      titleController.text = demand?.title ?? '';
+      descriptionController.text = demand?.description ?? '';
+      departmentController.text = demand?.department ?? '';
+      benefitsController.text = demand?.benefits ?? '';
+      detailsController.text = demand?.details ?? '';
+      restrictionsController.text = demand?.restrictions ?? '';
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar demanda'),
@@ -50,7 +61,6 @@ class CreateDemandPage extends StatelessWidget {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder()),
                     controller: descriptionController,
-                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira uma descrição';
@@ -66,8 +76,7 @@ class CreateDemandPage extends StatelessWidget {
                   child: TextFormField(
                     decoration: const InputDecoration(
                         border: OutlineInputBorder()),
-                    controller: descriptionController,
-                    obscureText: true,
+                    controller: departmentController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira um departamento';
@@ -84,7 +93,6 @@ class CreateDemandPage extends StatelessWidget {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder()),
                     controller: benefitsController,
-                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira os benefícios';
@@ -101,7 +109,6 @@ class CreateDemandPage extends StatelessWidget {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder()),
                     controller: detailsController,
-                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira os detalhes';
@@ -118,7 +125,6 @@ class CreateDemandPage extends StatelessWidget {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder()),
                     controller: restrictionsController,
-                    obscureText: true,
                   ),
                 ),
                 Padding(
