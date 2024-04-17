@@ -11,5 +11,7 @@ namespace Api.Services.Interfaces
         Task Finalize(int id);
         Task<IList<Demand>> List();
         Task<IList<Match>> ListMatches(int id);
+        Task<Match> GetMatch(int id);
+        Task Like(Like like);
     }
 }

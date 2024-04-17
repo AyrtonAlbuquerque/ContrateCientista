@@ -1,6 +1,5 @@
 import os
 import boto3
-import uvicorn
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 from botocore.client import BaseClient

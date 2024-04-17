@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - OPENAI_API_KEY=Place_Your_OpenAI_Super_Secret_Key_Here
-      - AWS_ACCESS_KEY=Place_Your_AWS_Super_Secret_Access_Key_Here
-      - AWS_SECRET_KEY=Place_Your_AWS_Super_Secret_Here
-      - AZURE_LANGUAGE_KEY=Place_Your_Azure_Super_Secret_Key_Here
+      - OPENAI_API_KEY=<Key>
+      - AWS_ACCESS_KEY=<Key>
+      - AWS_SECRET_KEY=<Key>
+      - AZURE_LANGUAGE_KEY=<Key>

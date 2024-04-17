@@ -1,4 +1,3 @@
-using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
 using Api.Contracts.LanguageApi;
@@ -19,6 +18,7 @@ namespace Api.Services
     {
         private readonly IUserService userService;
         private readonly ILanguageService languageService;
+        private readonly IMatchRepository matchRepository;
         private readonly IPersonRepository personRepository;
         private readonly IStatusRepository statusRepository;
         private readonly IDemandRepository demandRepository;
@@ -28,6 +28,7 @@ namespace Api.Services
         public DemandService(
             IUserService userService,
             ILanguageService languageService,
+            IMatchRepository matchRepository,
             IPersonRepository personRepository,
             IStatusRepository statusRepository,
             IDemandRepository demandRepository,
@@ -36,6 +37,7 @@ namespace Api.Services
         {
             this.userService = userService;
             this.languageService = languageService;
+            this.matchRepository = matchRepository;
             this.personRepository = personRepository;
             this.statusRepository = statusRepository;
             this.demandRepository = demandRepository;
@@ -136,6 +138,32 @@ namespace Api.Services
             demand.Matches.ForEach(x => result.Add(x.Adapt<Match>()));
 
             return result.OrderByDescending(x => x.Score).ToList();
+        }
+
+        public async Task<Match> GetMatch(int id)
+        {
+            var user = await userService.GetUserAsync();
+            var match = await matchRepository.GetAsync(id);
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para visualizar um match como um laboratório, utilize o endpoint /laboratory/matches/{id}");
+            NotFoundException.ThrowIfNull(match, "Match não encontrado");
+            ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para visualizar matches de outra empresa");
+
+            return match.Adapt<Match>();
+        }
+
+        public async Task Like(Like like)
+        {
+            var user = await userService.GetUserAsync();
+            var match = await matchRepository.GetAsync(like.Match);
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para dar like em um match como um laboratório, utilize o endpoint /laboratory/like");
+            NotFoundException.ThrowIfNull(match, "Match não encontrado");
+            ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para dar like em matches de outra empresa");
+
+            match.Liked = like.Liked;
+
+            await matchRepository.UpdateAsync(match);
         }
     }
 }
