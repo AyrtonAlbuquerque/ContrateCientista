@@ -8,11 +8,11 @@ namespace Api.Contracts.Common
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("description")]
         public string Description { get; set; }
 
@@ -32,7 +32,7 @@ namespace Api.Contracts.Common
         [JsonPropertyName("restrictions")]
         public string Restrictions { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("responsible")]
         public Responsible Responsible { get; set; }
 

@@ -1,11 +1,11 @@
 using System.Text.Json.Serialization;
 
-namespace Api.Contracts.Demand
+namespace Api.Contracts.Common
 {
     public class Like
     {
         [JsonRequired]
-        [JsonPropertyName("matchId")]
+        [JsonPropertyName("id")]
         public int Match { get; set; }
 
         [JsonRequired]

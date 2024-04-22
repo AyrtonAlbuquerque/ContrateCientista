@@ -10,7 +10,6 @@ using IListExtension;
 using Mapster;
 using Demand = Api.Domain.Model.Demand;
 using Keyword = Api.Domain.Model.Keyword;
-using Match = Api.Contracts.Common.Match;
 
 namespace Api.Services
 {
@@ -18,7 +17,6 @@ namespace Api.Services
     {
         private readonly IUserService userService;
         private readonly ILanguageService languageService;
-        private readonly IMatchRepository matchRepository;
         private readonly IPersonRepository personRepository;
         private readonly IStatusRepository statusRepository;
         private readonly IDemandRepository demandRepository;
@@ -28,7 +26,6 @@ namespace Api.Services
         public DemandService(
             IUserService userService,
             ILanguageService languageService,
-            IMatchRepository matchRepository,
             IPersonRepository personRepository,
             IStatusRepository statusRepository,
             IDemandRepository demandRepository,
@@ -37,12 +34,37 @@ namespace Api.Services
         {
             this.userService = userService;
             this.languageService = languageService;
-            this.matchRepository = matchRepository;
             this.personRepository = personRepository;
             this.statusRepository = statusRepository;
             this.demandRepository = demandRepository;
             this.keywordRepository = keywordRepository;
             this.laboratoryRepository = laboratoryRepository;
+        }
+
+        public async Task<Contracts.Common.Demand> Get(int id)
+        {
+            var user = await userService.GetUserAsync();
+            var demand = await demandRepository.GetAsync(id);
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não possui permissão para visualizar demandas");
+            NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
+            ForbiddenException.ThrowIf(demand.Company != user.Company, "Usuário não possui permissão para visualizar demandas de outra empresa");
+
+            return demand.Adapt<Contracts.Common.Demand>();
+        }
+
+        public async Task<IList<Contracts.Common.Demand>> List()
+        {
+            var user = await userService.GetUserAsync();
+            var result = new List<Contracts.Common.Demand>();
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar demandas como um laboratório, utilize o endpoint /laboratory/demands/{id}");
+
+            var demands = await demandRepository.SelectAsync(user.Company);
+
+            demands.ForEach(x => result.Add(x.Adapt<Contracts.Common.Demand>()));
+
+            return result;
         }
 
         public async Task<CreateDemandResponse> Create(CreateDemand createDemand)
@@ -110,60 +132,6 @@ namespace Api.Services
             demand.Status = status.FirstOrDefault(x => x.Id == (int)MatchStatus.Finalized);
 
             await demandRepository.UpdateAsync(demand);
-        }
-
-        public async Task<IList<Contracts.Common.Demand>> List()
-        {
-            var user = await userService.GetUserAsync();
-            var result = new List<Contracts.Common.Demand>();
-
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar demandas como um laboratório, utilize o endpoint /laboratory/demands/{id}");
-
-            var demands = await demandRepository.SelectAsync(user.Company);
-
-            demands.ForEach(x => result.Add(x.Adapt<Contracts.Common.Demand>()));
-
-            return result;
-        }
-
-        public async Task<IList<Match>> ListMatches(int id)
-        {
-            var user = await userService.GetUserAsync();
-            var demand = await demandRepository.GetAsync(id);
-            var result = new List<Match>();
-
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar os matches como um laboratório, utilize o endpoint /laboratory/matches");
-            NotFoundException.ThrowIfNull(demand, "Demanda não encontrada");
-
-            demand.Matches.ForEach(x => result.Add(x.Adapt<Match>()));
-
-            return result.OrderByDescending(x => x.Score).ToList();
-        }
-
-        public async Task<Match> GetMatch(int id)
-        {
-            var user = await userService.GetUserAsync();
-            var match = await matchRepository.GetAsync(id);
-
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para visualizar um match como um laboratório, utilize o endpoint /laboratory/matches/{id}");
-            NotFoundException.ThrowIfNull(match, "Match não encontrado");
-            ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para visualizar matches de outra empresa");
-
-            return match.Adapt<Match>();
-        }
-
-        public async Task Like(Like like)
-        {
-            var user = await userService.GetUserAsync();
-            var match = await matchRepository.GetAsync(like.Match);
-
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para dar like em um match como um laboratório, utilize o endpoint /laboratory/like");
-            NotFoundException.ThrowIfNull(match, "Match não encontrado");
-            ForbiddenException.ThrowIf(match.Demand.Company != user.Company, "Usuário não possui permissão para dar like em matches de outra empresa");
-
-            match.Liked = like.Liked;
-
-            await matchRepository.UpdateAsync(match);
         }
     }
 }

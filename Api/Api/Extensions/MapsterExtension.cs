@@ -1,4 +1,5 @@
 using Api.Contracts.Auth;
+using Api.Contracts.Auth.Response;
 using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.Demand.Response;
@@ -18,6 +19,7 @@ using Software = Api.Domain.Model.Software;
 using Status = Api.Domain.Model.Status;
 using Demand = Api.Domain.Model.Demand;
 using Match  = Api.Domain.Model.Match;
+using Company = Api.Domain.Model.Company;
 
 namespace Api.Extensions
 {
@@ -28,6 +30,16 @@ namespace Api.Extensions
             TypeAdapterConfig<Person, Responsible>
                 .NewConfig()
                 .Ignore(dest => dest.Password);
+
+            TypeAdapterConfig<Laboratory, Contracts.Common.Laboratory>
+                .NewConfig()
+                .Map(dest => dest.Keywords, source => source.Keywords.Select(k => k.Text).ToList());
+
+            TypeAdapterConfig<Demand, Contracts.Common.Demand>
+                .NewConfig()
+                .Map(dest => dest.Responsible, source => source.Responsible.Adapt<Responsible>())
+                .Map(dest => dest.Status, source => (Contracts.Common.Status)source.Status.Id)
+                .Map(dest => dest.Keywords, source => source.Keywords.Select(k => k.Text).ToList());
 
             TypeAdapterConfig<RegisterCompany, User>
                 .NewConfig()
@@ -40,6 +52,13 @@ namespace Api.Extensions
                     Email = source.Email,
                     Description = source.Description
                 });
+
+            TypeAdapterConfig<(User user, Token token), LoginResponse>
+                .NewConfig()
+                .Map(dest => dest.Id, source => source.user.Id)
+                .Map(dest => dest.Type, source => source.token.Type)
+                .Map(dest => dest.Token, source => source.token.Value)
+                .Map(dest => dest.Expires, source => source.token.Expires);
 
             TypeAdapterConfig<(IList<Api.Contracts.Common.Keyword> keywords, RegisterLaboratory laboratory), User>
                 .NewConfig()
@@ -138,19 +157,11 @@ namespace Api.Extensions
                 .Map(dest => dest.Details, source => source.demand.Details)
                 .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
                 .Map(dest => dest.Responsible, source => source.demand.Responsible.Adapt<Responsible>())
+                .Map(dest => dest.Keywords, source => source.demand.Keywords.Select(k => k.Text).ToList())
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    Code = x.Code,
-                    Description = x.Description,
-                    Certificates = x.Certificates,
-                    FoundationDate = x.FoundationDate,
-                    Responsible = x.Responsible.Adapt<Responsible>(),
-                    Address = x.Address.Adapt<Contracts.Common.Address>(),
-                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
-                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
-                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
+                    Name = x.Name
                 }).ToList())
                 .AfterMapping((source, dest) =>
                 {
@@ -170,34 +181,13 @@ namespace Api.Extensions
                 .Map(dest => dest.Details, source => source.demand.Details)
                 .Map(dest => dest.Restrictions, source => source.demand.Restrictions)
                 .Map(dest => dest.Responsible, source => source.demand.Responsible.Adapt<Responsible>())
+                .Map(dest => dest.Keywords, source => source.demand.Keywords.Select(k => k.Text).ToList())
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.Common.Laboratory
                 {
                     Id = x.Id,
                     Score = source.analysis.FirstOrDefault(a => a.Id == x.Id).Score,
-                    Name = x.Name,
-                    Code = x.Code,
-                    Description = x.Description,
-                    Certificates = x.Certificates,
-                    FoundationDate = x.FoundationDate,
-                    Responsible = x.Responsible.Adapt<Responsible>(),
-                    Address = x.Address.Adapt<Contracts.Common.Address>(),
-                    Softwares = x.Softwares.Adapt<IList<Contracts.Common.Software>>(),
-                    Equipments = x.Equipments.Adapt<IList<Contracts.Common.Equipment>>(),
-                    SocialMedias = x.SocialMedias.Adapt<IList<Contracts.Common.SocialMedia>>()
+                    Name = x.Name
                 }).ToList());
-
-            TypeAdapterConfig<Demand, Contracts.Common.Demand>
-                .NewConfig()
-                .Map(dest => dest.Responsible, source => source.Responsible.Adapt<Responsible>())
-                .Map(dest => dest.Status, source => (Contracts.Common.Status)source.Status.Id)
-                .Map(dest => dest.Keywords, source => source.Keywords.Select(k => k.Text).ToList());
-
-            TypeAdapterConfig<Match, Contracts.Common.Match>
-                .NewConfig()
-                .Map(dest => dest, source => source.Id)
-                .Map(dest => dest.Score, source => source.Score)
-                .Map(dest => dest.Liked, source => source.Liked)
-                .Map(dest => dest.Laboratory, source => source.Laboratory.Adapt<Contracts.Common.Laboratory>());
 
             return services;
         }

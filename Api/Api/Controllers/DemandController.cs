@@ -19,6 +19,22 @@ namespace Api.Controllers
             this.demandService = demandService;
         }
 
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Demand))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<Demand>> Get(int id)
+        {
+            return Ok(await demandService.Get(id));
+        }
+
+        [HttpGet("list")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Demand>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<IList<Demand>>> Get()
+        {
+            return Ok(await demandService.List());
+        }
+
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateDemandResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
@@ -41,38 +57,6 @@ namespace Api.Controllers
         public async Task Patch(int id)
         {
             await demandService.Finalize(id);
-        }
-
-        [HttpGet("list")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Demand>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<IList<Demand>>> Get()
-        {
-            return Ok(await demandService.List());
-        }
-
-        [HttpGet("matches/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<Match>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<IList<Match>>> GetMatches(int id)
-        {
-            return Ok(await demandService.ListMatches(id));
-        }
-
-        [HttpGet("match/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Match))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<Match>> GetMatch(int id)
-        {
-            return Ok(await demandService.GetMatch(id));
-        }
-
-        [HttpPost("like")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task Like(Like like)
-        {
-            await demandService.Like(like);
         }
     }
 }

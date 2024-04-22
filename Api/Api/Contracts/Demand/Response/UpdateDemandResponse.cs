@@ -38,6 +38,10 @@ public class UpdateDemandResponse
     public Responsible Responsible { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("keywords")]
+    public IList<string> Keywords { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("laboratories")]
     public IList<Laboratory> Laboratories { get; set; }
 }

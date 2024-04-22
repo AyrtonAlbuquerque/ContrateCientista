@@ -3,8 +3,8 @@ using Api.Contracts.Auth.Response;
 
 namespace Api.Services.Interfaces
 {
-    public interface IAuthService
+    public interface ILaboratoryService
     {
-        Task<LoginResponse> Login(Login login);
+        Task<LoginResponse> Register(RegisterLaboratory laboratory);
     }
 }

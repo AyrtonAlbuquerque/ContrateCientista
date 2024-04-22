@@ -16,7 +16,11 @@ namespace Api.Contracts.Common
         [JsonPropertyName("liked")]
         public bool Liked { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("demand")]
+        public Demand Demand { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("laboratory")]
         public Laboratory Laboratory { get; set; }
     }

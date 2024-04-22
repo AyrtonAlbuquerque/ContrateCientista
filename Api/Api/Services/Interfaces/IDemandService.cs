@@ -6,12 +6,10 @@ namespace Api.Services.Interfaces
 {
     public interface IDemandService
     {
+        Task<Demand> Get(int id);
+        Task<IList<Demand>> List();
         Task<CreateDemandResponse> Create(CreateDemand createDemand);
         Task<UpdateDemandResponse> Update(UpdateDemand updateDemand);
         Task Finalize(int id);
-        Task<IList<Demand>> List();
-        Task<IList<Match>> ListMatches(int id);
-        Task<Match> GetMatch(int id);
-        Task Like(Like like);
     }
 }

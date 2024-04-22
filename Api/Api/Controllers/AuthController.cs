@@ -24,21 +24,5 @@ namespace Api.Controllers
         {
             return Ok(await authService.Login(login));
         }
-
-        [HttpPost("register/company")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<LoginResponse>> Post(RegisterCompany register)
-        {
-            return Ok(await authService.Register(register));
-        }
-
-        [HttpPost("register/laboratory")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<LoginResponse>> Post(RegisterLaboratory register)
-        {
-            return Ok(await authService.Register(register));
-        }
     }
 }
