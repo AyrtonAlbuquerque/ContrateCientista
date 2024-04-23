@@ -1,4 +1,3 @@
-using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
 using Api.Contracts.Common;
 using Api.Services.Interfaces;
@@ -19,12 +18,20 @@ namespace Api.Controllers
             this.companyService = companyService;
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Company))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
+        public async Task<ActionResult<Company>> Get()
+        {
+            return Ok(await companyService.Get());
+        }
+
         [HttpPost("register"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
-        public async Task<ActionResult<LoginResponse>> Post(RegisterCompany register)
+        public async Task<ActionResult<LoginResponse>> Post(Company company)
         {
-            return Ok(await companyService.Register(register));
+            return Ok(await companyService.Register(company));
         }
 
         [HttpPut("update")]

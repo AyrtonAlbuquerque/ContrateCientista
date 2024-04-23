@@ -1,4 +1,3 @@
-using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
 using Api.Contracts.Common;
 using Api.Contracts.Demand;
@@ -41,7 +40,7 @@ namespace Api.Extensions
                 .Map(dest => dest.Status, source => (Contracts.Common.Status)source.Status.Id)
                 .Map(dest => dest.Keywords, source => source.Keywords.Select(k => k.Text).ToList());
 
-            TypeAdapterConfig<RegisterCompany, User>
+            TypeAdapterConfig<Contracts.Common.Company, User>
                 .NewConfig()
                 .Map(dest => dest.Email, source => source.Email)
                 .Map(dest => dest.Password, source => ValidationHelper.HashPassword(source.Password))
@@ -60,7 +59,7 @@ namespace Api.Extensions
                 .Map(dest => dest.Token, source => source.token.Value)
                 .Map(dest => dest.Expires, source => source.token.Expires);
 
-            TypeAdapterConfig<(IList<Api.Contracts.Common.Keyword> keywords, RegisterLaboratory laboratory), User>
+            TypeAdapterConfig<(IList<Contracts.Common.Keyword> keywords, Contracts.Common.Laboratory laboratory), User>
                 .NewConfig()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.Email, source => source.laboratory.Responsible.Email)
@@ -108,17 +107,17 @@ namespace Api.Extensions
             TypeAdapterConfig<(UpdateDemand demand, IList<Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
-                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Api.Contracts.LanguageApi.Laboratory
+                .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Contracts.LanguageApi.Laboratory
                 {
                     Id = x.Id,
-                    Keywords = x.Keywords.Select(k => new Api.Contracts.Common.Keyword
+                    Keywords = x.Keywords.Select(k => new Contracts.Common.Keyword
                     {
                         Text = k.Text,
                         Weight = k.Weight
                     }).ToList()
                 }).ToList());
 
-            TypeAdapterConfig<(CreateDemand demand, User user, Person person, IList<Status> status, IList<Api.Contracts.Common.Keyword> keywords, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), Demand>
+            TypeAdapterConfig<(CreateDemand demand, User user, Person person, IList<Status> status, IList<Contracts.Common.Keyword> keywords, IList<Laboratory> laboratories, IList<AnalyzeResponse> analysis), Demand>
                 .NewConfig()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.Title, source => source.demand.Title)

@@ -1,4 +1,3 @@
-using Api.Contracts.Auth;
 using Api.Contracts.Auth.Response;
 using Api.Domain.Model;
 using Api.Domain.Repository;
@@ -23,7 +22,16 @@ namespace Api.Services
             this.tokenService = tokenService;
         }
 
-        public async Task<LoginResponse> Register(RegisterCompany company)
+        public async Task<Company> Get()
+        {
+            var user = await userService.GetUserAsync();
+
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, apenas empresas podem obter seus dados");
+
+            return user.Company.Adapt<Company>();
+        }
+
+        public async Task<LoginResponse> Register(Company company)
         {
             BadRequestException.ThrowIf(await userRepository.ExistsAsync(company.Email), "E-mail já cadastrado.");
             BadRequestException.ThrowIf(!ValidationHelper.ValidatePassword(company.Password), "Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");

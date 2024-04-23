@@ -12,7 +12,7 @@ namespace Api.Contracts.Common
         [JsonPropertyName("score")]
         public decimal? Score { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonRequired]
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -20,7 +20,7 @@ namespace Api.Contracts.Common
         [JsonPropertyName("code")]
         public string Code { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonRequired]
         [JsonPropertyName("description")]
         public string Description { get; set; }
 
@@ -32,11 +32,11 @@ namespace Api.Contracts.Common
         [JsonPropertyName("foundationDate")]
         public string FoundationDate { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonRequired]
         [JsonPropertyName("responsible")]
         public Responsible Responsible { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonRequired]
         [JsonPropertyName("address")]
         public Address Address { get; set; }
 

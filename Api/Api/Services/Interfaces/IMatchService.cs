@@ -1,5 +1,4 @@
 using Api.Contracts.Common;
-using Api.Contracts.Demand;
 
 namespace Api.Services.Interfaces
 {

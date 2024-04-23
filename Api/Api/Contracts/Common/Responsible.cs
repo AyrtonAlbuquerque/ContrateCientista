@@ -18,7 +18,7 @@ namespace Api.Contracts.Common
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("departament")]
-        public string Departament { get; set; }
+        public string Department { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("phone")]

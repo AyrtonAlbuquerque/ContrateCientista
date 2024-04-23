@@ -12,7 +12,7 @@ namespace Api.Utilities
 
         public static bool ValidatePassword(string password)
         {
-            return password.Length >= 8 && password.Any(char.IsDigit) && password.Any(char.IsLetter);
+            return string.IsNullOrEmpty(password) ? false : password.Length >= 8 && password.Any(char.IsDigit) && password.Any(char.IsLetter);
         }
 
         public static bool ValidateCNPJ(string cnpj)
