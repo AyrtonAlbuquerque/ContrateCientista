@@ -10,15 +10,8 @@ namespace Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class DemandController : ControllerBase
+    public class DemandController(IDemandService demandService) : ControllerBase
     {
-        private readonly IDemandService demandService;
-
-        public DemandController(IDemandService demandService)
-        {
-            this.demandService = demandService;
-        }
-
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Demand))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]

@@ -46,7 +46,7 @@ namespace Api.Extensions
                 .Map(dest => dest.Password, source => ValidationHelper.HashPassword(source.Password))
                 .Map(dest => dest.Company, source => new Company
                 {
-                    Cnpj = ValidationHelper.FormatCNPJ(source.Cnpj),
+                    Cnpj = ValidationHelper.FormatCnpj(source.Cnpj),
                     Name = source.Name,
                     Email = source.Email,
                     Description = source.Description

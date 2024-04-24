@@ -9,15 +9,8 @@ namespace Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class CompanyController : ControllerBase
+    public class CompanyController(ICompanyService companyService) : ControllerBase
     {
-        private readonly ICompanyService companyService;
-
-        public CompanyController(ICompanyService companyService)
-        {
-            this.companyService = companyService;
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Company))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]

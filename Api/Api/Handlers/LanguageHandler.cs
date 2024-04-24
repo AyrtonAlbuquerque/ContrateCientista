@@ -7,19 +7,8 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Api.Handlers
 {
-    public class LanguageHandler : DelegatingHandler
+    public class LanguageHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache) : DelegatingHandler
     {
-        private HttpClient client;
-        private IConfiguration configuration;
-        private readonly IMemoryCache memoryCache;
-
-        public LanguageHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache)
-        {
-            this.client = client;
-            this.configuration = configuration;
-            this.memoryCache = memoryCache;
-        }
-
         protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var token = GetToken();
@@ -40,9 +29,7 @@ namespace Api.Handlers
 
         private Token GetToken()
         {
-            Token token;
-
-            if (!memoryCache.TryGetValue("token", out token))
+            if (!memoryCache.TryGetValue("token", out Token token))
             {
                 var request = JsonSerializer.Serialize(new Login
                 {

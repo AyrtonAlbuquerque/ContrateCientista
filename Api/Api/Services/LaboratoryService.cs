@@ -11,43 +11,18 @@ using Laboratory = Api.Contracts.Common.Laboratory;
 
 namespace Api.Services
 {
-    public class LaboratoryService : ILaboratoryService
+    public class LaboratoryService(
+        IUserService userService,
+        ITokenService tokenService,
+        ILanguageService languageService,
+        IUserRepository userRepository,
+        IPersonRepository personRepository,
+        IKeywordRepository keywordRepository,
+        ISoftwareRepository softwareRepository,
+        IEquipmentRepository equipmentRepository,
+        ILaboratoryRepository laboratoryRepository,
+        ISocialMediaRepository socialMediaRepository) : ILaboratoryService
     {
-        private readonly IUserService userService;
-        private readonly ITokenService tokenService;
-        private readonly ILanguageService languageService;
-        private readonly IUserRepository userRepository;
-        private readonly IPersonRepository personRepository;
-        private readonly IKeywordRepository keywordRepository;
-        private readonly ISoftwareRepository softwareRepository;
-        private readonly IEquipmentRepository equipmentRepository;
-        private readonly ILaboratoryRepository laboratoryRepository;
-        private readonly ISocialMediaRepository socialMediaRepository;
-
-        public LaboratoryService(
-            IUserService userService,
-            ITokenService tokenService,
-            ILanguageService languageService,
-            IUserRepository userRepository,
-            IPersonRepository personRepository,
-            IKeywordRepository keywordRepository,
-            ISoftwareRepository softwareRepository,
-            IEquipmentRepository equipmentRepository,
-            ILaboratoryRepository laboratoryRepository,
-            ISocialMediaRepository socialMediaRepository)
-        {
-            this.userService = userService;
-            this.tokenService = tokenService;
-            this.languageService = languageService;
-            this.userRepository = userRepository;
-            this.personRepository = personRepository;
-            this.keywordRepository = keywordRepository;
-            this.softwareRepository = softwareRepository;
-            this.equipmentRepository = equipmentRepository;
-            this.laboratoryRepository = laboratoryRepository;
-            this.socialMediaRepository = socialMediaRepository;
-        }
-
         public async Task<Laboratory> Get()
         {
             var user = await userService.GetUserAsync();

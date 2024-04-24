@@ -7,17 +7,8 @@ using Mapster;
 
 namespace Api.Services
 {
-    public class MatchService : IMatchService
+    public class MatchService(IUserService userService, IMatchRepository matchRepository) : IMatchService
     {
-        private readonly IUserService userService;
-        private readonly IMatchRepository matchRepository;
-
-        public MatchService(IUserService userService, IMatchRepository matchRepository)
-        {
-            this.userService = userService;
-            this.matchRepository = matchRepository;
-        }
-
         public async Task<Match> Get(int id)
         {
             var user = await userService.GetUserAsync();

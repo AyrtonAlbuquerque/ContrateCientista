@@ -1,14 +1,8 @@
 namespace Api.Exceptions
 {
-    public class ApiException : Exception
+    public class ApiException(string message, int statusCode, Exception exception = null) : Exception(message, exception)
     {
-        public int StatusCode { get; set; }
-        public string Details { get; set; }
-
-        public ApiException(string message, int statusCode, Exception exception = null) : base(message, exception)
-        {
-            StatusCode = statusCode;
-            Details = (exception?.InnerException ?? exception)?.Message;
-        }
+        public int StatusCode { get; set; } = statusCode;
+        public string Details { get; set; } = (exception?.InnerException ?? exception)?.Message;
     }
 }

@@ -8,15 +8,8 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController(IAuthService authService) : ControllerBase
     {
-        private readonly IAuthService authService;
-
-        public AuthController(IAuthService authService)
-        {
-            this.authService = authService;
-        }
-
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]

@@ -4,16 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Domain.Repository.Base
 {
-    public abstract class Repository<T> : IRepository<T> where T : BaseTable
+    public abstract class Repository<T>(DataContext context) : IRepository<T> where T : BaseTable
     {
-        private readonly DataContext context;
-        private readonly DbSet<T> entity;
-
-        public Repository(DataContext context)
-        {
-            this.context = context;
-            this.entity = context.Set<T>();
-        }
+        private readonly DbSet<T> entity = context.Set<T>();
 
         public int Count()
         {

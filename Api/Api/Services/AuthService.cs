@@ -8,17 +8,8 @@ using Mapster;
 
 namespace Api.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService(IUserRepository userRepository, ITokenService tokenService) : IAuthService
     {
-        private readonly IUserRepository userRepository;
-        private readonly ITokenService tokenService;
-
-        public AuthService(IUserRepository userRepository, ITokenService tokenService)
-        {
-            this.userRepository = userRepository;
-            this.tokenService = tokenService;
-        }
-
         public async Task<LoginResponse> Login(Login login)
         {
             var user = await userRepository.GetAsync(login.Email, ValidationHelper.HashPassword(login.Password)) ?? throw new BadRequestException("Usuário ou Senha Inválidos.");

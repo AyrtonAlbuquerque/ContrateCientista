@@ -3,17 +3,8 @@ using Api.Exceptions;
 
 namespace Api.Middleware
 {
-    public class ExceptionMiddleware
+    public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
-        private readonly RequestDelegate next;
-        private readonly ILogger<ExceptionMiddleware> logger;
-
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
-        {
-            this.next = next;
-            this.logger = logger;
-        }
-
         public async Task InvokeAsync(HttpContext context)
         {
             try

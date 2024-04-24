@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Domain.Data
 {
-    public class DataContext : DbContext
+    public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
     {
         public DbSet<Laboratory> Laboratory => Set<Laboratory>();
         public DbSet<Address> Address => Set<Address>();
@@ -18,10 +18,6 @@ namespace Api.Domain.Data
         public DbSet<User> User => Set<User>();
         public DbSet<Keyword> Keyword => Set<Keyword>();
         public DbSet<Status> Status => Set<Status>();
-
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

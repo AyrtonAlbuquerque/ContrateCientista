@@ -12,10 +12,10 @@ namespace Api.Utilities
 
         public static bool ValidatePassword(string password)
         {
-            return string.IsNullOrEmpty(password) ? false : password.Length >= 8 && password.Any(char.IsDigit) && password.Any(char.IsLetter);
+            return !string.IsNullOrEmpty(password) && password.Length >= 8 && password.Any(char.IsDigit) && password.Any(char.IsLetter);
         }
 
-        public static bool ValidateCNPJ(string cnpj)
+        public static bool ValidateCnpj(string cnpj)
         {
             if (!string.IsNullOrEmpty(cnpj))
             {
@@ -26,14 +26,14 @@ namespace Api.Utilities
                 if (GetVerifyingDigit(cnpj.Substring(0, 12), 1) == cnpj.Substring(12, 1))
                 {
                     if (GetVerifyingDigit(cnpj.Substring(0, 13), 1) == cnpj.Substring(13, 1))
-                        return !(cnpj.Distinct().Count() == 1);
+                        return cnpj.Distinct().Count() != 1;
                 }
             }
 
             return false;
         }
 
-        public static string FormatCNPJ(string cnpj)
+        public static string FormatCnpj(string cnpj)
         {
             return cnpj.Trim().Replace(".", "").Replace("-", "").Replace("/", "").PadLeft(14, '0');
         }

@@ -13,34 +13,15 @@ using Keyword = Api.Domain.Model.Keyword;
 
 namespace Api.Services
 {
-    public class DemandService : IDemandService
+    public class DemandService(
+        IUserService userService,
+        ILanguageService languageService,
+        IPersonRepository personRepository,
+        IStatusRepository statusRepository,
+        IDemandRepository demandRepository,
+        IKeywordRepository keywordRepository,
+        ILaboratoryRepository laboratoryRepository) : IDemandService
     {
-        private readonly IUserService userService;
-        private readonly ILanguageService languageService;
-        private readonly IPersonRepository personRepository;
-        private readonly IStatusRepository statusRepository;
-        private readonly IDemandRepository demandRepository;
-        private readonly IKeywordRepository keywordRepository;
-        private readonly ILaboratoryRepository laboratoryRepository;
-
-        public DemandService(
-            IUserService userService,
-            ILanguageService languageService,
-            IPersonRepository personRepository,
-            IStatusRepository statusRepository,
-            IDemandRepository demandRepository,
-            IKeywordRepository keywordRepository,
-            ILaboratoryRepository laboratoryRepository)
-        {
-            this.userService = userService;
-            this.languageService = languageService;
-            this.personRepository = personRepository;
-            this.statusRepository = statusRepository;
-            this.demandRepository = demandRepository;
-            this.keywordRepository = keywordRepository;
-            this.laboratoryRepository = laboratoryRepository;
-        }
-
         public async Task<Contracts.Common.Demand> Get(int id)
         {
             var user = await userService.GetUserAsync();

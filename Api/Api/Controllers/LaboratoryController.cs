@@ -9,15 +9,8 @@ namespace Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class LaboratoryController : ControllerBase
+    public class LaboratoryController(ILaboratoryService laboratoryService) : ControllerBase
     {
-        private readonly ILaboratoryService laboratoryService;
-
-        public LaboratoryController(ILaboratoryService laboratoryService)
-        {
-            this.laboratoryService = laboratoryService;
-        }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Laboratory))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]

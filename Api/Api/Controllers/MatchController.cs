@@ -8,15 +8,8 @@ namespace Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class MatchController : ControllerBase
+    public class MatchController(IMatchService matchService) : ControllerBase
     {
-        private readonly IMatchService matchService;
-
-        public MatchController(IMatchService matchService)
-        {
-            this.matchService = matchService;
-        }
-
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Match))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Error))]
