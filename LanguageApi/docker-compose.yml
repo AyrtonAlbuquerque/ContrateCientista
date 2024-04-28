@@ -1,7 +1,11 @@
-version: '3.8'
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - contrate-cientista-language-api:1.0.0
+        - contrate-cientista-language-api:latest
     container_name: "contrate-cientista-language-api"
     ports:
       - "8000:8000"
@@ -10,3 +14,9 @@ services:
       - AWS_ACCESS_KEY=<Key>
       - AWS_SECRET_KEY=<Key>
       - AZURE_LANGUAGE_KEY=<Key>
+    networks:
+      - contrate-cientista-network
+
+networks:
+  contrate-cientista-network:
+    name: contrate-cientista-network

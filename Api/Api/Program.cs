@@ -39,7 +39,7 @@ namespace Api
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Contrate um Cientista",
-                    Version = "1.0",
+                    Version = "1.0.0",
                     Description = "API Contrate Um Cientista",
                     Contact = new OpenApiContact
                     {

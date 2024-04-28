@@ -59,16 +59,55 @@ Use [this](https://www.tablesgenerator.com/markdown_tables) site to generate tab
 
 ## Requirements
 
-Describe here the tools required for the project. To keep things simple to read and understand use lists and links. You can also use badges for better visual information. You can use [this](https://dev.to/envoy_/150-badges-for-github-pnk) link to get badges for a lot a tools.
+<!-- Describe here the tools required for the project. To keep things simple to read and understand use lists and links. You can also use badges for better visual information. You can use [this](https://dev.to/envoy_/150-badges-for-github-pnk) link to get badges for a lot a tools.
 
 - [![Angular][angular.badge]][angular.url]
 - [![Node][node.badge]][node.url]
 - [![JavaScript][javascript.badge]][javascript.url]
-- [![.NET][.net.badge]][.net.url]
+- [![.NET][.net.badge]][.net.url] -->
+
+To host this Platform you will need a Linux server with Docker Engine installed.
 
 ## Installation
 
-Describe here the steps necessary to install your project. Prefer the use of lists/commands/images over pure text, for example:
+1. Create a commom docker network for the containers
+
+```sh
+docker network create -d bridge contrate-cientista-network
+```
+
+2. Pull a Postgres image from Docker and set it to use the previously created network
+
+```sh
+docker run --name contrate-cientista-database -p 5432:5432 \
+--network contrate-cientista-network \
+-e POSTGRES_PASSWORD=<Password> \
+-d postgres:latest
+```
+
+3. Pull the Language API from Docker and set it to use the previously created network (Replace the \<Key> with each respective API key):
+
+```sh
+docker run --name contrate-cientista-language-api -p 8000:8000 \
+--network contrate-cientista-network \
+-e OPENAI_API_KEY=<Key> \
+-e AWS_ACCESS_KEY=<Key> \
+-e AWS_SECRET_KEY=<Key> \
+-e AZURE_LANGUAGE_KEY=<Key> \
+-d ayrton297866/contrate-cientista-language-api:latest
+```
+
+4. Pull the API from Docker and set it to use the previously created network
+
+```sh
+docker run --name contrate-cientista-api -p 5000:5000 \
+--network contrate-cientista-network \
+-e ASPNETCORE_ENVIRONMENT=Production \
+-e ASPNETCORE_HTTP_PORTS=5000 \
+-d ayrton297866/contrate-cientista-api:latest
+```
+
+<!-- Describe here the steps necessary to install your project. Prefer the use of lists/commands/images over pure text, for example:
 
 1. Clone the repository
 
@@ -90,7 +129,7 @@ Describe here the steps necessary to install your project. Prefer the use of lis
 
 4. Copy the files at `📁 ./SomeDirectory` to `📁 /Users/Name`
 
-Use emojis like 📁 and 📜 in the example to better describe the type of actions that should be taken. You can access a list of available emojis at [this](https://www.webfx.com/tools/emoji-cheat-sheet/) link.
+Use emojis like 📁 and 📜 in the example to better describe the type of actions that should be taken. You can access a list of available emojis at [this](https://www.webfx.com/tools/emoji-cheat-sheet/) link. -->
 
 <!-- ---------------------------------------- Execution ---------------------------------------- -->
 <div align="center">

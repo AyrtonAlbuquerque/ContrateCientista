@@ -1,0 +1,53 @@
+﻿services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - contrate-cientista-api:1.0.0
+        - contrate-cientista-api:latest
+    container_name: "contrate-cientista-api"
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+    depends_on:
+      - database
+      - language
+    restart: always
+    networks:
+      - contrate-cientista-network
+
+  language:
+    image: ayrton297866/contrate-cientista-language-api:latest
+    container_name: contrate-cientista-language-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=<Key>
+      - AWS_ACCESS_KEY=<Key>
+      - AWS_SECRET_KEY=<Key>
+      - AZURE_LANGUAGE_KEY=<Key>
+    restart: always
+    networks:
+      - contrate-cientista-network
+
+  database:
+    image: postgres:latest
+    container_name: contrate-cientista-database
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=ozxelq12
+    volumes:
+      - ./.containers/contrate-cientista-database:/var/lib/postgresql/data
+    networks:
+      - contrate-cientista-network
+
+networks:
+  contrate-cientista-network:
+    name: contrate-cientista-network
