@@ -8,6 +8,10 @@ namespace Api.Contracts.Auth.Response
         [JsonPropertyName("userId")]
         public int Id { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("userType")]
+        public int? UserType { get; set; }
+
         [JsonRequired]
         [JsonPropertyName("type")]
         public string Type { get; set; }

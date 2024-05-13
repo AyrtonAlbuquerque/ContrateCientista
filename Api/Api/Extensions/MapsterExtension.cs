@@ -57,7 +57,8 @@ namespace Api.Extensions
                 .Map(dest => dest.Id, source => source.user.Id)
                 .Map(dest => dest.Type, source => source.token.Type)
                 .Map(dest => dest.Token, source => source.token.Value)
-                .Map(dest => dest.Expires, source => source.token.Expires);
+                .Map(dest => dest.Expires, source => source.token.Expires)
+                .Map(dest => dest.UserType, source => source.user.Company != null ? 0 : 1);
 
             TypeAdapterConfig<(IList<Contracts.Common.Keyword> keywords, Contracts.Common.Laboratory laboratory), User>
                 .NewConfig()
