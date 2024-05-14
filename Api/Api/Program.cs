@@ -90,6 +90,17 @@ namespace Api
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
+            // Enable CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyOrigin();
+                });
+            });
+
             // Add Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -109,7 +120,7 @@ namespace Api
 
             app.UseSwagger();
             app.UseSwaggerUI();
-            app.UseHttpsRedirection();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
