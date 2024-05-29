@@ -1,22 +1,39 @@
 import 'package:app/companies/company.dart';
 import 'package:app/companies/company_form_page.dart';
+import 'package:app/companies/company_service.dart';
 import 'package:app/demands/demands_page.dart';
-import 'package:app/home/user.dart';
-import 'package:app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
-class CompHomePage extends StatelessWidget {
-  CompHomePage({Key? key, required this.login}) : super(key: key);
-  final String login;
+class CompHomePage extends StatefulWidget {
+  CompHomePage();
 
-  // TODO: busca dados do usuario
-  // TODO: busca demandas do usuario logado
-  User user = User(email: 'test@gmail.com', company: Company(name: 'Company Test', cnpj: '123435624341', email: 'test@gmail.com', description: 'Evidentemente, o comprometimento entre as equipes apresenta tendências no sentido de aprovar a manutenção das condições financeiras e administrativas exigidas.'));
+  @override
+  State<StatefulWidget> createState() => CompHomePageState();
+}
+class CompHomePageState extends State {
+  CompHomePageState();
+
+  Company? company;
+
+  @override
+  void initState() {
+    super.initState();
+    getPostsFromApi();
+  }
+  Future<void> getPostsFromApi() async {
+    try {
+      company = await ApiCompanyService.getCompany();
+      // Update the state to rebuild the UI with the new data
+      setState(() {});
+    } catch (e) {
+      debugPrint('Exception: $e');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    List<String> allInitialLetters = user.company!.name.split(' ').map((l) => l[0]).toList();
-    final initialLetters = allInitialLetters[0] + allInitialLetters[1];
+    String initialLetter = company != null ? company!.name[0] : '';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Organização'),
@@ -30,10 +47,10 @@ class CompHomePage extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountEmail: Text(user.email),
-            accountName: Text(user.company!.name),
+            accountEmail: Text(company?.email ?? ''),
+            accountName: Text(company?.name ?? ''),
             currentAccountPicture: CircleAvatar(
-              child: Text(initialLetters),
+              child: Text(initialLetter),
             ),
           ),
           ListTile(
@@ -62,7 +79,7 @@ class CompHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CompanyFormPage(company: user.company),
+                  builder: (context) => CompanyFormPage(company: company),
                 )
               );
             },

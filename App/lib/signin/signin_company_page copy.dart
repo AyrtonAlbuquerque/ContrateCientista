@@ -1,3 +1,4 @@
+import 'package:app/companies/company_form_page.dart';
 import 'package:flutter/material.dart';
 
 class SigninCompanyPage extends StatelessWidget {
@@ -57,10 +58,14 @@ class SigninCompanyPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
-                    child: const Text('Criar'),
+                    child: const Text('Próximo'),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // enviar dados
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CompanyFormPage(login: loginController.text, password: passwordController.text)),
+                          );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

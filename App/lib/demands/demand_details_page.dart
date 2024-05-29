@@ -1,4 +1,5 @@
 import 'package:app/demands/demand.dart';
+import 'package:app/demands/demand_service.dart';
 import 'package:app/labs/lab.dart';
 import 'package:flutter/material.dart';
 import 'package:app/labs/labs_page.dart';
@@ -30,28 +31,37 @@ List<Map<String, dynamic>> listOfLabs = [
   }
 ];
 List<ElegibleLabs> labs = listOfLabs.map((map) => ElegibleLabs.fromMap(map)).toList();
-DemandDetail demand = DemandDetail(
-    id: '8f779a42-0fd7-4dad-8511-7d97b648afe6',
-    title: 'Revestimento regenerativo para peças metálicas',
-    company: 'Empresa B',
-    description:
-        'A literatura mostra a utilização de revestimento regenerativo como alternativa aos métodos de pintura convencional e galvanizada, o que pode ser uma oportunidade interessante para a qualidade percebida das nossas peças metálicas. Para avaliar essa possibilidade, propõe-se fazer um estudo comparativo entre peças pintadas com revestimento regenerativo, pintura convencional e galvanização e verificar se possuem desempenho similar.',
-    department: 'DE-TC',
-    benefits:
-        'Redução de custos; Maior facilidade no processo de pintura; Maior durabilidade',
-    details:
-        'Formação: Graduação em Engenharia Mecânica, Engenharia de Materiais ou Engenharia Química. Pré-requisitos em conhecimentos específicos: Conhecimento em métodos de pintura; Idiomas: Inglês, francês será um diferencial.',
-    restrictions:
-        'A literatura mostra a utilização de revestimento regenerativo como alternativa aos métodos de pintura convencional e galvanizada, o que pode ser uma oportunidade interessante para a qualidade percebida das nossas peças metálicas. Para avaliar essa possibilidade, propõe-se fazer um estudo comparativo entre peças pintadas com revestimento regenerativo, pintura convencional e galvanização e verificar se possuem desempenho similar.',
-    keywords: 'keywordA, keywordB, keywordC',
-    eligibleLabs: labs);
 
+Demand? demand;
 
-class DemandDetailsPage extends StatelessWidget {
-  DemandDetailsPage({Key? key, required this.demandId, required this.isLab})
-      : super(key: key);
-  final String demandId;
+class DemandDetailsPage extends StatefulWidget {
+  DemandDetailsPage({required this.demandId, required this.isLab});
+  final int? demandId;
   final bool isLab;
+
+  @override
+  State<StatefulWidget> createState() => DemandDetailsPageState(demandId: demandId, isLab: isLab);
+}
+
+class DemandDetailsPageState extends State {
+  DemandDetailsPageState({required this.demandId, required this.isLab});
+  final int? demandId;
+  final bool isLab;
+
+  @override
+  void initState() {
+    super.initState();
+    getPostsFromApi();
+  }
+  Future<void> getPostsFromApi() async {
+    try {
+      demand = (await ApiDemandService.getDemandById(demandId))!;
+      // Update the state to rebuild the UI with the new data
+      setState(() {});
+    } catch (e) {
+      debugPrint('Exception: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +75,7 @@ class DemandDetailsPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Text(
-            demand.title,
+            demand?.title ?? '',
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -85,27 +95,27 @@ class DemandDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand.description),
+          child: Text(demand?.description ?? ''),
         ),
         Row(
           children: [
-            Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Text(
-                    'Organização',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                  child: Text(demand.company),
-                ),
-              ],
-            ),
-            const Spacer(),
+            // Column(
+            //   children: [
+            //     const Padding(
+            //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            //       child: Text(
+            //         'Organização',
+            //         style: TextStyle(fontWeight: FontWeight.bold),
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            //       child: Text(demand.company),
+            //     ),
+            //   ],
+            // ),
+            // const Spacer(),
             Column(
               children: [
                 const Padding(
@@ -118,7 +128,7 @@ class DemandDetailsPage extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                  child: Text(demand.department),
+                  child: Text(demand?.department ?? ''),
                 ),
               ],
             )
@@ -133,7 +143,7 @@ class DemandDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand.benefits),
+          child: Text(demand?.benefits ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -144,7 +154,7 @@ class DemandDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand.details),
+          child: Text(demand?.details ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -155,7 +165,7 @@ class DemandDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand.restrictions),
+          child: Text(demand?.restrictions ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -166,9 +176,9 @@ class DemandDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand.keywords),
+          child: Text(demand?.keywords?.join(', ') ?? ''),
         ),
-        if (!isLab) ...[LabsPage(elegibleLabs: demand.labs, isLab: isLab)],
+        // if (!isLab) ...[LabsPage(elegibleLabs: demand.labs, isLab: isLab)],
         const SizedBox(height: 50),
       ])),
     );

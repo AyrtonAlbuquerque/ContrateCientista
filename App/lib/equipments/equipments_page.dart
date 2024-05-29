@@ -115,7 +115,7 @@ class _EquipmentsPageState extends State<EquipmentsPage> {
                     ),
                     DataCell(
                       Text(
-                        e.area,
+                        e.area ?? '',
                         style: const TextStyle(
                           fontStyle: FontStyle.italic,
                         ),

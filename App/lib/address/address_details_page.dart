@@ -2,19 +2,10 @@ import 'package:app/address/address.dart';
 import 'package:flutter/material.dart';
 
 class AddressDetailsPage extends StatelessWidget {
-  AddressDetailsPage({Key? key, required this.addressId, required this.isLab})
+  AddressDetailsPage({Key? key, this.address, required this.isLab})
       : super(key: key);
-  final String addressId;
+  final Address? address;
   final bool isLab;
-
-  final Address address = Address(
-      id: 'ae6f5db2-0e44-4a0f-b60a-bf6956d7604e',
-      street: 'Av. Sete de Setembro',
-      number: '3165',
-      neighborhood: 'Rebouças',
-      city: 'Curitiba',
-      state: 'Parana',
-      country: 'Brasil');
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +21,12 @@ class AddressDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         child: Text(
           [
-            address.street,
-            address.number,
-            address.neighborhood,
-            address.city,
-            address.state,
-            address.country
+            address?.street,
+            address?.number,
+            address?.neighborhood,
+            address?.city,
+            address?.state,
+            address?.country
           ].join(', '),
           style: const TextStyle(fontSize: 16),
         ),

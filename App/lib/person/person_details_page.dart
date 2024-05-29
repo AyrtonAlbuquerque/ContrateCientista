@@ -5,19 +5,12 @@ class PersonDetailsPage extends StatelessWidget {
   PersonDetailsPage(
       {Key? key,
       required this.title,
-      required this.personId,
+      required this.person,
       required this.isLab})
       : super(key: key);
-  final String personId;
+  final Person person;
   final String title;
   final bool isLab;
-
-  final Person person = Person(
-      id: '6f344ab8-956b-4604-8697-54550a09fabf',
-      name: 'Walmor Cardoso Godoi',
-      department: 'DAFIS',
-      email: 'walmorgodoi@utfpr.edu.br',
-      phone: '');
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +37,7 @@ class PersonDetailsPage extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-        child: Text(person.department),
+        child: Text(person.departament),
       ),
       if (person.email != null && person.email != '') ...[
         const Padding(

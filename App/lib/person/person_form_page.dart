@@ -1,22 +1,24 @@
+import 'package:app/person/person.dart';
 import 'package:flutter/material.dart';
 
 class PersonFormPage extends StatelessWidget {
-  PersonFormPage(
-      {Key? key,
-      required this.nameController,
-      required this.departmentController,
-      required this.emailController,
-      required this.phoneController})
-      : super(key: key);
+  PersonFormPage({Key? key, this.person}) : super(key: key);
 
+  final Person? person;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController nameController;
-  final TextEditingController departmentController;
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController departmentController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (person != null) {
+      nameController.text = person!.name;
+      departmentController.text = person!.departament;
+      emailController.text = person!.email ?? '';
+      phoneController.text = person!.phone ?? '';
+    }
     return Container(
         alignment: Alignment.topLeft,
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [

@@ -1,5 +1,7 @@
 import 'package:app/home/comp_home_page.dart';
 import 'package:app/home/lab_home_page.dart';
+import 'package:app/login/login.dart';
+import 'package:app/login/login_service.dart';
 import 'package:app/signin/signin_page.dart';
 import 'package:flutter/material.dart';
 
@@ -58,27 +60,22 @@ class LoginPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (loginController.text == "test@gmail.com" &&
-                            passwordController.text == "test123") {
-                          // TODO: validar se é lab
-                          const isLab = false;
-                          if (isLab) {
+                        LoginResponse? loginResponse = await ApiLoginService.login(loginController.text, passwordController.text);
+                        print(loginResponse);
+                        if (loginResponse != null) {
+                          if (loginResponse.userType == 1) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LabHomePage(
-                                        login: loginController.text,
-                                      )),
+                                  builder: (context) => LabHomePage()),
                             );
                           } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CompHomePage(
-                                        login: loginController.text,
-                                      )),
+                                  builder: (context) => CompHomePage()),
                             );
                           }
                         } else {

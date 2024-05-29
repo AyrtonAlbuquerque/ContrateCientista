@@ -1,14 +1,14 @@
 class Equipment {
   String? id;
   String name;
-  String description;
-  String area;
+  String? description;
+  String? area;
 
   Equipment(
       {this.id,
       required this.name,
-      required this.description,
-      required this.area});
+      this.description,
+      this.area});
 
   static Equipment fromMap(Map<String, dynamic> map) {
     return Equipment(

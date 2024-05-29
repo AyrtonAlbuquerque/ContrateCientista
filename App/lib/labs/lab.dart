@@ -1,16 +1,17 @@
+import 'package:app/address/address.dart';
 import 'package:app/equipments/equipments.dart';
+import 'package:app/person/person.dart';
 import 'package:app/social-medias/social_media.dart';
 import 'package:app/softwares/software.dart';
 
 class Lab {
-  String? id;
+  int? id;
   String name;
-  String code;
-  String responsibleId;
-  String addressId;
   String description;
-  String certificates;
+  String? certificates;
   String foundationDate;
+  Person responsible;
+  Address address;
   List<Equipment>? equipments;
   List<SocialMedia>? socialMedias;
   List<Software>? softwares;
@@ -18,29 +19,39 @@ class Lab {
   Lab(
       {this.id,
       required this.name,
-      required this.code,
-      required this.responsibleId,
-      required this.addressId,
       required this.description,
-      required this.certificates,
+      this.certificates,
       required this.foundationDate,
+      required this.responsible,
+      required this.address,
       this.equipments,
       this.socialMedias,
       this.softwares});
 
   static Lab fromMap(Map<String, dynamic> map) {
+    List<Equipment> equipments = [];
+    for (final item in map['equipments']) {
+      equipments.add(Equipment.fromMap(item));
+    }
+    List<SocialMedia> socialMedias = [];
+    for (final item in map['socialMedias']) {
+      socialMedias.add(SocialMedia.fromMap(item));
+    }
+    List<Software> softwares = [];
+    for (final item in map['softwares']) {
+      softwares.add(Software.fromMap(item));
+    }
     return Lab(
         id: map['id'],
         name: map['name'],
-        code: map['code'],
-        responsibleId: map['responsibleId'],
-        addressId: map['addressId'],
         description: map['description'],
         certificates: map['certificates'],
         foundationDate: map['foundationDate'],
-        equipments: map['equipments'],
-        socialMedias: map['socialMedias'],
-        softwares: map['softwares']);
+        responsible: Person.fromMap(map['responsible']),
+        address: Address.fromMap(map['address']),
+        equipments: equipments,
+        socialMedias: socialMedias,
+        softwares: softwares);
   }
 }
 
@@ -49,13 +60,12 @@ class ElegibleLabs extends Lab {
   ElegibleLabs(
       {super.id,
       required super.name,
-      required super.code,
-      required super.responsibleId,
-      required super.addressId,
       required super.description,
       required super.certificates,
       required super.foundationDate,
       required this.match,
+      required super.responsible,
+      required super.address,
       super.equipments,
       super.socialMedias,
       super.softwares});
@@ -64,12 +74,11 @@ class ElegibleLabs extends Lab {
     return ElegibleLabs(
         id: map['id'],
         name: map['name'],
-        code: map['code'],
-        responsibleId: map['responsibleId'],
-        addressId: map['addressId'],
         description: map['description'],
         certificates: map['certificates'],
         foundationDate: map['foundationDate'],
+        responsible: map['responsible'],
+        address: map['address'],
         match: map['match'],
         equipments: map['equipments'],
         socialMedias: map['socialMedias'],

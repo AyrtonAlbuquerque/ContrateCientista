@@ -32,7 +32,7 @@ class LabsPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => LabDetailsPage(
-                                labId: e.id ?? '',
+                                labId: e.id!,
                                 isLab: isLab,
                               )),
                     );
@@ -62,7 +62,7 @@ class LabsPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => LabDetailsPage(
-                                labId: e.id ?? '',
+                                labId: e.id!,
                                 isLab: isLab,
                               )),
                     );

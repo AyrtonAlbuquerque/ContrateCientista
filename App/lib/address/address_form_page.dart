@@ -1,28 +1,31 @@
+import 'package:app/address/address.dart';
 import 'package:flutter/material.dart';
 
 class AddressFormPage extends StatelessWidget {
-  AddressFormPage(
-      {Key? key,
-      required this.streetController,
-      required this.numberController,
-      required this.neighborhoodController,
-      required this.cityController,
-      required this.stateController,
-      required this.countryController,
-      required this.extraController})
-      : super(key: key);
+  AddressFormPage({Key? key, this.address}) : super(key: key);
+
+  final Address? address;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController streetController;
-  final TextEditingController numberController;
-  final TextEditingController neighborhoodController;
-  final TextEditingController cityController;
-  final TextEditingController stateController;
-  final TextEditingController countryController;
-  final TextEditingController extraController;
+  final TextEditingController streetController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController neighborhoodController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController extraController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (address != null) {
+      streetController.text = address!.street;
+      numberController.text = address!.number as String;
+      neighborhoodController.text = address!.neighborhood;
+      cityController.text = address!.city;
+      stateController.text = address!.state;
+      countryController.text = address!.country;
+      extraController.text = address!.extra ?? '';
+    }
     return Container(
       alignment: Alignment.topLeft,
       child: Column(children: [
@@ -57,7 +60,6 @@ class AddressFormPage extends StatelessWidget {
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
                   controller: numberController,
-                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o número';
@@ -72,7 +74,6 @@ class AddressFormPage extends StatelessWidget {
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
                   controller: neighborhoodController,
-                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o bairro';
@@ -87,7 +88,6 @@ class AddressFormPage extends StatelessWidget {
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
                   controller: cityController,
-                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira a cidade';
@@ -101,7 +101,6 @@ class AddressFormPage extends StatelessWidget {
               child: TextFormField(
                 decoration: const InputDecoration(border: OutlineInputBorder()),
                 controller: stateController,
-                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, insira o estado';
@@ -116,7 +115,6 @@ class AddressFormPage extends StatelessWidget {
               child: TextFormField(
                 decoration: const InputDecoration(border: OutlineInputBorder()),
                 controller: countryController,
-                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, insira o país';
@@ -131,8 +129,7 @@ class AddressFormPage extends StatelessWidget {
               child: TextFormField(
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
-                  controller: extraController,
-                  obscureText: true),
+                  controller: extraController),
             ),
           ]),
         )

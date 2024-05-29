@@ -19,7 +19,7 @@ class EquipmentDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Text(equipment.description),
+          child: Text(equipment.description ?? ''),
         ),
       ]),
     );

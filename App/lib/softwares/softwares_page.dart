@@ -111,7 +111,7 @@ class _SoftwaresPageState extends State<SoftwaresPage> {
                     ),
                     DataCell(
                       Text(
-                        e.area,
+                        e.area ?? '',
                         style: const TextStyle(
                           fontStyle: FontStyle.italic,
                         ),

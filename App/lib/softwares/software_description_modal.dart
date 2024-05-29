@@ -19,7 +19,7 @@ class SoftwareDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Text(software.description),
+          child: Text(software.description ?? ''),
         )
       ]),
     );

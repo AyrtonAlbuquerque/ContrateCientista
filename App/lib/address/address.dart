@@ -1,7 +1,7 @@
 class Address {
   String? id;
   String street;
-  String number;
+  int number;
   String neighborhood;
   String city;
   String state;
