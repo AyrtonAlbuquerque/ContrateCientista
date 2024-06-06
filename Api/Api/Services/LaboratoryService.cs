@@ -36,6 +36,7 @@ namespace Api.Services
         {
             BadRequestException.ThrowIf(await userRepository.ExistsAsync(laboratory.Responsible.Email), "E-mail já cadastrado.");
             BadRequestException.ThrowIf(!ValidationHelper.ValidatePassword(laboratory.Responsible.Password), "Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
+            BadRequestException.ThrowIf(string.IsNullOrEmpty(laboratory.Description), "A descrição do laboratório é obrigatória.");
 
             var keywords = await languageService.Extract(new Description { Text = laboratory.Description });
             var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
