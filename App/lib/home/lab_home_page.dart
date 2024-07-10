@@ -1,4 +1,4 @@
-import 'package:app/demands/demands_page.dart';
+import 'package:app/demands/demands_lab_page.dart';
 import 'package:app/labs/lab.dart';
 import 'package:app/labs/lab_form_page.dart';
 import 'package:app/labs/labs_service.dart';
@@ -63,7 +63,7 @@ class LabHomePageState extends State {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DemandsPage(isLab: true)),
+                  builder: (context) => DemandsLabPage()),
               );
             },
           ),

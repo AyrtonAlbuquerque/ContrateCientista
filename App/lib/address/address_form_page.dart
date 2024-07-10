@@ -2,9 +2,9 @@ import 'package:app/address/address.dart';
 import 'package:flutter/material.dart';
 
 class AddressFormPage extends StatelessWidget {
-  AddressFormPage({Key? key, this.address}) : super(key: key);
+  AddressFormPage({Key? key, required this.address}) : super(key: key);
 
-  final Address? address;
+  final Address address;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController streetController = TextEditingController();
@@ -17,15 +17,13 @@ class AddressFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (address != null) {
-      streetController.text = address!.street;
-      numberController.text = address!.number as String;
-      neighborhoodController.text = address!.neighborhood;
-      cityController.text = address!.city;
-      stateController.text = address!.state;
-      countryController.text = address!.country;
-      extraController.text = address!.extra ?? '';
-    }
+    streetController.text = address.street;
+    numberController.text = address.number.toString();
+    neighborhoodController.text = address.neighborhood;
+    cityController.text = address.city;
+    stateController.text = address.state;
+    countryController.text = address.country;
+    extraController.text = address.extra ?? '';
     return Container(
       alignment: Alignment.topLeft,
       child: Column(children: [
@@ -51,6 +49,9 @@ class AddressFormPage extends StatelessWidget {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  address.street = value;
+                },
               ),
             ),
             const Text('Numero *'),
@@ -65,6 +66,9 @@ class AddressFormPage extends StatelessWidget {
                       return 'Por favor, insira o número';
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    address.number = int.parse(value);
                   }),
             ),
             const Text('Bairro *'),
@@ -79,6 +83,9 @@ class AddressFormPage extends StatelessWidget {
                       return 'Por favor, insira o bairro';
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    address.neighborhood = value;
                   }),
             ),
             const Text('Cidade *'),
@@ -93,6 +100,9 @@ class AddressFormPage extends StatelessWidget {
                       return 'Por favor, insira a cidade';
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    address.city = value;
                   }),
             ),
             const Text('Estado *'),
@@ -106,6 +116,9 @@ class AddressFormPage extends StatelessWidget {
                     return 'Por favor, insira o estado';
                   }
                   return null;
+                },
+                onChanged: (value) {
+                  address.state = value;
                 },
               ),
             ),
@@ -121,6 +134,9 @@ class AddressFormPage extends StatelessWidget {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  address.country = value;
+                },
               ),
             ),
             const Text('Complemento'),
@@ -129,7 +145,10 @@ class AddressFormPage extends StatelessWidget {
               child: TextFormField(
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
-                  controller: extraController),
+                  controller: extraController,
+                  onChanged: (value) {
+                    address.extra = value;
+                  }),
             ),
           ]),
         )

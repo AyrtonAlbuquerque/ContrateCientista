@@ -39,7 +39,7 @@ class PersonDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
         child: Text(person.departament),
       ),
-      if (person.email != null && person.email != '') ...[
+      if (person.email != '') ...[
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           child: Text(
@@ -49,7 +49,7 @@ class PersonDetailsPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          child: Text(person.email ?? ''),
+          child: Text(person.email),
         )
       ],
       if (person.phone != null && person.phone != '') ...[

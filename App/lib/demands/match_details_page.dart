@@ -1,58 +1,31 @@
 import 'package:app/demands/demand.dart';
-import 'package:app/demands/demand_service.dart';
-import 'package:app/labs/lab.dart';
+import 'package:app/demands/match_service.dart';
 import 'package:flutter/material.dart';
 
-List<Map<String, dynamic>> listOfLabs = [
-  {
-    'id': '9600f5b9-491a-455a-b43c-4552e7655947',
-    'name': 'Laboratório de Luminescência Estimulada e Dosimetria',
-    'code': 'LLED',
-    'responsibleId': '2',
-    'addressId': '2',
-    'description':
-        'Pesquisa#Ensino: Desenvolvimento de instrumentação e detectores luminescentes para medidas de radiação ionizante',
-    'certificates': 'CNEN',
-    'foundationDate': '2013-2018',
-    'match': 98
-  },
-  {
-    'id': '6ae117b5-4891-4778-a2fe-b06100027441',
-    'name': 'Laboratório de Física Computacional',
-    'code': 'C0D3',
-    'responsibleId': '4',
-    'addressId': '4',
-    'description':
-        'Pesquisa. Simulação de redes complexas. Cálculo de estrutura eletrônica. Espalhamento de reações nucleares. Dinâmica molecular',
-    'certificates': '',
-    'foundationDate': '2008-2013',
-    'match': 76
-  }
-];
-List<ElegibleLabs> labs = listOfLabs.map((map) => ElegibleLabs.fromMap(map)).toList();
+Match? match;
 
-Demand? demand;
-
-class DemandDetailsPage extends StatefulWidget {
-  DemandDetailsPage({required this.demandId});
-  final int? demandId;
+class MatchDetailsPage extends StatefulWidget {
+  MatchDetailsPage({required this.matchId});
+  final int? matchId;
 
   @override
-  State<StatefulWidget> createState() => DemandDetailsPageState(demandId: demandId);
+  State<StatefulWidget> createState() =>
+      MatchDetailsPageState(matchId: matchId);
 }
 
-class DemandDetailsPageState extends State {
-  DemandDetailsPageState({required this.demandId});
-  final int? demandId;
+class MatchDetailsPageState extends State {
+  MatchDetailsPageState({required this.matchId});
+  final int? matchId;
 
   @override
   void initState() {
     super.initState();
     getPostsFromApi();
   }
+
   Future<void> getPostsFromApi() async {
     try {
-      demand = (await ApiDemandService.getDemandById(demandId))!;
+      match = (await ApiMatchService.getMatchById(matchId))!;
       // Update the state to rebuild the UI with the new data
       setState(() {});
     } catch (e) {
@@ -72,7 +45,7 @@ class DemandDetailsPageState extends State {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Text(
-            demand?.title ?? '',
+            match?.demand.title ?? '',
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
@@ -85,7 +58,7 @@ class DemandDetailsPageState extends State {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand?.description ?? ''),
+          child: Text(match?.demand.description ?? ''),
         ),
         Row(
           children: [
@@ -101,7 +74,7 @@ class DemandDetailsPageState extends State {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                  child: Text(demand?.department ?? ''),
+                  child: Text(match?.demand.department ?? ''),
                 ),
               ],
             )
@@ -116,7 +89,7 @@ class DemandDetailsPageState extends State {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand?.benefits ?? ''),
+          child: Text(match?.demand.benefits ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -127,7 +100,7 @@ class DemandDetailsPageState extends State {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand?.details ?? ''),
+          child: Text(match?.demand.details ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -138,7 +111,7 @@ class DemandDetailsPageState extends State {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand?.restrictions ?? ''),
+          child: Text(match?.demand.restrictions ?? ''),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -149,9 +122,8 @@ class DemandDetailsPageState extends State {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Text(demand?.keywords?.join(', ') ?? ''),
+          child: Text(match?.demand.keywords?.join(', ') ?? ''),
         ),
-        // if (!isLab) ...[LabsPage(elegibleLabs: demand.labs, isLab: isLab)],
         const SizedBox(height: 50),
       ])),
     );

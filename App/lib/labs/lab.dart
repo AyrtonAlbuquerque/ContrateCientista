@@ -8,6 +8,7 @@ class Lab {
   int? id;
   String name;
   String description;
+  String code;
   String? certificates;
   String foundationDate;
   Person responsible;
@@ -21,6 +22,7 @@ class Lab {
       required this.name,
       required this.description,
       this.certificates,
+      required this.code,
       required this.foundationDate,
       required this.responsible,
       required this.address,
@@ -45,6 +47,7 @@ class Lab {
         id: map['id'],
         name: map['name'],
         description: map['description'],
+        code: map['code'],
         certificates: map['certificates'],
         foundationDate: map['foundationDate'],
         responsible: Person.fromMap(map['responsible']),
@@ -61,6 +64,7 @@ class ElegibleLabs extends Lab {
       {super.id,
       required super.name,
       required super.description,
+      required super.code,
       required super.certificates,
       required super.foundationDate,
       required this.match,
@@ -75,6 +79,7 @@ class ElegibleLabs extends Lab {
         id: map['id'],
         name: map['name'],
         description: map['description'],
+        code: map['code'],
         certificates: map['certificates'],
         foundationDate: map['foundationDate'],
         responsible: map['responsible'],

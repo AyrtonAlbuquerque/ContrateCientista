@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class LoginResponse {
   String token;
   int userType;

@@ -1,10 +1,15 @@
 import 'package:app/demands/demand.dart';
+import 'package:app/demands/demand_service.dart';
+import 'package:app/demands/demands_lab_page.dart';
+import 'package:app/demands/demands_page.dart';
 import 'package:flutter/material.dart';
 
 class DemandFormPage extends StatelessWidget {
-  DemandFormPage({Key? key, this.demand}) : super(key: key);
+  DemandFormPage({Key? key, this.demand, required this.isLab})
+      : super(key: key);
 
   final Demand? demand;
+  final bool isLab;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
@@ -42,8 +47,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: titleController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -58,8 +63,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: descriptionController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -74,8 +79,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: departmentController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -90,8 +95,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: benefitsController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -106,8 +111,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: detailsController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -122,8 +127,8 @@ class DemandFormPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder()),
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                     controller: restrictionsController,
                   ),
                 ),
@@ -134,7 +139,21 @@ class DemandFormPage extends StatelessWidget {
                     child: const Text('Criar'),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // pega a company do usuario logado, e envia para o back
+                        // todo params
+                        ApiDemandService.createDemand();
+                        if (isLab) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DemandsPage()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DemandsLabPage()),
+                          );
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

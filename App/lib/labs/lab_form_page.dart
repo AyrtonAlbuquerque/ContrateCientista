@@ -1,16 +1,23 @@
 import 'package:app/address/address.dart';
 import 'package:app/address/address_form_page.dart';
-import 'package:app/equipments/equipments.dart';
 import 'package:app/equipments/equipments_page.dart';
 import 'package:app/labs/lab.dart';
+import 'package:app/labs/labs_service.dart';
+import 'package:app/login/login_page.dart';
 import 'package:app/person/person.dart';
 import 'package:app/person/person_form_page.dart';
 import 'package:app/social-medias/social_media.dart';
 import 'package:app/social-medias/social_medias_page.dart';
-import 'package:app/softwares/software.dart';
 import 'package:app/softwares/softwares_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+var responsible = Person(name: '', departament: '', email: '');
+var address = Address(
+    street: '', number: 0, neighborhood: '', city: '', state: '', country: '');
+var socialMedias = [SocialMedia(link: '')];
+//softwares
+//equipments
 
 class LabFormPage extends StatelessWidget {
   LabFormPage({Key? key, this.login, this.password, this.lab})
@@ -22,40 +29,23 @@ class LabFormPage extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController certificatesController = TextEditingController();
   final TextEditingController foundationDateController =
       TextEditingController();
-
-  Person? responsible;
-  Address? address;
-  List<Equipment> equipments = [];
-  List<SocialMedia> socialMedias = [];
-  List<Software> softwares = [];
 
   @override
   Widget build(BuildContext context) {
     if (lab != null) {
       nameController.text = lab!.name;
       descriptionController.text = lab!.description;
+      codeController.text = lab!.code;
       certificatesController.text = lab!.certificates ?? '';
       foundationDateController.text = lab!.foundationDate;
-      // TODO: busca address
-      address = Address(
-          id: 'ae6f5db2-0e44-4a0f-b60a-bf6956d7604e',
-          street: 'Av. Sete de Setembro',
-          number: 3165,
-          neighborhood: 'Rebouças',
-          city: 'Curitiba',
-          state: 'Parana',
-          country: 'Brasil');
-      // TODO: busca responsavel
-      responsible = Person(
-          id: '6f344ab8-956b-4604-8697-54550a09fabf',
-          name: 'Walmor Cardoso Godoi',
-          departament: 'DAFIS',
-          email: 'walmorgodoi@utfpr.edu.br',
-          phone: '');
+      responsible = lab!.responsible;
+      address = lab!.address;
+      socialMedias = lab!.socialMedias ?? [];
     }
     return Scaffold(
       appBar: AppBar(
@@ -75,6 +65,20 @@ class LabFormPage extends StatelessWidget {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Por favor, insira um nome';
+                }
+                return null;
+              },
+            ),
+          ),
+          const Text('Código *'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: TextFormField(
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              controller: codeController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um código';
                 }
                 return null;
               },
@@ -123,8 +127,13 @@ class LabFormPage extends StatelessWidget {
           SocialMediasPage(
               socialMedias: socialMedias, isLab: true, create: lab == null),
           EquipmentsPage(
-              equipments: equipments, isLab: true, create: lab == null),
-          SoftwaresPage(softwares: softwares, isLab: true, create: lab == null),
+              equipments: lab?.equipments ?? [],
+              isLab: true,
+              create: lab == null),
+          SoftwaresPage(
+              softwares: lab?.softwares ?? [],
+              isLab: true,
+              create: lab == null),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: ElevatedButton(
@@ -134,7 +143,18 @@ class LabFormPage extends StatelessWidget {
                   if (lab != null) {
                     // TODO: atualizar lab
                   } else {
-                    // TODO: criar lab
+                    ApiLabService.createLab(
+                        nameController.text,
+                        codeController.text,
+                        descriptionController.text,
+                        certificatesController.text,
+                        foundationDateController.text,
+                        responsible);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage(title: 'Login')),
+                    );
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

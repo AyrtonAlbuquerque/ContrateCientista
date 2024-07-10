@@ -63,9 +63,7 @@ class CompHomePageState extends State {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DemandsPage(
-                    isLab: false,
-                  )),
+                  builder: (context) => DemandsPage()),
               );
             },
           ),

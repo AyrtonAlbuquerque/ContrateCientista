@@ -4,4 +4,5 @@ class ApiConstants {
   static String companyEndpoint = '/company';
   static String labEndpoint = '/laboratory';
   static String demandEndpoint = '/demand';
+  static String matchEndpoint = '/match';
 }

@@ -1,20 +1,19 @@
-import 'package:app/demands/demand_form_page.dart';
 import 'package:app/demands/demand.dart';
-import 'package:app/demands/demand_details_page.dart';
-import 'package:app/demands/demand_service.dart';
+import 'package:app/demands/match_details_page.dart';
+import 'package:app/demands/match_service.dart';
 import 'package:flutter/material.dart';
 
-class DemandsPage extends StatefulWidget {
-  DemandsPage();
+class DemandsLabPage extends StatefulWidget {
+  DemandsLabPage();
 
   @override
-  State<StatefulWidget> createState() => DemandsPageState();
+  State<StatefulWidget> createState() => DemandsLabPageState();
 }
 
-List<Demand> demands = [];
+List<Match> matches = [];
 
-class DemandsPageState extends State {
-  DemandsPageState();
+class DemandsLabPageState extends State {
+  DemandsLabPageState();
 
   @override
   void initState() {
@@ -24,7 +23,7 @@ class DemandsPageState extends State {
 
   Future<void> getPostsFromApi() async {
     try {
-      demands = (await ApiDemandService.getDemand())!;
+      matches = (await ApiMatchService.getMatches())!;
       // Update the state to rebuild the UI with the new data
       setState(() {});
     } catch (e) {
@@ -41,17 +40,6 @@ class DemandsPageState extends State {
         ),
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: ElevatedButton(
-                  child: const Text('Criar demanda'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DemandFormPage(isLab: false)),
-                    );
-                  }),
-            ),
             DataTable(
               columns: const <DataColumn>[
                 DataColumn(
@@ -71,13 +59,13 @@ class DemandsPageState extends State {
                   ),
                 ),
               ],
-              rows: demands
+              rows: matches
                   .map(
                     (e) => DataRow(
                       cells: [
                         DataCell(
                           Text(
-                            e.title,
+                            e.demand.title,
                             style: const TextStyle(
                               fontStyle: FontStyle.italic,
                             ),
@@ -90,25 +78,12 @@ class DemandsPageState extends State {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DemandDetailsPage(
-                                          demandId: e.id,
+                                    builder: (context) => MatchDetailsPage(
+                                          matchId: e.id,
                                         )),
                               );
                             },
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.edit_outlined),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DemandFormPage(
-                                          demand: e,
-                                          isLab: false,
-                                        )),
-                              );
-                            },
-                          )
                         ])),
                       ],
                     ),

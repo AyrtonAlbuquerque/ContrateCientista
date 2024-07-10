@@ -68,7 +68,7 @@ class _SocialMediasPageState extends State<SocialMediasPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      e.type ?? '',
+                      e.type ?? 'Link',
                       style: const TextStyle(
                         decoration: TextDecoration.underline,
                       ),

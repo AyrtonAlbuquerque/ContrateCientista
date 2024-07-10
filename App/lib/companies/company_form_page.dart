@@ -1,8 +1,12 @@
 import 'package:app/companies/company.dart';
+import 'package:app/companies/company_service.dart';
+import 'package:app/home/comp_home_page.dart';
+import 'package:app/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 class CompanyFormPage extends StatelessWidget {
-  CompanyFormPage({Key? key, this.login, this.password, this.company}) : super(key: key);
+  CompanyFormPage({Key? key, this.login, this.password, this.company})
+      : super(key: key);
 
   final String? login;
   final String? password;
@@ -22,9 +26,13 @@ class CompanyFormPage extends StatelessWidget {
       emailController.text = company!.email;
       descriptionController.text = company!.description;
     }
+    if (login != null) {
+      emailController.text = login!;
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text(company != null ? 'Organização' : 'Criar conta de organização'),
+        title: Text(
+            company != null ? 'Organização' : 'Criar conta de organizaçãoo'),
         backgroundColor: const Color.fromARGB(255, 255, 166, 0),
       ),
       body: SingleChildScrollView(
@@ -73,9 +81,19 @@ class CompanyFormPage extends StatelessWidget {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (company != null) {
-                    // TODO: atualizar company
+                    ApiCompanyService.updateCompany(nameController.text, cnpjController.text, emailController.text, password, descriptionController.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CompHomePage()),
+                    );
                   } else {
-                    // TODO: criar company
+                    ApiCompanyService.createCompany(nameController.text, cnpjController.text, emailController.text, password, descriptionController.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage(title: 'Login')),
+                    );
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

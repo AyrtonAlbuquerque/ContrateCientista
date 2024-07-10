@@ -1,21 +1,18 @@
 import 'package:app/address/address_details_page.dart';
-import 'package:app/equipments/equipments.dart';
 import 'package:app/equipments/equipments_page.dart';
 import 'package:app/labs/lab.dart';
 import 'package:app/person/person_details_page.dart';
-import 'package:app/social-medias/social_media.dart';
 import 'package:app/social-medias/social_medias_page.dart';
-import 'package:app/softwares/software.dart';
 import 'package:app/softwares/softwares_page.dart';
 import 'package:flutter/material.dart';
+
+Lab? lab;
 
 class LabDetailsPage extends StatelessWidget {
   LabDetailsPage({Key? key, required this.labId, required this.isLab})
       : super(key: key);
   final int labId;
   final bool isLab;
-
-  Lab? lab;
 
   @override
   Widget build(BuildContext context) {
