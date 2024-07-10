@@ -20,7 +20,7 @@ namespace Api.Contracts.Common
         [JsonPropertyName("code")]
         public string Code { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("description")]
         public string Description { get; set; }
 
@@ -32,11 +32,11 @@ namespace Api.Contracts.Common
         [JsonPropertyName("foundationDate")]
         public string FoundationDate { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("responsible")]
         public Responsible Responsible { get; set; }
 
-        [JsonRequired]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("address")]
         public Address Address { get; set; }
 
