@@ -7,7 +7,6 @@ namespace Api.Domain.Map
 {
     public class StatusMap : BaseMap<Status>
     {
-
         protected override void Configure(EntityTypeBuilder<Status> builder)
         {
             // Primary Key
