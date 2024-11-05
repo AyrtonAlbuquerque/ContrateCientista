@@ -63,7 +63,6 @@ class LoginPage extends StatelessWidget {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         LoginResponse? loginResponse = await ApiLoginService.login(loginController.text, passwordController.text);
-                        print(loginResponse);
                         if (loginResponse != null) {
                           if (loginResponse.userType == 1) {
                             Navigator.push(

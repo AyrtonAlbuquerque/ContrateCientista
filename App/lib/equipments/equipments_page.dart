@@ -66,6 +66,7 @@ class _EquipmentsPageState extends State<EquipmentsPage> {
           ],
         ),
         DataTable(
+          dataRowMaxHeight: double.infinity,
           columns: <DataColumn>[
             const DataColumn(
               label: Expanded(

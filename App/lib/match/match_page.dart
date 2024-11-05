@@ -1,19 +1,22 @@
-import 'package:app/demands/demand.dart';
-import 'package:app/demands/match_details_page.dart';
-import 'package:app/demands/match_service.dart';
+import 'package:app/match/match.dart';
+import 'package:app/match/match_details_page.dart';
+import 'package:app/match/match_lab_details_page.dart';
+import 'package:app/match/match_service.dart';
 import 'package:flutter/material.dart';
 
-class DemandsLabPage extends StatefulWidget {
-  DemandsLabPage();
+class MatchPage extends StatefulWidget {
+  MatchPage({required this.isLab});
+  final bool isLab;
 
   @override
-  State<StatefulWidget> createState() => DemandsLabPageState();
+  State<StatefulWidget> createState() => MatchPageState(isLab: isLab);
 }
 
 List<Match> matches = [];
 
-class DemandsLabPageState extends State {
-  DemandsLabPageState();
+class MatchPageState extends State {
+  MatchPageState({required this.isLab});
+  final bool isLab;
 
   @override
   void initState() {
@@ -35,12 +38,13 @@ class DemandsLabPageState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Demandas'),
+          title: const Text('Match'),
           backgroundColor: const Color.fromARGB(255, 255, 166, 0),
         ),
         body: ListView(
           children: [
             DataTable(
+              dataRowMaxHeight: double.infinity,
               columns: const <DataColumn>[
                 DataColumn(
                   label: Expanded(
@@ -75,13 +79,24 @@ class DemandsLabPageState extends State {
                           IconButton(
                             icon: const Icon(Icons.article_outlined),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MatchDetailsPage(
-                                          matchId: e.id,
-                                        )),
-                              );
+                              if (isLab) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MatchLabDetailsPage(
+                                            matchId: e.id
+                                          )),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MatchDetailsPage(
+                                            matchId: e.id
+                                          )),
+                                );
+                              }
+                              
                             },
                           ),
                         ])),

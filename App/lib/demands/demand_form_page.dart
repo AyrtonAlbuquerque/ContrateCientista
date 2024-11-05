@@ -1,15 +1,16 @@
 import 'package:app/demands/demand.dart';
 import 'package:app/demands/demand_service.dart';
-import 'package:app/demands/demands_lab_page.dart';
 import 'package:app/demands/demands_page.dart';
+import 'package:app/person/person.dart';
+import 'package:app/person/person_form_page.dart';
 import 'package:flutter/material.dart';
 
+var responsible = Person(name: '', department: '', email: '');
+
 class DemandFormPage extends StatelessWidget {
-  DemandFormPage({Key? key, this.demand, required this.isLab})
-      : super(key: key);
+  DemandFormPage({Key? key, this.demand}) : super(key: key);
 
   final Demand? demand;
-  final bool isLab;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
@@ -17,6 +18,7 @@ class DemandFormPage extends StatelessWidget {
   final TextEditingController departmentController = TextEditingController();
   final TextEditingController benefitsController = TextEditingController();
   final TextEditingController detailsController = TextEditingController();
+  final TextEditingController keywordsController = TextEditingController();
   final TextEditingController restrictionsController = TextEditingController();
 
   @override
@@ -28,13 +30,16 @@ class DemandFormPage extends StatelessWidget {
       benefitsController.text = demand?.benefits ?? '';
       detailsController.text = demand?.details ?? '';
       restrictionsController.text = demand?.restrictions ?? '';
+      keywordsController.text = demand?.keywords.join(', ') ?? '';
+      responsible = demand!.responsible;
     }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar demanda'),
         backgroundColor: const Color.fromARGB(255, 255, 166, 0),
       ),
-      body: Form(
+      body: SingleChildScrollView(
+          child: Form(
         key: _formKey,
         child: Align(
           alignment: Alignment.center,
@@ -132,28 +137,58 @@ class DemandFormPage extends StatelessWidget {
                     controller: restrictionsController,
                   ),
                 ),
+                const Text('Palavras-chave (separadas por vírgula) *'),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: TextFormField(
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
+                    controller: keywordsController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira as palavras-chave';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                PersonFormPage(person: responsible),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
-                    child: const Text('Criar'),
-                    onPressed: () {
+                    child: demand != null ? const Text('Atualizar') : const Text('Criar'),
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // todo params
-                        ApiDemandService.createDemand();
-                        if (isLab) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DemandsPage()),
-                          );
+                        List<String> keywords = keywordsController.text.split(', ');
+                        if (demand != null) {
+                          await ApiDemandService.updateDemand(
+                              demand!.id,
+                              titleController.text,
+                              descriptionController.text,
+                              departmentController.text,
+                              benefitsController.text,
+                              detailsController.text,
+                              restrictionsController.text,
+                              keywords,
+                              responsible);
                         } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DemandsLabPage()),
-                          );
+                          await ApiDemandService.createDemand(
+                              titleController.text,
+                              descriptionController.text,
+                              departmentController.text,
+                              benefitsController.text,
+                              detailsController.text,
+                              restrictionsController.text,
+                              keywords,
+                              responsible);
                         }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DemandsPage()),
+                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -166,7 +201,7 @@ class DemandFormPage extends StatelessWidget {
                 ),
               ]),
         ),
-      ),
+      )),
     );
   }
 }

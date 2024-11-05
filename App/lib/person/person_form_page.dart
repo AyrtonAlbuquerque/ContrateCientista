@@ -14,7 +14,7 @@ class PersonFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     nameController.text = person.name;
-    departmentController.text = person.departament;
+    departmentController.text = person.department ?? '';
     emailController.text = person.email;
     phoneController.text = person.phone ?? '';
     return Container(
@@ -59,7 +59,7 @@ class PersonFormPage extends StatelessWidget {
                       const InputDecoration(border: OutlineInputBorder()),
                   controller: departmentController,
                   onChanged: (value) {
-                    person.departament = value;
+                    person.department = value;
                   },
                 ),
               ),

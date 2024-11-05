@@ -48,11 +48,12 @@ class DemandsPageState extends State {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DemandFormPage(isLab: false)),
+                      MaterialPageRoute(builder: (context) => DemandFormPage()),
                     );
                   }),
             ),
             DataTable(
+              dataRowMaxHeight: double.infinity,
               columns: const <DataColumn>[
                 DataColumn(
                   label: Expanded(
@@ -103,8 +104,7 @@ class DemandsPageState extends State {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => DemandFormPage(
-                                          demand: e,
-                                          isLab: false,
+                                          demand: e
                                         )),
                               );
                             },

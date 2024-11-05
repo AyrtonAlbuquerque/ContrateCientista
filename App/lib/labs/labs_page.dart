@@ -86,7 +86,9 @@ class LabsPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16, top: 16),
           child: Text(labs != null ? 'Laboratórios' : 'Laboratórios Elegíveis',
               style: const TextStyle(fontWeight: FontWeight.bold))),
-      DataTable(columns: <DataColumn>[
+      DataTable(
+        dataRowMaxHeight: double.infinity,
+        columns: <DataColumn>[
         const DataColumn(
           label: Expanded(
             child: Text(

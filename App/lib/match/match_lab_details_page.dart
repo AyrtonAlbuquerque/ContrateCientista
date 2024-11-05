@@ -1,20 +1,20 @@
-import 'package:app/demands/demand.dart';
-import 'package:app/demands/match_service.dart';
+import 'package:app/match/match.dart';
+import 'package:app/match/match_service.dart';
 import 'package:flutter/material.dart';
 
 Match? match;
 
-class MatchDetailsPage extends StatefulWidget {
-  MatchDetailsPage({required this.matchId});
+class MatchLabDetailsPage extends StatefulWidget {
+  MatchLabDetailsPage({required this.matchId});
   final int? matchId;
 
   @override
   State<StatefulWidget> createState() =>
-      MatchDetailsPageState(matchId: matchId);
+      MatchLabDetailsPageState(matchId: matchId);
 }
 
-class MatchDetailsPageState extends State {
-  MatchDetailsPageState({required this.matchId});
+class MatchLabDetailsPageState extends State {
+  MatchLabDetailsPageState({required this.matchId});
   final int? matchId;
 
   @override
@@ -37,7 +37,7 @@ class MatchDetailsPageState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Demandas > Detalhes'),
+        title: const Text('Match > Detalhes'),
         backgroundColor: const Color.fromARGB(255, 255, 166, 0),
       ),
       body: SingleChildScrollView(

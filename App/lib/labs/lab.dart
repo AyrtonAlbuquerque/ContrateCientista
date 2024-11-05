@@ -10,6 +10,7 @@ class Lab {
   String description;
   String code;
   String? certificates;
+  List<String> keywords;
   String foundationDate;
   Person responsible;
   Address address;
@@ -23,6 +24,7 @@ class Lab {
       required this.description,
       this.certificates,
       required this.code,
+      required this.keywords,
       required this.foundationDate,
       required this.responsible,
       required this.address,
@@ -31,6 +33,7 @@ class Lab {
       this.softwares});
 
   static Lab fromMap(Map<String, dynamic> map) {
+    List<String> keywords = List<String>.from(map['keywords'] as List);
     List<Equipment> equipments = [];
     for (final item in map['equipments']) {
       equipments.add(Equipment.fromMap(item));
@@ -49,6 +52,7 @@ class Lab {
         description: map['description'],
         code: map['code'],
         certificates: map['certificates'],
+        keywords: keywords,
         foundationDate: map['foundationDate'],
         responsible: Person.fromMap(map['responsible']),
         address: Address.fromMap(map['address']),
@@ -66,6 +70,7 @@ class ElegibleLabs extends Lab {
       required super.description,
       required super.code,
       required super.certificates,
+      required super.keywords,
       required super.foundationDate,
       required this.match,
       required super.responsible,
@@ -81,6 +86,7 @@ class ElegibleLabs extends Lab {
         description: map['description'],
         code: map['code'],
         certificates: map['certificates'],
+        keywords: map['keywords'],
         foundationDate: map['foundationDate'],
         responsible: map['responsible'],
         address: map['address'],
