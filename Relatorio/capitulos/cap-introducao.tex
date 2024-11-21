@@ -20,33 +20,39 @@ Esta proposta tem como objetivo implementar o uso de diferentes \gls{ia} e \gls{
 % -------------------------------------- Objetivo Geral ------------------------------------- %
 \subsection{Objetivo geral}\label{subsec:objetivoGeral}
 
-Analisar o impacto da aplicação de técnicas de dados conectados sobre o processo de formação de parcerias entre universidades e empresas através da construção de um \gls{mvp} que possibilite a rápida associação de uma demanda a um cientista apto a atendê-la.
+Analisar e comparar o desempenho de diferentes inteligências na extração e associação de informações de demandas e laboratórios com o intuito de facilitar a formação de parcerias entre universidades e empresas.
 
 % ---------------------------------- Objetivos Específicos ---------------------------------- %
 \subsection{Objetivos específicos}\label{subsec:objetivosEspecificos}
 
 \begin{itemize}
-    \item Aplicar técnicas de dados conectados para a construção de modelos de filtragem e associação de demandas.
-    \item Integrar dados sobre demandas e currículos contidos em bases de dados como o CV Lattes.
-    \item Construir um \gls{mvp} que implemente os modelos construídos.
-    \item Aplicar o \gls{mvp} como case na \gls{utfpr}.
-    \item Comparar os resultados com as ferramentas atualmente utilizadas para atingir o mesmo objetivo.
+    \item Implementar diversas inteligências para a extração de dadsos.
+    \item Comparar o desempenho de cada inteligência na associação de dados.
+    \item Construir um \gls{mvp} que possibilite a utilização destas inteligências.
 \end{itemize}
 
 % -------------------------------------- Justificativa -------------------------------------- %
 \section{Justificativa}\label{sec:justificativa}
 
-O objetivo específico é facilitar a relação universidade-empresa, que hoje, a plataforma Lattes e seu mecanismo de busca, já defasado, é uma das ferramentas capaz de nortear a busca de um cientista capaz de atender as necessidades inovativas das empresas. A ferramenta proposta, que busca beneficiar a academia e o setor privado, requer o estudo de como as demandas das empresas devem estar especificadas e como as atuais bases de dados de expertise de cientistas podem ser úteis para identificar possíveis grupos de pesquisa ou indivíduos que possam melhor atender estas demandas.
+Para poder promover a inovação nem sempre é necessário reinventar a roda, pois muitas vezes a solução para um problema está em otimizar algum processo na cadeia de produção de uma solução. Neste caso, pretende-se otimizar o contato entre o mundo produtivo e a academia. Hoje este contato é um processo manual executado por uma pessoa responsável, no caso da \gls{utfpr} pelo \gls{direc}, que utilizando a plataforma Lattes e informações internas sobre os laboratórios e pesquisadores, tenta apontar a melhor opção para uma demanda.
 
-Para alcançar os objetivos propostos é necessário primeiramente compreender como os conceitos de dados conectados podem auxiliar na otimização do processo de vínculo entre uma empresa e a universidade, bem como também é necessário elencar quais os fatores tornam os métodos utilizados atualmente ineficientes e problemáticos.
+O problema deste método é a ineficiência, inerente a qualquer processo manual, e a subjetividade, pois a escolha do melhor laboratório para uma demanda é baseada no conhecimento prévio do responsável pela busca. A proposta desta tese é apontar as possíveis inteligências e modelos de linguagem capazes de automatizar este processo.
 
-Com as causas do problema em evidência, pode-se então construir um modelo que melhor represente como os dados relacionados as demandas se conectam com os dados relacionados aos cientistas, evidenciando quais parâmetros são mais relevantes para a sugestão de um candidato sobre outro. 
+Por não existir um modelo consolidado para este problema em específico esta tese propõe a construção de um sistema que possibilite a comparação de diferentes inteligências na extração e associação de informações, resultando no ranqueamento destes modelos e facilitando a escolha da inteligência a ser utilizada.
 
-Por fim, para validar o modelo construído é necessário aplicá-lo através da construção de uma aplicação que facilite o cadastro de dados sobre demandas, sendo esta a principal diferença com outras ferramentas com objetivo similar, bem como o cadastro de cientistas cujas informações poderão ser integradas a partir de uma base de dados já consolidada como, por exemplo, o CV Lattes ou sintética.
+Como prova de conceito, propõe-se a construção de um \gls{mvp} que possibilite o uso destes modelos de linguagem, possibilitando a inserção de informações de demandas e laboratórios a serem analisados e apresentando o resultado das análises realizadas.
 
 % ---------------------------------- Estrutura do Trabalho ---------------------------------- %
-% \section{Estrutura do trabalho}\label{sec:estruturaTrabalho}
+\section{Estrutura do trabalho}\label{sec:estruturaTrabalho}
 
-% A estrutura do trabalho contém uma relação dos capítulos e uma descrição sucinta do que cada um deles contém. Esta seção fornece uma visão geral do trabalho no sentido da sua estrutura em capítulos\footnote{Teste de nota de rodapé 2.}.
+Esta tese está dividida em seis capítulos e referências bibliográficas. O capítulo introdutório descreve o problema que se pretende resolver, bem como os objetivos e justificativas para a realização deste trabalho. 
 
-% \caixa{Atenção}{O OverLeaf está demorando muito para compilar o modelo com o Capítulo de Exemplos, que explica como usar o LaTeX. Assim, esse capítulo foi removido (está comentado para não compilar), mas há um arquivo chamado \texttt{exemploPDF.pdf}, na raiz do projeto, que contém esse capítulo de exemplos!}
+O segundo capítulo, fundamentação teórica, apresenta os conceitos necessários para a compreensão do tema do trabalho.
+
+O terceiro capítulo, trabalhos relacionados, apresenta projetos que se propoem a resolver o problema abordado e que possam servir de entendimento para a compreensão do tema.
+
+O quarto capítulo, materiais e métodos, apresenta as ferramentas e tecnologias utilizadas no desenvolvimento e as atividades realizadas.
+
+O quinto capítulo, resultados, descreve o sistema desenvolvido, o escopo no qual o trabalho se delimita, sua modelagem e implementação.
+
+Por fim, o sexto capítulo, conclusão, decorre sobre os resultados obtidos, algumas das vantagens e desvantagens do sistema e sugestões para trabalhos aprimoramentos futuros.

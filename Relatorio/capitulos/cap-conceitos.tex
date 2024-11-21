@@ -3,276 +3,120 @@
 % ------------------------------------------------------------------------------------------- %
 \chapter{Referencial te\'orico}\label{cap:referencialTeorico}
 
-Uma forma de tratar o referencial teórico é definir como título de capítulo o assunto macro e relevante relacionado ao trabalho e o texto é dividido em subtítulos (seções e subseções), conforme necessário. Essa forma é preferida por deixar explícito o assunto a ser tratado e que o mesmo é a fundamentação do trabalho \footnote{Teste de nota de rodapé 3.}.
+\section{Inteligência Artifical}\label{sec:ia}
 
-Outra forma de tratar esse capítulo é denominá-lo referencial teórico e dividi-lo em seções e subseções ou com um único texto os assuntos que fornecem o suporte teórico para o trabalho. Essa forma pode ser utilizada quando assuntos distintos fundamentam o trabalho e é difícil incluí-los sob uma mesma denominação de capítulo \footnote{Teste de nota de rodapé 4.}.
+Os conceitos modernos de \gls{ia} surgiram na década de 1950, com as idéias propostas por Alan Turing e a noção de uma "máquina pensante". Turing propôs um teste, ao qual chamou de "O Jogo da Imitação" e que hoje é mais conhecido como o teste de Turing, cujo objetivo é determinar se uma máquina pode ser classificada como inteligente. \cite{Turing1950}.
 
-O embasamento teórico se refere ao(s) assunto(s) principal(is) relacionado(s) ao objeto de pesquisa para o qual o trabalho traz alguma contribuição ou que é utilizado como referência conceitual para o desenvolvimento do proposto no trabalho. O assunto pode fornecer a fundamentação (suporte teórico) para a ideia do sistema, para definir claramente o problema, para explicitar a solução, para a forma de resolução; referir-se aos conceitos e teorias relacionados ao sistema desenvolvido, sobre tecnologias e metodologias específicas utilizadas na definição do sistema e na sua implementação.
+Inteligência Artifical pode ser subdividida em quatro categorias pricipais, sistemas que pensam como humanos, sistemas que agem como humanos, sistemas que pensam racionalmente e sistemas que agem racionalmente \cite{RussellIA2021}.
 
-Exemplos:
+\subsection{Sistemas que Pensam como Humanos}\label{subsec:ia1}
 
-Conceitos da orientação a objetos fazem parte do referencial teórico se o uso intensivo da orientação a objetos é o principal embasamento do trabalho; ou se a principal contribuição do trabalho está relacionada à orientação a objetos, seja em termos de agregar conhecimento nessa área ou à forma de usar os seus conceitos.
+Sistemas que pensam como humanos tentam simular os processos mentais e cognitivos humanos, como pensamento, aprendizado e tomada de decisão. Um dos primeiros esforços nessa direção foi a criação de modelos baseados em redes neurais artificiais. Inspiradas na estrutura biológica do cérebro, as redes neurais foram propostas originalmente por McCulloch e Pitts \cite{McCulloch1943}, que introduziram o conceito de "neurônio artificial". Posteriormente, os avanços nesse campo, como o Perceptron de Rosenblatt \cite{Rosenblatt1958}, marcaram o início das tentativas de replicar a capacidade de aprendizado humano por meio de sistemas computacionais.
 
-Sistemas distribuídos pode ser o assunto do embasamento teórico se o resultado do trabalho for um sistema distribuído. O mesmo pode ocorrer com sistemas cliente servidor, sistemas de informações gerenciais, de apoio à decisão, para web e etc.
+\subsection{Sistemas que Agem como Humanos}\label{subsec:ia2}
 
-Se o desenvolvimento de um sistema para biometria for o objeto do trabalho, o referencial teórico se refere aos conceitos principais de biometria, aplicabilidade, exemplos de sistemas existentes, o que esses sistemas tratam, como eles são, etc.
+Sistemas que agem como humanos simulam o comportamento observável, como em tarefas de conversação ou reconhecimento de padrões. Os chatbots são um exemplo claro dessa abordagem, pois tentam interagir de maneira natural com usuários. Estes sistemas geralmente utilizam-se de métodos de processamento de linguagem natural para interpretar e responder perguntas de um usuário humano que, pode por muitas vezes ser incapaz de distinguir se seu interlocutor é humano ou máquina, aproximando-se do objetivo do teste de Turing.
 
-Se um sistema web para portadores de necessidades especiais for o resultado do trabalho, o referencial teórico refere-se as quais e como são essas necessidades, outros sistemas existentes na área, como os sistemas lidam com essas necessidades e os principais conceitos por eles considerados.
+\subsection{Sistemas que Pensam Racionalmente}\label{subsec:ia3}
 
-O embasamento teórico pode conter os trabalhos relacionados, desde que seja relevante para o desenvolvimento do trabalho. Esse item deve ser elaborado especialmente quando se trata do desenvolvimento de algo muito específico, havendo a necessidade de um estudo comparativo. Nesse caso pode-se inserir claramente o trabalho de pesquisa no contexto dos demais autores, no sentido da contribuição da proposta na área de pesquisa em que o mesmo se insere e em relação ao que já tem pesquisado na área.
+Sistemas que pensam racionalmente baseiam-se na lógica formal, utilizando-se de regras e inferências lógicas na tomada de decisões. Uma aplicação clássica desse paradigma foi o Logic Theorist, criado por Allen Newell e Herbert Simon em 1956 \cite{NewellSimon1976}. Este sistema foi projetado para provar teoremas em lógica proposicional e é considerado um dos primeiros programas de inteligência artificial. Outro exemplo é o Prolog (Programming in Logic) \cite{Colmerauer1973}, uma linguagem de programação declarativa amplamente usada em aplicações de \gls{ia} baseadas em raciocínio lógico, como sistemas especialistas e planejamento automatizado.
 
-\caixa{Atenção}{Converse com o seu orientador para ver quais seções/conteúdos devem ter neste capítulo...}
+\subsection{Sistemas que Agem Racionalmente}\label{subsec:ia4}
 
-\section{Observações sobre a citações}\label{sec:formatacaoTexto}
+Sistemas que agem racionalmente tomam decisões de forma a maximizar a realização de um objetivo específico, Esses sistemas seguem o paradigma do \textit{"agente racional"}, agindo de forma a alcançar os melhores resultados esperados, considerando o conhecimento disponível e as incertezas do ambiente. Esse conceito é amplamente utilizado em áreas automatização, robótica e jogos. \cite{Poole2010}. Diferentemente dos sistemas que pensam racionalmente, um agente racional é mais flexível e são utilizados em aplicações mais dinâmicas, como por exemplo dirigir carros autônomos.
 
-O texto em si é dividido em títulos e subtítulos, se necessário.
+\section{Aprendizado de Máquina}\label{subsec:ml}
 
-O espaçamento entre linhas é de 1,5. Os títulos das seções primárias e das demais subseções devem ser separados do texto que os precede ou que os sucede por uma linha em branco. As seções primárias devem iniciar em páginas distintas.
+O \gls{ml} é uma subárea da \gls{ia} cujo objetivo é aprimorar o desempenho de um sistema através da experiência, sem que seja necessário uma programação direta. De acordo com Mitchell (1997), \textit{"um programa de aprendizado é dito aprender de uma experiência E com relação a uma tarefa T e uma medida de desempenho P, se seu desempenho em T, medido por P, melhora com E".} \cite{Mitchell1997}. 
 
-Com relação à paginação, todas as folhas do trabalho, a partir da folha de rosto, devem ser contadas sequencialmente, mas não numeradas. A numeração deve ser colocada a partir da primeira folha da parte textual (introdução), em algarismos arábicos, no canto superior direito da folha.
+Os pricipais tipos de aprendizado de máquina são o aprendizado supervisionado, o aprendizado não supervisionado e o aprendizado por reforço. 
 
-\caixa{Observação}{Se você estiver utilizando \latex, não é necessário se preocupar com formatação.}
+\subsection{Aprendizado Supervisionado}\label{subsec:ml1}
 
-As próximas seções comentam a respeito de citações.
+No aprendizado supervisionado, o modelo é treinado com um conjunto de dados anotados ou rotulados, onde uma entrada já é associada a uma saída corretamente classificada. O objetivo é que o modelo aprenda a mapear as entradas para as saídas corretas e possa então generalizar para novas entradas não vistas anteriormente. \cite{Goodfellow2016}.
 
-\subsection{Citações}\label{subsec:citacoes}
+A qualidade e a quantidade dos dados são cruciais no aprendizado supervisionado, pois dados rotulados de forma inadequada ou insuficientes podem levar a modelos com baixo desempenho ou incapazes de realizar generalizações.
 
-\textbf{Citação direta:} É quando o texto utilizado é transcrito com as próprias palavras do autor. Quando curtas (até três linhas) a transcrição literal virá entre “aspas” e a referência pode ser incluída no texto junto à sentença ou frase, ou ainda ser colocada entre parênteses. Quando inclusa no texto, deve-se usar letras maiúsculas e minúsculas, com indicação da data e demais informações entre parênteses.
+\subsection{Aprendizado não Supervisionado}\label{subsec:ml2}
 
-Exemplo de citação direta curta com autor incluso no texto: Segundo \citeonline[p. 107]{Pressman2009} o valor da informação está “diretamente ligado à maneira como ela ajuda os tomadores de decisões a atingirem as metas da organização”. Exemplo de citação direta curta com autor não incluso no texto: O autor lembra, contudo, a análise precursora de \citeonline{Pressman2009} sobre alguns aspectos limitantes das competências, ou aptidões, essenciais, que as transformam em “limitações estratégicas” \cite{Pressman2009}.
+No aprendizado não supervisionado, os dados não são rotulados e o modelo é construído de maneira a encontrar padrões e/ou agrupamentos nos dados. Este tipo de treinamento é muito utilizado em áreas como processamento de linguagem natural, onde os algoritimos são treinados de forma a aprender representações semânticas de palavras. \cite{Goodfellow2016}.
 
-As transcrições com mais de três linhas (citações diretas longas) aparecem recuadas em 4 cm, a partir da margem esquerda, em espaço simples, tamanho 10, e a indicação da fonte é apresentada entre parênteses.
+Uma das principais vantagens do aprendizado não supervisionado é a capacidade de se trabalhar com grandes volumes de dados sem a necessidade de rotulação prévia, o que acaba por reduzir os esforços manuais para o treinamento de modelos. \cite{Murphy2012}.  
 
-\begin{citacao}
-	Na nova sociedade, chamada de capitalista: O recurso econômico básico – ‘os meios de produção’, para usar uma expressão dos economistas – não é mais o capital, nem os recursos naturais (a ‘terra’ dos economistas), nem a ‘mão-de-obra’. Ele será o conhecimento. As atividades centrais de criação de riqueza não serão nem a alocação de capital para usos produtivos, nem a ‘mão-de-obra’ – os dois pólos da teoria econômica dos séculos dezenove e vinte, quer ela seja clássica, marxista, keynesiana ou neoclássica. Hoje o valor é criado pela ‘produtividade’ e pela ‘inovação’, que são aplicações do conhecimento ao trabalho. Os principais grupos sociais da sociedade do conhecimento serão os ‘trabalhadores do conhecimento’ – executivos que sabem como alocar conhecimento para usos produtivos. \cite[p. 48]{Pressman2009}.
-\end{citacao}
+\subsection{Aprendizado por Reforço}\label{subsec:ml3}
 
-\textbf{Citação indireta:} É a reprodução de ideias do autor. É uma citação livre, usando as palavras de quem está escrevendo para dizer o mesmo que o autor disse no texto. Contudo, a ideia expressa continua sendo de autoria do autor consultado, por isso é necessário citar a fonte: dar crédito ao autor da ideia. Exemplo de citação indireta: O valor da informação está relacionado com o poder de ajuda aos tomadores de decisões a atingirem os objetivos da empresa\cite{Pressman2009}. Outra forma de citação indireta: \citeonline{Pressman2009} destacam ser fundamental a gestão de dados nas organizações, pois isso garantirá o funcionamento normal dos sistemas de informação, uma vez que, sem a capacidade de seu processamento, haveria problemas para a empresa executar suas atividades efetivamente.
+No aprendizado por reforço, o modelo é treinado de forma dinâmica, sendo recompensado ou penalizado de acordo com suas decisões. Sutton e Barto definem essa abordagem como uma técnica na qual o aprendizado ocorre sem supervisão direta, apenas a partir do feedback fornecido pelo ambiente, baseado nas ações executadas pelo agente. \cite{SuttonBarto2018}.
 
-Citações de obras que contenham até três autores, devem apresentar os sobrenomes destes separados por ponto e vírgula, como no exemplo: \cite[p. 2]{Pinto2000}. E para obras que contenham mais de três autores indica-se citar apenas o nome do primeiro autor, seguido da expressão abreviada \textit{et al.}, como no exemplo: \cite{Guimaraes2003}.
+Um dos benefícios fundamentais desse método é sua capacidade de otimizar estratégias de longo prazo, mesmo em ambientes altamente dinâmicos e incertos. O agente deve equilibrar a busca por novas ações e a exploração das ações que já demonstraram ser eficazes. O aprendizado por reforço pode demandar alta capacidade computacional, especialmente em ambientes complexos e com alta dimensionalidade. \cite{SuttonBarto2018}
 
-\subsection{Ilustrações, quadros e tabelas}\label{subsec:ilustracoes}
+\section{Processamento de Linguagem Natural}\label{subsec:nlp}
 
-As ilustrações, quadros e tabelas devem aparecer no texto, segundo a NBR14724:2011, de forma padronizada.
+\gls{nlp} é a subárea da \gls{ia} cujo objetivo é construir sistemas computacionais capazes de interpretar e reproduzir a linguagem humana, seja ela escrita ou falada, abrangendo tarefas como processamento de texto, compreensão de estrutura sintática e análise semântica. \cite{JurafskyMartin2023}.
 
-Qualquer que seja o tipo de ilustração, sua identificação aparece na parte superior, precedida da palavra designativa (desenho, esquema, fluxograma, fotografia, gráfico, mapa, organograma, planta, quadro, retrato, figura, imagem, entre outros), seguida de seu número de ordem de ocorrência no texto, em algarismos arábicos, travessão e do respectivo título. Após a ilustração, na parte inferior, indicar a fonte consultada (elemento obrigatório, mesmo que seja produção do próprio autor), legenda, notas e outras informações necessárias à sua compreensão (se houver). A ilustração deve ser citada no texto e inserida o mais próximo possível do trecho a que se refere.
+\subsection{Tokenização}\label{subsec:nlp1}
 
-A fonte, ou seja, a indicação do autor da ilustração ou da publicação de onde ela foi retirada deve aparecer na parte inferior. Exemplo:
+Um dos conceitos mais básicos do processamento de linguagem natural é o de tokenização, sendo este um dos passos iniciais responsável por dividir um texto em unidades menores denominadas tokens, como palavras, frases ou caracteres. O intuito da tokenização é facilitar a análise e o processamento de um texto, permitindo que estes sejam convertidos em uma representação adequada para modelos computacionais. Jurafsky e Martin explicam que a tokenização é um pré-requisito essencial para diversas tarefas de \gls{nlp}, como análise semântica, tradução automática e treinamento de modelos linguísticos, pois facilita o mapeamento de dados textuais para representações numéricas que possam ser utilizadas em aprendizado de máquina. \cite{JurafskyMartin2023}.
 
-Fonte: \citeonline{Coulouris2013}. 			- quando utilizado o item original
+\subsection{Análise Sintática}\label{subsec:nlp2}
 
-Fonte: Adaptado de \citeonline{Coulouris2013}.	- quando o item original foi alterado
+A análise sintática, também conhecida como parsing, é o processo de análise da estrutura gramatical de uma sentença, e em processamento de linguagem natural representa o passo anterior à análise semântica. Essa análise identifica como as palavras se relacionam sintática e hierarquicamente umas com as outras, construindo uma representação estruturada, geralmente na forma de árvore ou grafo, visando compreender como os elementos de uma sentença se organizam de acordo com as regras gramáticais de uma língua. Jurafsky e Martin definem a análise sintática como a tarefa de determinar a estrutura sintática de uma sentença de acordo com uma gramática formal e livres de contexto. \cite{JurafskyMartin2023}.
 
-Para facilitar a inclusão de fontes, o \textit{template} em LaTeX da \gls{utfpr}, possui o comando \texttt{$\backslash$fonte\{\}}. Se este comando for deixado em branco (\texttt{$\backslash$fonte\{\}}),  ele preencherá automaticamente a fonte com o texto  ``Fonte: Autoria própria (ANO)'', sendo ANO substituído pelo ano atual. Já se o comando \texttt{$\backslash$fonte\{\}} tiver algum conteúdo (não estiver em branco), tal conteúdo será inserido na legenda da fonte e esse conteúdo pode ser uma citação. Por exemplo, o comando \texttt{$\backslash$fonte\{$\backslash$citeonline\{Coulouris2013\}\}} gerará o texto ``Fonte: \citeonline{Coulouris2013}.''. Atenção, não é necessário incluir o ponto final (``.''), no texto do comando \texttt{$\backslash$fonte\{\}}, pois isso é feito automaticamente.
+\subsection{Análise Semântica}\label{subsec:nlp3}
 
-A figura também deve ser citada no texto. Primeira opção, como pode ser observado na \autoref{fig:exemplo1}. Segunda opção, como pode ser observado na Figura \ref{fig:exemplo1}.
+Segmentar um texto em tokens não é suficiente para uma análise complexa, é necessário também interpretar o significado das palavras e sentenças, isso quer dizer que é necessário analisar o texto semânticamente, ou seja, buscar entender as relações e os conceitos por trás das palavras e o contexto nas quais estão inseridas.
 
-\begin{figure}[htb]
-	%\captionsetup{width=0.55\textwidth}%% Largura da legenda
-	\caption{Exemplo de figura criada a partir de um arquivo}
-	\label{fig:exemplo1}
-	\includegraphics[scale=0.4]{cs2}
-	\fonte{Adaptado de \citeonline{Coulouris2013}}
-\end{figure}
+A análise semântica pode ser vista como um processo de modelagem que mapeia palavras para significados e os organiza de maneira relacional, considerando tanto informações lexicais quanto contextuais. \cite{JurafskyMartin2023}. É tarefa da análise semântica lidar com problemas como a ambiguidade, relações entre entidades em uma sentença e fenômenos linguísticos como metáforas e ironias. Este tipo de análise permite que modelos modernos possam realizar tarefas complexas como análise de sentimento e extração de informações relevantes de um conjunto de dados de grande volume.
 
-Utilizando o pacote \textit{subfig} é possível adicionar figuras lado a lado, como pode ser observado na \autoref{fig:exemplo2}.
+\section{Representação Distribuída e Representação Contextual}\label{subsec:embeddings_transformers}
 
-\begin{figure}[htb]
-	\caption{Telas de cadastro de Paciente: (a) Cadastro Paciente, (b) Cadastro Paciente 2}
-	\label{fig:exemplo2}
-	\centering
-	\subfloat[Cadastro Paciente]{
-		\includegraphics[scale=0.7]{cadastro-paciente}
-	}\hspace{0.15cm}
-	\subfloat[Cadastro Paciente 2]{
-		\includegraphics[scale=0.7]{cadastro-paciente}
-	}
+Em processamento de linguagem natural, duas das formas mais comuns de representação de significado são as representações distribuídas, também conhecidas como embeddings, e representações contextuais. 
 
-	\fonte{}
-\end{figure}
+\subsection{Representação Distribuída (Embeddings)}\label{subsec:embeddings}
 
-Este modelo vem com o ambiente \texttt{quadro} e impressão de Lista de quadros
-configurados por padrão.  Este parágrafo apresenta como referenciar o quadro no texto, requisito obrigatório da ABNT. Primeira opção, utilizando \texttt{autoref}: Ver o \autoref{quad:exemplo1}. Segunda opção, utilizando  \texttt{ref}: Ver o Quadro \ref{quad:exemplo1}.
+O conceito de representações distribuídas baseia-se na hipótese distribucional, proposta por Harris et al. (1954), onde palavras que ocorrem em contextos similares tendem a ter significados semelhantes. Isso levou ao desenvolvimento de modelos que aprendem representações semânticas com base nos contextos em que as palavras aparecem. \cite{Harris1954}.
 
-\begin{tabframed}[htb]
-	%\captionsetup{width=0.5\textwidth}%% Largura da legenda
-	\caption{Materiais utilizados no desenvolvimento do sistema}
-	\label{quad:exemplo1}
-	\renewcommand{\arraystretch}{1.5}
-	\begin{tabular}{|l|l|l|l|l}
-		\cline{1-4}
-		\textbf{Ferramenta/Tecnologia} & \textbf{Versão} & \textbf{Disponível em} & \textbf{Finalidade}   \\ \cline{1-4}
-		Teste                          & 1.0             & https:/teste.org       & Biblioteca de Teste & \\ \cline{1-4}
-		Teste                          & 1.0             & https:/teste.org       & Biblioteca de Teste & \\ \cline{1-4}
-		Teste                          & 1.0             & https:/teste.org       & Biblioteca de Teste & \\ \cline{1-4}
-		Teste                          & 1.0             & https:/teste.org       & Biblioteca de Teste & \\ \cline{1-4}
-	\end{tabular}
-	\fonte{}
-\end{tabframed}
+Representações distribuídas transformam palavras em vetores numéricos estáticos baseados em seus contextos e nos dados de treinamento, permitindo capturar relações semânticas e sintáticas, como sinônimos e analogias, a partir da distância vetorial entre elas. Embbedings possuem uma complexidade computacional baixa, o que os torna mais eficientes para tarefas simples, como classificação e agrupamentos, porém sua eficiência é limitida para conjunto de dados maiores, pois as relações semânticas em frases ou textos longos podem não ser bem modelados.
 
+\subsection{Representação Contextual (Transformers)}\label{subsec:transformers}
 
-Também é possível citar tabelas no texto. Primeira opção, utilizando \texttt{autoref}: Ver o \autoref{tab:exemplo1}. Segunda opção, utilizando  \texttt{ref}: Ver a Tabela \ref{tab:exemplo1}.
+Transformadores ou transformers são representações contextuais e correspondem a uma evolução das representações distribuídas, incorporando o contexto dinâmico das palavras em um texto, não mais atribuindo uma representação vetorial estática para cada palavra. 
 
-\begin{table}[htb]
-	\captionsetup{width=0.33\textwidth}
-	\centering
-	\caption{\label{tab:exemplo1}Exemplo de tabela com uma legenda contendo um texto longo}
-	\begin{tabular}{cccc}
-		\hline
-		\textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
-		Marcos          & 26             & 68            & 178             \\
-		Ivone           & 22             & 57            & 162             \\
-		...             & ...            & ...           & ...             \\
-		Sueli           & 40             & 65            & 153             \\ \hline
-	\end{tabular}
-	\fonte{}
-\end{table}
+Um dos conceitos mais importantes para os transformers é o mecanismo de atenção, descrito por Vaswani et al. (2017), como \textit{"um mapeamento de uma consulta e um conjunto de pares chave-valor para uma saída, onde a consulta, chaves, valores e saída são todos vetores. A saída é computada como a soma dos pesos dos valores, onde o peso associado a cada valor é computado por uma função de compatibilidade da consulta com a chave correspondente"}. \cite{VaswaniTransformer2017}. A partir deste mecanismo o modelo avalia a relevância de cada palavra em relação às outras dentro de uma sequência, atribuindo pesos para cada interação.
 
-A \autoref{tab:exemplo2} também pode ser citada no texto.
+Transformers introduzem uma complexidade computacional maior porém são capazes de modelar uma entrada de dados mais complexa com melhor precisão e escalabilidade. Esta forma de representação se popularizou com o surgimento de modelos baseados em transformadores, como o \gls{bert} e o \gls{gpt}.
 
-\begin{table}[htb]
-	\caption{Segundo exemplo de tabela com uma legenda contendo um texto muito longo que pode ocupar mais de uma linha}
-	\label{tab:exemplo2}
-	\begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}llll}
-		\toprule
-		$\bsym{L}$ & $\bsym{L^2}$ & $\bsym{L^3}$ & $\bsym{L^4}$ \\
-		\SI{}{[m]} & \SI{}{[m^2]} & \SI{}{[m^3]} & \SI{}{[m^4]} \\ \midrule
-		1          & 1            & 1            & 1            \\
-		2          & 4            & 8            & 16           \\
-		3          & 9            & 27           & 81           \\
-		4          & 16           & 64           & 256          \\
-		5          & 25           & 125          & 625          \\ \bottomrule
-	\end{tabularx}
-	\fonte{}
-\end{table}
+\section{Grandes Modelos de Linguagem}\label{sec:llm}
 
-A \autoref{tab:exemplo3} é um exemplo de tabela que ocupa mais de uma página e que foi construída pelo \gls{latex}\index{LaTeX@\latex} utilizando o pacote \texttt{longtable}.
+Os grandes modelos de linguagem são sistemas de aprendizado de máquina treinados com um grande volume de dados com o objetivo de desempenharem tarefas de processamento de linguagem natural com alta precisão. Estes modelos são baseados principalmente em arquiteturas de transformadores, revolucionando o campo do processamento de linguagem natural por sua capacidade de lidar com uma vasta gama de tarefas como geração de textos, sumarização, tradução automática, geração de códigos e análise de sentimentos. \cite{IBMLLM}.
 
-\begin{longtable}{@{\extracolsep{\fill}}lll}
-	\caption{Possíveis tríplices para grade altamente variável\label{tab:exemplo3}}                        \\
-	\toprule
-	\textbf{Tempo (s)} & \textbf{Tríplice escolhida} & \textbf{Outras possíveis tríplices}                 \\
-	\midrule
-	\endfirsthead
-	\caption[]{Possíveis tríplices para grade altamente variável}                                          \\
-	\multicolumn{3}{r}{\textbf{(continuação)}}                                                             \\
-	\toprule
-	\textbf{Tempo (s)} & \textbf{Tríplice escolhida} & \textbf{Outras possíveis tríplices}                 \\
-	\midrule
-	\endhead
-	\midrule
-	\multicolumn{3}{r}{\textbf{(continua)}}                                                                \\
-	\endfoot
-	\bottomrule
-	\\[-0.5\linha]
-	\caption*{\nomefonte: Adaptado de \citet{Smallen2014}}                                                 \\
-	\endlastfoot
-	0                  & (1, 11, 13725)              & (1, 12, 10980), (1, 13, 8235), (2, 2, 0), (3, 1, 0) \\
-	2745               & (1, 12, 10980)              & (1, 13, 8235), (2, 2, 0), (2, 3, 0), (3, 1, 0)      \\
-	5490               & (1, 12, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	8235               & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	10980              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	13725              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	16470              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	19215              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	21960              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	24705              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	27450              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	30195              & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	32940              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	35685              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	38430              & (1, 13, 10980)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	41175              & (1, 12, 13725)              & (1, 13, 10980), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	43920              & (1, 13, 10980)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	46665              & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	49410              & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	52155              & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	54900              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	57645              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	60390              & (1, 12, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	63135              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	65880              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	68625              & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	71370              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	74115              & (1, 12, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	76860              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	79605              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	82350              & (1, 12, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	85095              & (1, 12, 13725)              & (1, 13, 10980), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	87840              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	90585              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	93330              & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	96075              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	98820              & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	101565             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	104310             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	107055             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	109800             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	112545             & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	115290             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	118035             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	120780             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	123525             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	126270             & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	129015             & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	131760             & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	134505             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	137250             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	139995             & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	142740             & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	145485             & (1, 12, 16470)              & (1, 13, 13725), (2, 2, 2745), (2, 3, 0), (3, 1, 0)  \\
-	148230             & (2, 2, 2745)                & (2, 3, 0), (3, 1, 0)                                \\
-	150975             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	153720             & (1, 12, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	156465             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	159210             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	161955             & (1, 13, 16470)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-	164700             & (1, 13, 13725)              & (2, 2, 2745), (2, 3, 0), (3, 1, 0)                  \\
-\end{longtable}
+O diferencial dos grandes modelos de linguagem está em seu tamanho, medido pelo número de parâmetros treináveis, que podem variar de milhões a centenas de bilhões ou mais. O treinamento de modelos dessa magnitute possui um custo elevado, requerindo uma infraestrutura computacional robusta, gigantescos volumes de dados e um tempo elevado de treinamento. 
 
+O treinamento dos \gls{llm} é baseado nos paradigmas de pré-treinamento (pre-training) e ajustes finos (fine-tuning). No pré-treinamento, o modelo aprende a prever o próximo token em uma sequência usando uma abordagem auto-supervisionada. Posteriormente, ele pode ser ajustado para tarefas específicas através do fine-tuning, que adapta os parâmetros do modelo a domínios especializados. \cite{Zhou2023}.
 
-\subsection{Códigos fonte e algoritmos}\label{subsec:algoritimos}
+\subsection{GPT}\label{subsec:gpt}
 
-Os algoritmos podem ser utilizados para explicar uma determinada rotina desenvolvida. Conforme pode ser observado no \autoref{alg:exemplo1}.
+O \gls{gpt} é uma classe de modelos de linguagem desenvolvidos pela OpenAI, introduzido inicialmente em 2018, com base na arquitetura de transformadores. Ao longo de suas versões (GPT-1, GPT-2, GPT-3), o modelo evoluiu significativamente em capacidade e complexidade, culminando em sistemas com níveis de fluidez e coerência comparáveis ao humano.
 
-\begin{algorithm}[htb]
-	\caption{Algoritmo de exemplo}
-	\label{alg:exemplo1}
-	\hrule
-	\begin{algorithmic}[1]
-		\ENSURE $A, B$
-		\STATE $C = A + B$
-		\IF{$C < 10$}
-		\STATE $C = 2 \ C$
-		\ELSE
-		\STATE $C = 0,5 \ C$
-		\ENDIF
-		\PRINT $A, B, C$
-	\end{algorithmic}
-	\hrule
-	\fonte{}
-\end{algorithm}
+O modelo utiliza pré-treinamento autoregressivo unidirecional, prevendo a próxima palavra em uma sequência textual considerando apenas os elementos anteriores. O treinamento do GPT utiliza aprendizado auto-supervisionado, eliminando a necessidade de anotações dos dados. \cite{Brown2020}.
 
-\lipsum[1]
+Entre as características que diferenciam o GPT de outras abordagens, destaca-se sua capacidade de realizar tarefas em cenários de aprendizado de poucos ou nenhum exemplo (few-shot e zero-shot learning), particularmente com o GPT-3, que possui 175 bilhões de parâmetros, permitindo que o modelo entenda e execute instruções com base em descrições mínimas. \cite{Brown2020}.
 
-\lipsum[1]
+\subsection{BERT}\label{subsec:bert}
 
-Na \autoref{code:exemplo1} pode ser visualizado um exemplo de código fonte.
+O \gls{bert} é um modelo de linguagem baseado em transformadores desenvolvido pelo Google AI em 2018 e que revolucionou o campo do processamento de linguagem natural ao introduzir um treinamento bidirecional profundo, permitindo a captura de contextos linguísticos em ambas as direções (esquerda para direita e direita para esquerda) simultaneamente. \cite{Devlin2018}.
 
-\begin{sourcecode}[htb]
-	\caption{\label{code:exemplo1}Exemplo de código}
-	\begin{lstlisting}[frame=single, language=Java]
-@Entity
-public class Foo {
- 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
- 
-    private String name;
-    // constructor, getters and setters
-}
-\end{lstlisting}
-	\fonte{}
-\end{sourcecode}
+O terinamento bidirecional do \gls{bert} é alcançado por meio de duas técnicas, sendo elas \gls{mlm} e \gls{nsp}. \gls{mlm} mascara parte das palavras em uma frase e então o modelo é treinado para prever essas palavras com base no contexto ao redor, tanto antes quanto depois da posição mascarada. \gls{nsp} treina o modelo para determinar se uma frase B segue imediatamente uma frase A no texto, melhorando a compreensão em relação às relações entre sentenças. \cite{Devlin2018}.
 
+As principais caracteristicas do \gls{bert} são sua bidirecionalidade e escalabilidade, sendo uma de suas versões, o BERT-Large, composto por 24 camadas, 1024 dimensões e 340 milhões de parâmetros. A partir de seu lançamento, o BERT tornou-se base para diversos avanços e está presente em aplicações práticas, como por exemplo o sistemas de busca do Google. \cite{Devlin2018}.
+
+\subsection{Azure Analytics}\label{subsec:azure}
+
+% https://learn.microsoft.com/en-us/azure/ai-services/language-service/?source=recommendations
+
+\subsection{Amazon Comprenhend}\label{subsec:comprenhend}
+
+% texto
+
+\subsection{YAKE}\label{subsec:yake}
+
+% texto
