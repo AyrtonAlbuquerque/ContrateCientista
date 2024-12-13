@@ -1,9 +1,9 @@
-using Api.Contracts.Common;
 using Api.Contracts.Demand;
 using Api.Contracts.LanguageApi;
 using Api.Mappings.Interfaces;
 using Mapster;
 using Laboratory = Api.Contracts.LanguageApi.Laboratory;
+using Keyword = Api.Contracts.Common.Keyword;
 
 namespace Api.Mappings
 {
@@ -19,7 +19,7 @@ namespace Api.Mappings
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.Title}. {source.Description}. {source.Details}");
 
-            TypeAdapterConfig<(CreateDemand demand, IList<Laboratory> laboratories), Analyze>
+            TypeAdapterConfig<(CreateDemand demand, IList<Domain.Model.Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Laboratory
@@ -32,7 +32,7 @@ namespace Api.Mappings
                     }).ToList()
                 }).ToList());
 
-            TypeAdapterConfig<(UpdateDemand demand, IList<Laboratory> laboratories), Analyze>
+            TypeAdapterConfig<(UpdateDemand demand, IList<Domain.Model.Laboratory> laboratories), Analyze>
                 .NewConfig()
                 .Map(dest => dest.Text, source => $"{source.demand.Title}. {source.demand.Description}. {source.demand.Details}")
                 .Map(dest => dest.Laboratories, source => source.laboratories.Select(x => new Laboratory
