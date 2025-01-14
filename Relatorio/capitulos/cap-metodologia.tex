@@ -27,15 +27,39 @@ Flutter é uma estrutura com seu desenvolvimento em código aberto, disponível 
 
 Docker é um motor de código aberto que automatiza a implementação de aplicações dentro de contêineres. Esta ferramenta permite a criação de aplicações mais portáteis, de fácil construção e colaboração, reduzindo o tempo em que um código escrito seja testado, implementado e utilizado \cite{TheDockerBook}.
 
+\subsection{GPT}\label{subsec:gpt}
+
+O \gls{gpt} é uma classe de modelos de linguagem desenvolvidos pela OpenAI, introduzido inicialmente em 2018, com base na arquitetura de transformadores. Ao longo de suas versões (GPT-1, GPT-2, GPT-3), o modelo evoluiu significativamente em capacidade e complexidade, culminando em sistemas com níveis de fluidez e coerência comparáveis ao humano.
+
+O modelo utiliza pré-treinamento autoregressivo unidirecional, prevendo a próxima palavra em uma sequência textual considerando apenas os elementos anteriores. O treinamento do GPT utiliza aprendizado auto-supervisionado, eliminando a necessidade de anotações dos dados. \cite{Brown2020}.
+
+Entre as características que diferenciam o GPT de outras abordagens, destaca-se sua capacidade de realizar tarefas em cenários de aprendizado de poucos ou nenhum exemplo (few-shot e zero-shot learning), particularmente com o GPT-3, que possui 175 bilhões de parâmetros, permitindo que o modelo entenda e execute instruções com base em descrições mínimas. \cite{Brown2020}.
+
+\subsection{BERT}\label{subsec:bert}
+
+O \gls{bert} é um modelo de linguagem baseado em transformadores desenvolvido pelo Google AI em 2018 e que revolucionou o campo do processamento de linguagem natural ao introduzir um treinamento bidirecional profundo, permitindo a captura de contextos linguísticos em ambas as direções (esquerda para direita e direita para esquerda) simultaneamente. \cite{Devlin2018}.
+
+O terinamento bidirecional do \gls{bert} é alcançado por meio de duas técnicas, sendo elas \gls{mlm} e \gls{nsp}. \gls{mlm} mascara parte das palavras em uma frase e então o modelo é treinado para prever essas palavras com base no contexto ao redor, tanto antes quanto depois da posição mascarada. \gls{nsp} treina o modelo para determinar se uma frase B segue imediatamente uma frase A no texto, melhorando a compreensão em relação às relações entre sentenças. \cite{Devlin2018}.
+
+As principais caracteristicas do \gls{bert} são sua bidirecionalidade e escalabilidade, sendo uma de suas versões, o BERT-Large, composto por 24 camadas, 1024 dimensões e 340 milhões de parâmetros. A partir de seu lançamento, o BERT tornou-se base para diversos avanços e está presente em aplicações práticas, como por exemplo o sistemas de busca do Google. \cite{Devlin2018}.
+
 \subsection{BERTimbau}\label{subsec:bertimbau}
 
 % texto
 
-\section{Métodos}\label{sec:metodo}
+\subsection{Azure Analytics}\label{subsec:azure}
 
-\subsection{API REST}\label{subsec:rest}
+% https://learn.microsoft.com/en-us/azure/ai-services/language-service/?source=recommendations
+
+\subsection{Amazon Comprenhend}\label{subsec:comprenhend}
 
 % texto
+
+\subsection{YAKE}\label{subsec:yake}
+
+% texto
+
+\section{Métodos}\label{sec:metodo}
 
 \subsection{Marcação de Parte de Fala}\label{subsec:pos_tagging}
 

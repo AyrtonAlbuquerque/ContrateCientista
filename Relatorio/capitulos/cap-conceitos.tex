@@ -93,30 +93,16 @@ O diferencial dos grandes modelos de linguagem está em seu tamanho, medido pelo
 
 O treinamento dos \gls{llm} é baseado nos paradigmas de pré-treinamento (pre-training) e ajustes finos (fine-tuning). No pré-treinamento, o modelo aprende a prever o próximo token em uma sequência usando uma abordagem auto-supervisionada. Posteriormente, ele pode ser ajustado para tarefas específicas através do fine-tuning, que adapta os parâmetros do modelo a domínios especializados. \cite{Zhou2023}.
 
-\subsection{GPT}\label{subsec:gpt}
+\section{REST}\label{sec:rest}
 
-O \gls{gpt} é uma classe de modelos de linguagem desenvolvidos pela OpenAI, introduzido inicialmente em 2018, com base na arquitetura de transformadores. Ao longo de suas versões (GPT-1, GPT-2, GPT-3), o modelo evoluiu significativamente em capacidade e complexidade, culminando em sistemas com níveis de fluidez e coerência comparáveis ao humano.
+\gls{rest} é um paradigma arquitetural que define como recursos de uma aplicação devem ser representados e permite a integração e comunicação entre sistemas distribuídos através do uso do protocolo \gls{http}. Estes recursos representam objetos ou dados identificados por \gls{uri}, que podem ser acessados e manipulados por meio de métodos \gls{http}. \cite{Fielding2000}.
 
-O modelo utiliza pré-treinamento autoregressivo unidirecional, prevendo a próxima palavra em uma sequência textual considerando apenas os elementos anteriores. O treinamento do GPT utiliza aprendizado auto-supervisionado, eliminando a necessidade de anotações dos dados. \cite{Brown2020}.
+Uma das mais importantes caracteristicas da arquitetura \gls{rest} é a ausência de dependências contextuais entre requisições consecutivas, também conhecida como stateless. Essa característica habilita uma implementação mais simplificada, com melhor escalabilidade e desacoplamento entre os sistemas. Além disso, o uso de representações padronizadas, como \gls{json} ou \gls{xml}, permite que diferentes sistemas troquem informações de forma eficiente independente de linguagem de implementação.
 
-Entre as características que diferenciam o GPT de outras abordagens, destaca-se sua capacidade de realizar tarefas em cenários de aprendizado de poucos ou nenhum exemplo (few-shot e zero-shot learning), particularmente com o GPT-3, que possui 175 bilhões de parâmetros, permitindo que o modelo entenda e execute instruções com base em descrições mínimas. \cite{Brown2020}.
+\subsection{Protocolo HTTP}\label{subsec:http}
 
-\subsection{BERT}\label{subsec:bert}
+O \gls{http} é um protocolo a nível de aplicação para comunicação entre sistemas distrubuídos e é um dos pilares da comunicação web moderna, definindo regras e padrões para a requisição e obtenção de recursos entre aplicações cliente e servidores na internet. Criado no início da década de 1990 pelo CERN e mais tarde padronizado pelo consórcio World Wide Web (W3C) e pela Internet Engineering Task Force (IETF), o HTTP evoluiu significativamente desde sua primeira versão, HTTP/0.9, até a atual, HTTP/3. \cite{Fielding1999}.
 
-O \gls{bert} é um modelo de linguagem baseado em transformadores desenvolvido pelo Google AI em 2018 e que revolucionou o campo do processamento de linguagem natural ao introduzir um treinamento bidirecional profundo, permitindo a captura de contextos linguísticos em ambas as direções (esquerda para direita e direita para esquerda) simultaneamente. \cite{Devlin2018}.
+O \gls{http} é um protocolo sem estado (stateless), o que significa que cada requisição do cliente para o servidor é tratada de forma independente, sem memória de requisições anteriores. O protocolo utiliza mensagens de requisição e resposta. As mensagens de requisição incluem um método ou verbo \gls{http}, um \gls{uri} de recurso, e informações adicionais nos cabeçalhos. As respostas retornam um código de status que indicam o resultado da operação, e os dados do recurso solicitado no corpo da mensagem.
 
-O terinamento bidirecional do \gls{bert} é alcançado por meio de duas técnicas, sendo elas \gls{mlm} e \gls{nsp}. \gls{mlm} mascara parte das palavras em uma frase e então o modelo é treinado para prever essas palavras com base no contexto ao redor, tanto antes quanto depois da posição mascarada. \gls{nsp} treina o modelo para determinar se uma frase B segue imediatamente uma frase A no texto, melhorando a compreensão em relação às relações entre sentenças. \cite{Devlin2018}.
-
-As principais caracteristicas do \gls{bert} são sua bidirecionalidade e escalabilidade, sendo uma de suas versões, o BERT-Large, composto por 24 camadas, 1024 dimensões e 340 milhões de parâmetros. A partir de seu lançamento, o BERT tornou-se base para diversos avanços e está presente em aplicações práticas, como por exemplo o sistemas de busca do Google. \cite{Devlin2018}.
-
-\subsection{Azure Analytics}\label{subsec:azure}
-
-% https://learn.microsoft.com/en-us/azure/ai-services/language-service/?source=recommendations
-
-\subsection{Amazon Comprenhend}\label{subsec:comprenhend}
-
-% texto
-
-\subsection{YAKE}\label{subsec:yake}
-
-% texto
+Os quatro métodos ou verbos mais comuns do \gls{http} são GET, POST, PUT e DELETE e representam operações básicas que podem ser efetuadas sobre um recurso. O método GET é utilizado na recuperação de um recurso, sem a alteração de seu estado e idempotente, ou seja, sucessivas chamadas deste método produzem o mesmo resultado. O método POST é utilizado para a criação de um recurso e não idempotente. O método PUT é utilizado para a atualização de um recurso e por fim o método DELETE é utilizado para a remoção de um recurso, sendo estes também idempotentes.
