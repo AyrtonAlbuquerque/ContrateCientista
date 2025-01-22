@@ -17,11 +17,13 @@ C{\#} é uma linguagem de programação, fortemente tipada e orientada a objetos
 
 \subsection{Python}\label{subsec:python}
 
-% texto
+Criada por Guido van Rossum (1991), Python é uma linguagem de programação de alto nível, interpretada e orientada a objetos com semâmtica dinâmica. Devido sua simplicidade e tipagem dinâmica, Python é uma das linguagens mais populares da atualidade, permitindo o desenvolvimento rápido de aplicações e custo reduzido de manutenção. \cite{VanRossum2009}.
+
+Python se destaca principalmente no suporte ao desenvolvimento de aplicações voltadas a análise de dados, aprendizado de máquina e inteligência artificial, oferencendo uma ampla gama de pacotes que auxiliam na criação destas aplicações, como por exemplo, Transformers, utilizada neste projeto, NTLK, TensorFlow, PyTorch, entre outros.
 
 \subsection{Flutter {\&} Dart}\label{subsec:flutterdart}
 
-Flutter é uma estrutura com seu desenvolvimento em código aberto, disponível pelo Google. Com apenas um código, é possível construir aplicativos em multi-plataformas (Android/iOS), utilizando componentes nativos de cada plataforma \cite{Flutter}. A estrutura utiliza a linguagem Dart, assíncrona e muito semelhante à linguagem JavaScript \cite{Dart}.
+Flutter é um framework de desenvolvimento em código aberto, criado e disponibilizado pelo Google. Com apenas um código, é possível construir aplicativos em multi-plataformas (Android/iOS), utilizando componentes nativos de cada plataforma \cite{Flutter}. A estrutura utiliza a linguagem Dart, assíncrona e muito semelhante à linguagem JavaScript \cite{Dart}.
 
 \subsection{Docker}\label{subsec:docker}
 
@@ -39,36 +41,147 @@ Entre as características que diferenciam o GPT de outras abordagens, destaca-se
 
 O \gls{bert} é um modelo de linguagem baseado em transformadores desenvolvido pelo Google AI em 2018 e que revolucionou o campo do processamento de linguagem natural ao introduzir um treinamento bidirecional profundo, permitindo a captura de contextos linguísticos em ambas as direções (esquerda para direita e direita para esquerda) simultaneamente. \cite{Devlin2018}.
 
-O terinamento bidirecional do \gls{bert} é alcançado por meio de duas técnicas, sendo elas \gls{mlm} e \gls{nsp}. \gls{mlm} mascara parte das palavras em uma frase e então o modelo é treinado para prever essas palavras com base no contexto ao redor, tanto antes quanto depois da posição mascarada. \gls{nsp} treina o modelo para determinar se uma frase B segue imediatamente uma frase A no texto, melhorando a compreensão em relação às relações entre sentenças. \cite{Devlin2018}.
+O treinamento bidirecional do \gls{bert} é alcançado por meio de duas técnicas, sendo elas \gls{mlm} e \gls{nsp}. \gls{mlm} mascara parte das palavras em uma frase e então o modelo é treinado para prever essas palavras com base no contexto ao redor, tanto antes quanto depois da posição mascarada. \gls{nsp} treina o modelo para determinar se uma frase B segue imediatamente uma frase A no texto, melhorando a compreensão em relação às relações entre sentenças. \cite{Devlin2018}.
 
 As principais caracteristicas do \gls{bert} são sua bidirecionalidade e escalabilidade, sendo uma de suas versões, o BERT-Large, composto por 24 camadas, 1024 dimensões e 340 milhões de parâmetros. A partir de seu lançamento, o BERT tornou-se base para diversos avanços e está presente em aplicações práticas, como por exemplo o sistemas de busca do Google. \cite{Devlin2018}.
 
 \subsection{BERTimbau}\label{subsec:bertimbau}
 
-% texto
+BERTimbau é um modelo de linguagem treinado a partir do \gls{bert} com o objetivo de melhorar o desempenho em tarefas de processamento de linguagem natural para o português brasileiro. O modelo representa o estado da arte em tarefas como similaridade textual em sentenças e reconhecimento de entidades nomeadas, superando o desempenho de modelos multilinguísticos. \cite{souza2020bertimbau}.
 
-\subsection{Azure Analytics}\label{subsec:azure}
+O modelo foi treinado utilizando a técnica de transferência de aprendizado (Transfer Learning), onde um modelo préviamente treinado utilizando uma grande quantidade de dados é ajustado finamente para uma tarefa similiar, retendo partes do conhecimento adquirido no treinamento original. Essa técnica reduz a quantidade de dados anotados necessários para um treinamento supervisionado e melhora o desempenho do modelo. \cite{souza2020bertimbau}.
 
-% https://learn.microsoft.com/en-us/azure/ai-services/language-service/?source=recommendations
+\subsection{Azure AI Language}\label{subsec:azure}
 
-\subsection{Amazon Comprenhend}\label{subsec:comprenhend}
+O Azure AI Language é um serviço em nuvem de processamento de linguagem natural criado pela Microsoft que oferece a desenvolvedores ferramentas para a criação de aplicações capazes de compreender e processar a linguagem humana de forma eficiente. O serviço oferece funcionalidades como extração de palavras-chave, análise de sentimentos, reconhecimento de entidades nomeadas, sumarização de textos e entre outras. Alguns destes serviços são customizáveis, habilitando o treinamento dos modelos com dados específicos, permitindo a criação de modelos adaptados ao conjunto de dados do usuário. \cite{AzureAILanguage}.
 
-% texto
+\subsection{Amazon Comprenhend}\label{subsec:comprehend}
+
+O Amazon Comprehend é um serviço de processamento de linguagem natural parte da plataforma de serviços em nuvem da Amazon Web Services (AWS). O serviço extrai percepeções sobre o conteúdo de textos e documentos através de reconhecimento de entidades, extração de palavras-chave, análise de sentimentos, entre outras funcionalidades. \cite{AmazonComprehend}.
 
 \subsection{YAKE}\label{subsec:yake}
 
-% texto
+\gls{yake} é um algoritmo de extração de palavras-chave em textos e documentos que utiliza uma abordagem não supervisionada e técnicas linguísticas e estatísticas ao invés de treinamento supervisionado para extração de informações relevantes, utilizando apenas informações presentes no texto ou documento sem a necessidade de conhecimento externo, o que torna o algoritmo agnóstico à linguagem, independente de domínio e altamente eficiente com baixo custo computacional, ao contrário de abordagens baseadas e treinamento supervisionado, como o \gls{bert} e \gls{gpt}. \cite{YakeKeywordExtractor}.
+
+O algoritmo é composto por seis etapas principais, sendo elas, pré-processamento do texto, extração de recursos, pontuação de termos individuais geração de lista de palavras-chave candidatas, deduplicação dos dados e ranqueamento. Após a aplicação destas etapas, o algoritmo retorna uma lista de palavras-chave e uma pontuação para cada uma delas, ordenadas de acordo com sua relevância ao contexto do texto ou documento. \cite{YakeKeywordExtractor}.
 
 \section{Métodos}\label{sec:metodo}
 
-\subsection{Marcação de Parte de Fala}\label{subsec:pos_tagging}
+O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile/web. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender.
 
-% https://web.stanford.edu/~jurafsky/slp3/ed3bookaug20_2024.pdf
+\subsection{API de Aplicação}\label{subsec:app_api}
 
-\subsection{Extração de Palavras-Chave}\label{subsec:keyword_extraction}
+A \gls{api} de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela aplicação de interface com o usuário, bem como realizar as requisições de análise linguísticas à \gls{api} de linguagem.
 
-% texto
+Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atuliazação de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL. O diagrama da figura \ref{fig:api_aplicacao} apresenta seu funcionamento básico.
 
-\subsection{Similaridade do Cosseno}\label{subsec:cossine_similarity}
+\begin{figure}[htb]
+    \caption{Diagrama da API de Aplicação}
+    \includegraphics[scale=0.65]{api-aplicacao}
+    \fonte{Autoria própria (2025)}
+    \label{fig:api_aplicacao}
+\end{figure}
+
+\subsection{API de Linguagem}\label{subsec:language_api}
+
+A \gls{api} de linguagem foi construída utilizando a linguagem Python e o framework FastAPI. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela \gls{api} de aplicação e seu objetivo é integrar as diferentes inteligenências escolhidas para análise ao resto do sistema.
+
+Optou-se pela linguagem Python devido a facilidade de integração por meio de pacotes proporcinados pelos próprios criadores dos modelos, e decidiu-se pela separação em uma \gls{api} própria para facilitar a manutenção e escalabilidade do sistema, habilitando a inclusão de novas inteligências e métodos de análise semântica sem a necessidade de alterações na \gls{api} de aplicação.
+
+Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada uma das inteligenências integradas e análises semânticas de similaridae entre um conjunto de palavras-chave com seus respectivos pesos e textos.
+
+\subsubsection{Extração de Palavras-Chave}\label{subsubsec:keyword_extraction}
+
+Para o conjunto de dados de demandas e laboratórios proporcionados pelo \gls{direc} para análise, notou-se que em sua totalidade eram compostos por textos e planilhas. Desta surge um primeiro obstáculo, pois a qualidade e precisão ao estabelecer a similaridade entre dois textos decai com seus respectivos tamanhos.
+
+O primeiro passo para tentar solucionar esse problema e correlacionar uma demanda a um laboratório é obter os contextos que melhor definem cada um deles, extraindo palavras e frases-chave das informações presentes nos textos. Após uma análise manual dos dados, notou-se que nem todas as informações presentes seriam relevantes, e com o intuíto de evitar contaminar a análise, decidiu-se quais tipos de dados seriam utilizados para extração e análise de similaridade e quais seriam relavantes apenas para o \gls{mvp}.
+
+As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os tipos de informções presentes nos dados de laborátorios e demandas e quais os tipos de informação foram escolhidos para análise e extraçaõ de contexto.
+
+\begin{table}[htb]
+    \caption{Tipos de dados de laboratórios}
+    \label{tab:dados_labs}
+    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+        \hline
+        \textbf{Rótulo}  & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
+        Nome             & Texto         & Sim                           \\
+        Código           & Texto         & Não                           \\
+        Descrição        & Texto         & Sim                           \\
+        Certificados     & Texto         & Não                           \\
+        Data de Fundação & Data          & Não                           \\
+        Responsável      & Texto         & Não                           \\
+        Endereço         & Texto         & Não                           \\
+        Softwares        & Texto         & Não                           \\
+        Equipamentos     & Texto         & Não                           \\
+        Midias Sociais   & Texto         & Não                           \\
+        Palavras Chave   & Texto         & Sim                           \\ \hline
+    \end{tabularx}
+    \fonte{}
+\end{table}
+
+\begin{table}[htb]
+    \caption{Tipos de dados de demandas}
+    \label{tab:dados_demandas}
+    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+        \hline
+        \textbf{Rótulo} & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
+        Título          & Texto         & Sim                           \\
+        Descrição       & Texto         & Sim                           \\
+        Departamento    & Texto         & Não                           \\
+        Benefícios      & Texto         & Não                           \\
+        Detalhes        & Texto         & Sim                           \\
+        Responsável     & Texto         & Não                           \\
+        Palavras Chave  & Texto         & Sim                           \\ \hline
+    \end{tabularx}
+    \fonte{}
+\end{table}
+
+\subsubsection{Similaridade do Cosseno}\label{subsubsec:cossine_similarity}
+
+Para realizar um comparativo entre as diferentes inteligências empregadas neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer uma das técnologias e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
+
+Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o método de simililaridade do cosseno. Este método é amplamente utilizado em aplicações de processamento de linguagem natural, como sistemas de busca e sistemas de recomendação, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
+
+A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}. 
+
+\begin{equation}
+    \label{eq:cossine_similarity_equation}
+    \text{similaridade do cosseno}(A, B) = \frac{A \cdot B}{\|A\| \times \|B\|}
+\end{equation}
+
+Vetores que apontam na mesma direção possuem um grau de similaridade maior de acordo com sua proximidade, enquanto vetores que apontam em direções opostas possuem um grau de similaridade menor. As figuras \ref{fig:cossine_similarity_1}, \ref{fig:cossine_similarity_2} e \ref{fig:cossine_similarity_3} exemplificam a aplicação do método em dois documentos \cite{YlberArtan2022}.
+
+\begin{figure}[htb]
+    \caption{Documentos similares no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-1}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_1}
+\end{figure}
+
+\begin{figure}[htb]
+    \caption{Documentos ortogonais no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-2}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_2}
+\end{figure}
+
+\begin{figure}[htb]
+    \caption{Documentos opostos no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-3}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_3}
+\end{figure}
+
+A implementação do método retorna um valor entre -1 e 1, onde valores negativos representam contradição entre os documentos, valor zero (vetores ortogonais) indicam não similaridade e valores positivos representam similaridade entre os documentos.
+
+\subsubsection{Marcação de Parte de Fala}\label{subsubsec:pos_tagging}
+
+A inteligenência \gls{bert} é sem dúvida a mais flexível dentre as escolhidas para análise e comparação, porém ela é também a que requer um maior número de congifurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
+
+\gls{pos} representa a estrutura sintática das palavras em uma linguaguem, como por exemplo para o português brasileiro, tem-se o substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição. A marcação de partes de fala é uma das técnicas utilizadas para identificar e classificar as palavras de um texto de acordo com sua função gramatical, e serve o propósito de promover a desambiguação de palavras bem como auxiliar no entendimento da estrutura sintática \cite{JurafskyMartin2024}.
+
+Sem a implementação da marcação de partes de fala, o desempenho do modelo na extração de contexto pode ser prejudicado a depender da linguagem do conjunto de dados, pois por padrão, o \gls{bert} é configurado e treinado para a língua inglesa. Existem duas formas de se implementar essa marcação, a primeira e mais simples é a utilização de expressões regulares, onde a estrutura de marcação é determinada por padrões presentes na expressão. A segunda forma, e a escolhida para este projeto, é automatizar o processo, cuja implementação pode ser vista na seção \ref{sec:implementacaoSistema}.
+
+\subsection{Aplicação Mobile/Web}\label{subsec:app}
 
 % texto
