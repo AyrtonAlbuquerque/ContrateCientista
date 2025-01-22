@@ -41,9 +41,11 @@ class ApiMatchService {
 
   static like(id, like) async {
     try {
-      var url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.demandEndpoint}/like');
+      var url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.matchEndpoint}/like');
       final body = { 'id': id, 'like': like };
-      var response = await http.post(url, headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
+      var response = await http.post(url, headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'}, body: jsonEncode(body));
       if (response.statusCode == 200) {
         var body = json.decode(response.body);
         return body;

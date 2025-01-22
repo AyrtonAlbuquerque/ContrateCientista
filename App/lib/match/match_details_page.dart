@@ -1,5 +1,6 @@
 import 'package:app/address/address_details_page.dart';
 import 'package:app/equipments/equipments_page.dart';
+import 'package:app/match/match_page.dart';
 import 'package:app/match/match_service.dart';
 import 'package:app/match/match.dart';
 import 'package:app/person/person_details_page.dart';
@@ -54,6 +55,25 @@ class MatchDetailsPageState extends State {
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: ElevatedButton(child: Builder(
+            builder: (context) {
+              if (match?.liked == true) {
+                return Text('Remover laboratório apto');
+              } else {
+                return Text('Marcar como laboratório apto');
+              }
+            },
+          ), onPressed: () async {
+            var like = match?.liked == true ? false : true;
+            await ApiMatchService.like(match?.id, like);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MatchPage(isLab: false)),
+            );
+          }),
+        ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Text(
@@ -65,50 +85,54 @@ class MatchDetailsPageState extends State {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Text(match?.laboratory.name ?? ''),
         ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Text(
-              'Descrição',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Text(
+            'Descrição',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Text(match?.laboratory.description ?? ''),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Text(match?.laboratory.description ?? ''),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Text(
+            'Certificados',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Text(
-              'Certificados',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Text(match?.laboratory.certificates ?? ''),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Text(
+            'Fundado em',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Text(match?.laboratory.certificates ?? ''),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Text(
-              'Fundado em',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Text(match?.laboratory.foundationDate ?? ''),
-          ),
-          AddressDetailsPage(address: match?.laboratory.address, isLab: false),
-          if (match != null && match!.laboratory.responsible != null)
-            PersonDetailsPage(
-                title: 'Responsável', person: match!.laboratory.responsible!, isLab: false),
-          if (match?.laboratory.equipments != null)
-            EquipmentsPage(equipments: match?.laboratory.equipments ?? [], isLab: false),
-          if (match?.laboratory.socialMedias != null)
-            SocialMediasPage(
-                socialMedias: match?.laboratory.socialMedias ?? [], isLab: false),
-          if (match?.laboratory.softwares != null)
-            SoftwaresPage(softwares: match?.laboratory.softwares ?? [], isLab: false)
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Text(match?.laboratory.foundationDate ?? ''),
+        ),
+        AddressDetailsPage(address: match?.laboratory.address, isLab: false),
+        if (match != null && match!.laboratory.responsible != null)
+          PersonDetailsPage(
+              title: 'Responsável',
+              person: match!.laboratory.responsible!,
+              isLab: false),
+        if (match?.laboratory.equipments != null)
+          EquipmentsPage(
+              equipments: match?.laboratory.equipments ?? [], isLab: false),
+        if (match?.laboratory.socialMedias != null)
+          SocialMediasPage(
+              socialMedias: match?.laboratory.socialMedias ?? [], isLab: false),
+        if (match?.laboratory.softwares != null)
+          SoftwaresPage(
+              softwares: match?.laboratory.softwares ?? [], isLab: false)
       ])),
     );
   }

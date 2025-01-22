@@ -3,50 +3,183 @@
 % ------------------------------------------------------------------------------------------- %
 \chapter{Resultados}\label{cap:resultados}
 
-% Este capítulo apresenta o que foi obtido como resultado do trabalho, que, em princípio, é o sistema desenvolvido. Se não for um sistema, como, por exemplo, uma solução na área de redes, neste capítulo é reportada a solução proposta. Neste caso, a divisão do capítulo em seções é realizada, se necessária, de acordo com o trabalho.
-
-% O capítulo pode conter seções de acordo com o tipo de sistema e a necessidade de documentação mais extensa de determinados aspectos. Caso o trabalho se refira à comparação entre tecnologias ou dados obtidos como resultados do uso do sistema, além da descrição do sistema, há os dados obtidos com os testes e a discussão desses dados. Nesse caso haverá uma seção para os dados obtidos desses testes e as discussões.
-
 % ------------------------------------ Escopo do Sistema ------------------------------------ %
 \section{Escopo do sistema}\label{sec:escopoSistema}
 
-% Apresenta o escopo do sistema (contendo entre dois ou cinco parágrafos) de forma bastante sucinta, considerando aspectos técnicos e conceituais. O escopo define o que é o sistema, consistindo das funcionalidades e características que o sistema deve conter. É importante apresentar também o escopo negativo, ou seja, as funcionalidades e características que o sistema não irá conter.
-% Exemplo:
+O sistema Contrate um Cientista terá como objetivo conectar organizações que possuem demandas específicas de pesquisa, desenvolvimento ou inovação com laboratórios científicos 
+que possuem expertise para atender essas necessidades. Utilizando modelos de Inteligência Artificial, o sistema será capaz de analisar competências e demandas, garantindo um 
+match eficiente e personalizado.
 
-% O sistema XYZ deve gerenciar todos os processos de uma livraria virtual, desde a aquisição até a venda dos livros para o consumidor final. O acesso dos compradores e gerentes deve ser feito por meio de um site WEB, incluindo a possibilidade de acesso por outras tecnologias (ex. celular, tablet). Os clientes poderão fazem as compras pagando com cartão de crédito ou depósito bancário. Existem promoções eventuais pelas quais os livros podem ser comprados com desconto.
+Abrange dois tipos de usuários: organizações e laboratórios científicos. Onde as organizações são responsáveis por criar as demandas e favoritar os cientistas 
+pré selecionados pelos modelos de Inteligência Artificial. E os laboratórios científicos responsáveis em cadastrar todos os recursos que possuem.
 
-% De início, a livraria vai trabalhar apenas com livros novos a serem adquiridos de editoras que tenham sistema automatizado de aquisição. Desta forma, o sistema a ser desenvolvido deve conectar-se aos sistemas das editoras para efetuar as compras.
+Os modelos de Inteligência Artificial são utilizados para encontrar os laboratórios que são aptos para uma demanda específica, levando em consideração palavras-chave, 
+equipamentos e softwares.
 
-% O sistema deve calcular o custo de entrega baseado no peso dos livros e na distância do ponto de entrega. Eventualmente podem haver promoções do tipo “entrega gratuita” para determinadas localidades.
-
-% O sistema deve permitir a um gerente emitir relatórios de livros mais vendidos, e compradores mais assíduos, bem como sugerir compras para compradores baseadas em seus interesses anteriores.
+A organização poderá selecionar os laboratórios que possui maior interesse (dentre os laboratórios aptos) para que os usuários do tipo laboratórios científico possa 
+visualizar as especificações daquela demanda.
 
 % ----------------------------------- Modelagem do Sistema ---------------------------------- %
 \section{Modelagem do sistema}\label{sec:modelagemSistema}
 
-% A modelagem do sistema inclui os diagramas e as descrições textuais para representar o problema e a solução.
+A maior dificuldade atualmente, se concentra nos responsáveis do departamento que faz esse match entre uma demanda e um cientista nas universidades.
+Pensando nisso, o sistema deveria ser de fácil acesso à esses responsáveis, por isso, o App foi uma solução que melhor se enquadraria. 
+Finalmente, foi realizado um diagrama para que seja facilmente entendido quais seriam organizados os projetos necessários, juntamente com suas tecnologias, conforme \autoref{fig:fluxograma-comunicacao}.
 
-% Sendo assim, primeiramente esse item deve apresentar diagramas utilizados para a modelagem de negócios (ex. diagramas de atividade e estado), se esses tenham sido necessários.
-% Em seguida esse item deve conter a descrição dos requisitos obtidos do usuário, contendo sua respectiva classificação (funcionais e não funcionais). Sugere-se o uso de um modelo formal sugerido por autores (ex. Wazlawick, Bezerra) para a apresentação dessa classificação.
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama da plataforma.}
+    \label{fig:fluxograma-comunicacao}
+    \includegraphics[scale=0.8]{fluxograma-comunicacao}
+    \fonte{}
+\end{figure}
 
-% Se utilizada orientação a objetos e a UML, nesta seção ainda são apresentados, por exemplo, os diagramas de casos de uso, com suas descrições suplementares, os diagramas de classe de análise (ou modelo conceitual), de sequência e/ou comunicação, diagrama de classes de projeto.
+Como a função principal, é a criação de demandas, foi possível entender melhor os passos através do diagrama \autoref{fig:diagrama-sequencia}.
 
-% Nesta seção também estão os diagramas da modelagem de banco de dados, como entidade-relacionamento. Nesse item pode ser apresentada a descrição de cada uma das classes do modelo de classes apresentado acima, assim como a descrição das tabelas do banco de dados. Também podem estar documentados modelos e padronizações utilizados para a interface, diagramas de navegação, a representação da arquitetura do sistema e dos padrões de projeto utilizados.
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de sequência de criação de demanda.}
+    \label{fig:diagrama-sequencia}
+    \includegraphics[scale=0.8]{diagrama-sequencia}
+    \fonte{}
+\end{figure}
+
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+\subsection{Requisitos Funcionais}\label{subsec:ia1}
+\begin{enumerate}
+    \item O sistema deve disponibilizar um aplicativo
+    \item O aplicativo deve ter uma página para o cadastro das organizações
+	\begin{enumerate}
+		\item Organização deve ter um email para login
+		\item Organização deve ter uma senha
+		\item Organização deve ter um nome
+		\item Organização deve ter um cnpj
+		\item Organização deve ter um email para contato
+		\item Organização deve permitir uma descrição
+	\end{enumerate}
+    \item O aplicativo deve ter uma página para o cadastro de laboratórios
+	\begin{enumerate}
+		\item Laboratório deve ter um email para login
+		\item Laboratório deve ter um código
+		\item Laboratório deve ter uma data de fundação
+		\item Laboratório deve ter palavras-chave
+		\item Laboratório deve permitir uma descrição
+		\item Laboratório deve permitir o cadastro dos seus certificados
+		\item Laboratório deve ter um responsável
+		\begin{enumerate}
+			\item Responsável deve ter um nome
+			\item Responsável deve permitir um departamento
+			\item Responsável deve permitir um email
+			\item Responsável deve permitir um telefone
+		\end{enumerate}
+		\item Laboratório deve ter um endereço
+		\begin{enumerate}
+			\item Endereço deve ter uma rua
+			\item Endereço deve ter um número
+			\item Endereço deve ter um bairro
+			\item Endereço deve ter uma cidade
+			\item Endereço deve ter um estado
+			\item Endereço deve ter um país
+			\item Responsável deve permitir um complemento
+		\end{enumerate}
+		\item Laboratório deve permitir uma descrição
+		\item Laboratório deve permitir uma ou mais redes sociais
+		\begin{enumerate}
+			\item Rede social deve ter um tipo
+			\item Rede social deve ter um link
+		\end{enumerate}
+		\item Laboratório deve permitir um ou mais equipamentos
+		\begin{enumerate}
+			\item Equipamento deve ter um nome
+			\item Equipamento deve permitir uma descrição
+			\item Equipamento deve permitir uma área
+		\end{enumerate}
+		\item Laboratório deve permitir um ou mais softwares
+		\begin{enumerate}
+			\item Software deve ter um nome
+			\item Software deve permitir uma descrição
+			\item Software deve permitir uma área
+		\end{enumerate}
+	\end{enumerate}
+    \item O aplicativo deve ter uma página de login para os usuários
+    \item O aplicativo deve permitir que o usuário faça o logout da sua conta
+    \item O sistema deve permitir que um usuário visualize e edite as informações do seu perfil no sistema
+    \item O aplicativo deve permitir que uma organização crie uma demanda
+	\begin{enumerate}
+		\item Demanda deve ter um título
+		\item Demanda deve ter um departamento
+		\item Demanda deve ter benefícios
+		\item Demanda deve ter detalhes
+		\item Demanda deve ter palavras-chave
+		\item Demanda deve permitir uma descrição
+		\item Demanda deve permitir restrições
+	\end{enumerate}
+	\item O sistema deve permitir que uma organização visualize todas suas demandas no sistema
+	\item O sistema deve permitir que uma organização favorite laboratórios aptos para uma demanda específica
+	\item O sistema deve permitir que uma organização visualize os laboratórios favoritados para cada demanda
+	\item O sistema deve permitir que um laboratório visualize as informações da demanda após aquela organização o marcar como favorito
+\end{enumerate}
+
+\subsection{Requisitos Não-Funcionais}\label{subsec:ia1}
+\begin{enumerate}
+\item O sistema deve permitir ser instalado em sistema operacionais Android e iOs
+\item O sistema deve ser usado a framework Dart
+\item O sistema deve ser servido em C\#
+\item O site deverá armazenar dados persistentes com PostgreSQL.
+\item O sistema deve armazenar a senha criptografada
+\item O sistema deve manter todas as informações protegidas de acordo com permissões do usuário logado
+\item O sistema deve mostrar a organização os melhores candidatos para trabalhar naquela demanda
+\item O sistema não deve travar até a análise de todos os laboratórios para aquela nova demanda
+\end{enumerate}
+
+O diagrama de caso de uso, para fácil visualização dos atores e suas respectivas ações {{diagrama-caso-de-uso}}
+
+O banco de dados foi planejado para comportar os dois tipo de usuários diferentes (laboratório e organização), e para armazenar todos os dados relevantes para análise das demandas, de acordo com o diagrama da \autoref{fig:ERD}.
+
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de Relação de Entidades do Bando de Dados.}
+    \label{fig:ERD}
+    \includegraphics[scale=0.8]{ERD}
+    \fonte{}
+\end{figure}
+
 
 % --------------------------------- Apresentação do Sistema --------------------------------- %
 \section{Apresentação do sistema}\label{sec:apresentacaoSistema}
 
-% Apresenta as funcionalidades e o uso de recursos tecnológicos do sistema por meio de suas telas, enfatizando a interação com o sistema. A apresentação do sistema é feita sob a forma de texto, com telas e definição de padrões que forem relevantes ao contexto do trabalho. As telas são tratadas como figuras, cópias (print screen) de relatórios ou consultas também são figuras.
+O sistema possui uma tela de login inicial, onde o usuário pode preencher seu email e senha, ou fazer um signin. Antes de realizar o signin, o usuário precisa escolher se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações.
+Após realizar o login e senha, o usuário será redirecionado para sua tela principal, o qual é representado a tela principal da organização na \autoref{fig:pagina-home-org}, onde é mostrada as opções que ele poderá acessar no Aplicativo, como está demonstrado na \autoref{fig:diagrama-navegacao}.
 
-% A \autoref{fig:cadastroPaciente} exibe a tela de acesso ao Cadastro de Pacientes.
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Tela inicial de um usuário do tipo organização do aplicativo.}
+    \label{fig:pagina-home-org}
+    \includegraphics[scale=0.8]{pagina-home-org}
+    \fonte{}
+\end{figure}
 
-% \begin{figure}[htpb]
-%     \captionsetup{width=0.43\textwidth}
-%     \caption{Tela de acesso ao Cadastro de Pacientes.}
-%     \label{fig:cadastroPaciente}
-%     \includegraphics[scale=0.8]{cadastro-paciente}
-%     \fonte{}
-% \end{figure}
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de navegação ao realizar o login.}
+    \label{fig:diagrama-navegacao}
+    \includegraphics[scale=0.8]{diagrama-navegacao}
+    \fonte{}
+\end{figure}
+
+Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela \autoref{pagina-matches-detalhes} , enquanto o laboratório poderar ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
+
+\begin{figure}[htpb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Tela de detalhes de um match, com o título da demanda, e os detalhes do laboratório, de um usuário do tipo organização do aplicativo.}
+    \label{fig:pagina-matches-detalhes}
+    \includegraphics[scale=0.8]{pagina-matches-detalhes}
+    \fonte{}
+\end{figure}
+
 
 % --------------------------------- Implementação do Sistema -------------------------------- %
 \section{Implementação do sistema}\label{sec:implementacaoSistema}
@@ -54,6 +187,7 @@
 % Nesta seção é documentada a implementação do sistema com partes relevantes ou exemplos de código, rotinas, funções. Inclui, ainda, a descrição técnica do uso de recursos (componentes, bibliotecas, etc.) da linguagem. Ressalta-se que cada orientador avaliará juntamente com seu orientado o que poderá ser descrito nesta seção. Isso sem que sejam revelados detalhes do sistema que possam comprometer seu uso comercial ou científico ou que a descrição fique muito sucinta ou superficial.
 
 % Em materiais e método estão quais os recursos utilizados, neste capítulo é reportado como esses recursos foram utilizados para resolver o problema.
+
 
 % Sugere-se colocar listagens curtas de código, enfatizando aspectos específicos das tecnologias utilizadas ou da implementação. Sugere-se, ainda, que o código não seja apresentado sob a forma de print screen, e sim copiado e colado no texto, mantendo, se possível, a formatação. Todas as listagens de código devem ser devidamente explicadas. A explicação deve ser técnica, fundamentada em aspectos conceituais e boas práticas de programação.
 

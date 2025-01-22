@@ -15,55 +15,42 @@ class PersonDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+          child: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-        child: Text(
-          person.name,
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: Text(
+            person.name,
+          ),
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-        child: Text(
-          'Departamento',
-          style: TextStyle(fontWeight: FontWeight.bold),
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+          child: Text('Departamento: ${person.department ?? ''}'),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-        child: Text(person.department ?? ''),
       ),
       if (person.email != '') ...[
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: Text(
-            'Email',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Padding(
+        Center(
+            child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          child: Text(person.email),
-        )
+          child: Text('Email: ${person.email}'),
+        )),
       ],
       if (person.phone != null && person.phone != '') ...[
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: Text(
-            'Telefone',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Padding(
+        Center(
+            child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          child: Text(person.phone ?? ''),
-        )
+          child: Text('Telefone: ${person.phone}'),
+        ))
       ],
     ]);
   }
