@@ -17,7 +17,7 @@ C{\#} é uma linguagem de programação, fortemente tipada e orientada a objetos
 
 \subsection{Python}\label{subsec:python}
 
-Criada em 1991 por Guido van Rossum, Python é uma linguagem de programação de alto nível, interpretada e orientada a objetos com semâmtica dinâmica. Devido sua simplicidade e tipagem dinâmica, Python é uma das linguagens mais populares da atualidade, permitindo o desenvolvimento rápido de aplicações e custo reduzido de manutenção. \cite{VanRossum2009}.
+Criada por Guido van Rossum (1991), Python é uma linguagem de programação de alto nível, interpretada e orientada a objetos com semâmtica dinâmica. Devido sua simplicidade e tipagem dinâmica, Python é uma das linguagens mais populares da atualidade, permitindo o desenvolvimento rápido de aplicações e custo reduzido de manutenção. \cite{VanRossum2009}.
 
 Python se destaca principalmente no suporte ao desenvolvimento de aplicações voltadas a análise de dados, aprendizado de máquina e inteligência artificial, oferencendo uma ampla gama de pacotes que auxiliam na criação destas aplicações, como por exemplo, Transformers, utilizada neste projeto, NTLK, TensorFlow, PyTorch, entre outros.
 
@@ -53,7 +53,7 @@ O modelo foi treinado utilizando a técnica de transferência de aprendizado (Tr
 
 \subsection{Azure AI Language}\label{subsec:azure}
 
-O Azure AI Language é um serviço em nuvem de processamento de linguagem natural criado pela Microsoft que oferece a desenvolvedores ferramentas para a criação de aplicações capazes de compreender e processar a linguagem humana de forma eficiente. O serviço oferece funcionalidades como extração de palavras-chave, análise de sentimentos, reconhecimento de entidades nomeadas, sumarização de textos e entre outras. Alguns destes serviços são customizáveis, habilitando o treinamento dos modelos com dados específicos, permitindo a criação de modelos adaptados ao conjunto de dados do usuário. \cite{AzureAILanguage}.  
+O Azure AI Language é um serviço em nuvem de processamento de linguagem natural criado pela Microsoft que oferece a desenvolvedores ferramentas para a criação de aplicações capazes de compreender e processar a linguagem humana de forma eficiente. O serviço oferece funcionalidades como extração de palavras-chave, análise de sentimentos, reconhecimento de entidades nomeadas, sumarização de textos e entre outras. Alguns destes serviços são customizáveis, habilitando o treinamento dos modelos com dados específicos, permitindo a criação de modelos adaptados ao conjunto de dados do usuário. \cite{AzureAILanguage}.
 
 \subsection{Amazon Comprenhend}\label{subsec:comprehend}
 
@@ -67,7 +67,7 @@ O algoritmo é composto por seis etapas principais, sendo elas, pré-processamen
 
 \section{Métodos}\label{sec:metodo}
 
-O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile/web. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender. 
+O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile/web. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender.
 
 \subsection{API de Aplicação}\label{subsec:app_api}
 
@@ -90,17 +90,59 @@ Optou-se pela linguagem Python devido a facilidade de integração por meio de p
 
 Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada uma das inteligenências integradas e análises semânticas de similaridae entre um conjunto de palavras-chave com seus respectivos pesos e textos.
 
-\subsubsection{Extração de Palavras-Chave}\label{subsec:keyword_extraction}
+\subsubsection{Extração de Palavras-Chave}\label{subsubsec:keyword_extraction}
 
-Para o conjunto de dados de demandas e laboratórios proporcionados pelo \gls{direc} para análise, notou-se que em sua totalidade eram compostos por textos e planilhas. Desta surge um primeiro obstáculo, pois a qualidade ao estabelecer a similaridade entre dois textos decai com seus respectivos tamanhos. 
+Para o conjunto de dados de demandas e laboratórios proporcionados pelo \gls{direc} para análise, notou-se que em sua totalidade eram compostos por textos e planilhas. Desta surge um primeiro obstáculo, pois a qualidade e precisão ao estabelecer a similaridade entre dois textos decai com seus respectivos tamanhos.
 
-Para tentar solucionar esse problema, o primeiro passo para correlacionar uma demanda a um laboratório é extrair os contextos que melhor definem cada um deles.
+O primeiro passo para tentar solucionar esse problema e correlacionar uma demanda a um laboratório é obter os contextos que melhor definem cada um deles, extraindo palavras e frases-chave das informações presentes nos textos. Após uma análise manual dos dados, notou-se que nem todas as informações presentes seriam relevantes, e com o intuíto de evitar contaminar a análise, decidiu-se quais tipos de dados seriam utilizados para extração e análise de similaridade e quais seriam relavantes apenas para o \gls{mvp}.
 
-\subsubsection{Similaridade do Cosseno}\label{subsec:cossine_similarity}
+As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os tipos de informções presentes nos dados de laborátorios e demandas e quais os tipos de informação foram escolhidos para análise e extraçaõ de contexto.
+
+\begin{table}[htb]
+    \caption{Tipos de dados de laboratórios}
+    \label{tab:dados_labs}
+    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+        \hline
+        \textbf{Rótulo}  & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
+        Nome             & Texto         & Sim                           \\
+        Código           & Texto         & Não                           \\
+        Descrição        & Texto         & Sim                           \\
+        Certificados     & Texto         & Não                           \\
+        Data de Fundação & Data          & Não                           \\
+        Responsável      & Texto         & Não                           \\
+        Endereço         & Texto         & Não                           \\
+        Softwares        & Texto         & Não                           \\
+        Equipamentos     & Texto         & Não                           \\
+        Midias Sociais   & Texto         & Não                           \\
+        Palavras Chave   & Texto         & Sim                           \\ \hline
+    \end{tabularx}
+    \fonte{}
+\end{table}
+
+\begin{table}[htb]
+    \caption{Tipos de dados de demandas}
+    \label{tab:dados_demandas}
+    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+        \hline
+        \textbf{Rótulo} & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
+        Título          & Texto         & Sim                           \\
+        Descrição       & Texto         & Sim                           \\
+        Departamento    & Texto         & Não                           \\
+        Benefícios      & Texto         & Não                           \\
+        Detalhes        & Texto         & Sim                           \\
+        Responsável     & Texto         & Não                           \\
+        Palavras Chave  & Texto         & Sim                           \\ \hline
+    \end{tabularx}
+    \fonte{}
+\end{table}
+
+\subsubsection{Similaridade do Cosseno}\label{subsubsec:cossine_similarity}
+
+Extrair os contextos do conjunto de dados
 
 % https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html
 
-\subsubsection{Marcação de Parte de Fala}\label{subsec:pos_tagging}
+\subsubsection{Marcação de Parte de Fala}\label{subsubsec:pos_tagging}
 
 % https://web.stanford.edu/~jurafsky/slp3/ed3bookaug20_2024.pdf
 
