@@ -138,13 +138,49 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
 
 \subsubsection{Similaridade do Cosseno}\label{subsubsec:cossine_similarity}
 
-Extrair os contextos do conjunto de dados
+Para realizar um comparativo entre as diferentes inteligências empregadas neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer uma das técnologias e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
 
-% https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html
+Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o método de simililaridade do cosseno. Este método é amplamente utilizado em aplicações de processamento de linguagem natural, como sistemas de busca e sistemas de recomendação, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
+
+A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}. 
+
+\begin{equation}
+    \label{eq:cossine_similarity_equation}
+    \text{similaridade do cosseno}(A, B) = \frac{A \cdot B}{\|A\| \times \|B\|}
+\end{equation}
+
+Vetores que apontam na mesma direção possuem um grau de similaridade maior de acordo com sua proximidade, enquanto vetores que apontam em direções opostas possuem um grau de similaridade menor. As figuras \ref{fig:cossine_similarity_1}, \ref{fig:cossine_similarity_2} e \ref{fig:cossine_similarity_3} exemplificam a aplicação do método em dois documentos \cite{YlberArtan2022}.
+
+\begin{figure}[htb]
+    \caption{Documentos similares no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-1}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_1}
+\end{figure}
+
+\begin{figure}[htb]
+    \caption{Documentos ortogonais no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-2}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_2}
+\end{figure}
+
+\begin{figure}[htb]
+    \caption{Documentos opostos no espaço vetorial}
+    \includegraphics[scale=0.9]{cossine-similarity-3}
+    \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
+    \label{fig:cossine_similarity_3}
+\end{figure}
+
+A implementação do método retorna um valor entre -1 e 1, onde valores negativos representam contradição entre os documentos, valor zero (vetores ortogonais) indicam não similaridade e valores positivos representam similaridade entre os documentos.
 
 \subsubsection{Marcação de Parte de Fala}\label{subsubsec:pos_tagging}
 
-% https://web.stanford.edu/~jurafsky/slp3/ed3bookaug20_2024.pdf
+A inteligenência \gls{bert} é sem dúvida a mais flexível dentre as escolhidas para análise e comparação, porém ela é também a que requer um maior número de congifurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
+
+\gls{pos} representa a estrutura sintática das palavras em uma linguaguem, como por exemplo para o português brasileiro, tem-se o substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição. A marcação de partes de fala é uma das técnicas utilizadas para identificar e classificar as palavras de um texto de acordo com sua função gramatical, e serve o propósito de promover a desambiguação de palavras bem como auxiliar no entendimento da estrutura sintática \cite{JurafskyMartin2024}.
+
+Sem a implementação da marcação de partes de fala, o desempenho do modelo na extração de contexto pode ser prejudicado a depender da linguagem do conjunto de dados, pois por padrão, o \gls{bert} é configurado e treinado para a língua inglesa. Existem duas formas de se implementar essa marcação, a primeira e mais simples é a utilização de expressões regulares, onde a estrutura de marcação é determinada por padrões presentes na expressão. A segunda forma, e a escolhida para este projeto, é automatizar o processo, cuja implementação pode ser vista na seção \ref{sec:implementacaoSistema}.
 
 \subsection{Aplicação Mobile/Web}\label{subsec:app}
 
