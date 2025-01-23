@@ -73,7 +73,7 @@ O presente projeto foi subdividido no desenvolvimento de três módulos principa
 
 A \gls{api} de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela aplicação de interface com o usuário, bem como realizar as requisições de análise linguísticas à \gls{api} de linguagem.
 
-Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atuliazação de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL. O diagrama da figura \ref{fig:api_aplicacao} apresenta seu funcionamento básico.
+Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atualização de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL. O diagrama da figura \ref{fig:api_aplicacao} apresenta seu funcionamento básico.
 
 \begin{figure}[htb]
     \caption{Diagrama da API de Aplicação}
@@ -86,17 +86,17 @@ Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza opera
 
 A \gls{api} de linguagem foi construída utilizando a linguagem Python e o framework FastAPI. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela \gls{api} de aplicação e seu objetivo é integrar as diferentes inteligenências escolhidas para análise ao resto do sistema.
 
-Optou-se pela linguagem Python devido a facilidade de integração por meio de pacotes proporcinados pelos próprios criadores dos modelos, e decidiu-se pela separação em uma \gls{api} própria para facilitar a manutenção e escalabilidade do sistema, habilitando a inclusão de novas inteligências e métodos de análise semântica sem a necessidade de alterações na \gls{api} de aplicação.
+Optou-se pela linguagem Python devido a facilidade de integração por meio de pacotes proporcionados pelos próprios criadores dos modelos, e decidiu-se pela separação em uma \gls{api} própria para facilitar a manutenção e escalabilidade do sistema, habilitando a inclusão de novas inteligências e métodos de análise semântica sem a necessidade de alterações na \gls{api} de aplicação.
 
-Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada uma das inteligenências integradas e análises semânticas de similaridae entre um conjunto de palavras-chave com seus respectivos pesos e textos.
+Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada uma das inteligenências integradas e análises semânticas de similaridade entre um conjunto de palavras-chave com seus respectivos pesos e textos.
 
 \subsubsection{Extração de Palavras-Chave}\label{subsubsec:keyword_extraction}
 
 Para o conjunto de dados de demandas e laboratórios proporcionados pelo \gls{direc} para análise, notou-se que em sua totalidade eram compostos por textos e planilhas. Desta surge um primeiro obstáculo, pois a qualidade e precisão ao estabelecer a similaridade entre dois textos decai com seus respectivos tamanhos.
 
-O primeiro passo para tentar solucionar esse problema e correlacionar uma demanda a um laboratório é obter os contextos que melhor definem cada um deles, extraindo palavras e frases-chave das informações presentes nos textos. Após uma análise manual dos dados, notou-se que nem todas as informações presentes seriam relevantes, e com o intuíto de evitar contaminar a análise, decidiu-se quais tipos de dados seriam utilizados para extração e análise de similaridade e quais seriam relavantes apenas para o \gls{mvp}.
+O primeiro passo para tentar solucionar esse problema e correlacionar uma demanda a um laboratório é obter os contextos que melhor definem cada um deles, extraindo palavras e frases-chave das informações presentes nos textos. Após uma análise manual dos dados, notou-se que nem todas as informações presentes seriam relevantes, e com o intuíto de evitar contaminar a análise, decidiu-se quais tipos de dados seriam utilizados para extração e análise de similaridade e quais seriam relevantes apenas para o \gls{mvp}.
 
-As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os tipos de informções presentes nos dados de laborátorios e demandas e quais os tipos de informação foram escolhidos para análise e extraçaõ de contexto.
+As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os tipos de informções presentes nos dados de laborátorios e demandas e quais os tipos de informação foram escolhidos para análise e extração de contexto.
 
 \begin{table}[htb]
     \caption{Tipos de dados de laboratórios}
@@ -142,7 +142,7 @@ Para realizar um comparativo entre as diferentes inteligências empregadas neste
 
 Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o método de simililaridade do cosseno. Este método é amplamente utilizado em aplicações de processamento de linguagem natural, como sistemas de busca e sistemas de recomendação, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
 
-A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}. 
+A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}.
 
 \begin{equation}
     \label{eq:cossine_similarity_equation}
@@ -176,7 +176,7 @@ A implementação do método retorna um valor entre -1 e 1, onde valores negativ
 
 \subsubsection{Marcação de Parte de Fala}\label{subsubsec:pos_tagging}
 
-A inteligenência \gls{bert} é sem dúvida a mais flexível dentre as escolhidas para análise e comparação, porém ela é também a que requer um maior número de congifurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
+A inteligência \gls{bert} é sem dúvida a mais flexível dentre as escolhidas para análise e comparação, porém ela é também a que requer um maior número de configurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
 
 \gls{pos} representa a estrutura sintática das palavras em uma linguaguem, como por exemplo para o português brasileiro, tem-se o substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição. A marcação de partes de fala é uma das técnicas utilizadas para identificar e classificar as palavras de um texto de acordo com sua função gramatical, e serve o propósito de promover a desambiguação de palavras bem como auxiliar no entendimento da estrutura sintática \cite{JurafskyMartin2024}.
 
