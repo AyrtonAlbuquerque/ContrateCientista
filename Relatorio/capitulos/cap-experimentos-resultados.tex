@@ -32,7 +32,7 @@ A maior dificuldade atualmente, se concentra nos responsáveis do departamento q
 Pensando nisso, o sistema deveria ser de fácil acesso à esses responsáveis, por isso, o App foi uma solução que melhor se enquadraria. 
 Finalmente, foi realizado um diagrama para que seja facilmente entendido quais seriam organizados os projetos necessários, juntamente com suas tecnologias, conforme \autoref{fig:fluxograma-comunicacao}.
 
-\begin{figure}[htpb]
+\begin{figure}[htb]
     \captionsetup{width=0.43\textwidth}
     \caption{Diagrama da plataforma.}
     \label{fig:fluxograma-comunicacao}
@@ -42,7 +42,7 @@ Finalmente, foi realizado um diagrama para que seja facilmente entendido quais s
 
 Como a função principal, é a criação de demandas, foi possível entender melhor os passos através do diagrama \autoref{fig:diagrama-sequencia}.
 
-\begin{figure}[htpb]
+\begin{figure}[htb]
     \captionsetup{width=0.43\textwidth}
     \caption{Diagrama de sequência de criação de demanda.}
     \label{fig:diagrama-sequencia}
@@ -145,11 +145,11 @@ O diagrama de caso de uso, para fácil visualização dos atores e suas respecti
 
 O banco de dados foi planejado para comportar os dois tipo de usuários diferentes (laboratório e organização), e para armazenar todos os dados relevantes para análise das demandas, de acordo com o diagrama da \autoref{fig:ERD}.
 
-\begin{figure}[htpb]
+\begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
     \caption{Diagrama de Relação de Entidades do Bando de Dados.}
     \label{fig:ERD}
-    \includegraphics[scale=0.8]{ERD}
+    \includegraphics[scale=0.5]{ERD}
     \fonte{}
 \end{figure}
 
@@ -160,7 +160,7 @@ O banco de dados foi planejado para comportar os dois tipo de usuários diferent
 O sistema possui uma tela de login inicial, onde o usuário pode preencher seu email e senha, ou fazer um signin. Antes de realizar o signin, o usuário precisa escolher se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações.
 Após realizar o login e senha, o usuário será redirecionado para sua tela principal, o qual é representado a tela principal da organização na \autoref{fig:pagina-home-org}, onde é mostrada as opções que ele poderá acessar no Aplicativo, como está demonstrado na \autoref{fig:diagrama-navegacao}.
 
-\begin{figure}[htpb]
+\begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
     \caption{Tela inicial de um usuário do tipo organização do aplicativo.}
     \label{fig:pagina-home-org}
@@ -168,7 +168,7 @@ Após realizar o login e senha, o usuário será redirecionado para sua tela pri
     \fonte{}
 \end{figure}
 
-\begin{figure}[htpb]
+\begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
     \caption{Diagrama de navegação ao realizar o login.}
     \label{fig:diagrama-navegacao}
@@ -178,7 +178,7 @@ Após realizar o login e senha, o usuário será redirecionado para sua tela pri
 
 Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela \autoref{fig:pagina-matches-detalhes} , enquanto o laboratório poderar ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
 
-\begin{figure}[htpb]
+\begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
     \caption{Tela de detalhes de um match, com o título da demanda, e os detalhes do laboratório, de um usuário do tipo organização do aplicativo.}
     \label{fig:pagina-matches-detalhes}
@@ -197,7 +197,7 @@ A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como
 
 \begin{sourcecode}[htb]
     \caption{\label{codigo:equip-form}Classe Aluno}
-    \begin{lstlisting}[frame=single, language=Dart]
+    \begin{lstlisting}[frame=single, language=Java]
 class EquipmentFormPage extends StatelessWidget {
   EquipmentFormPage(
       {Key? key,
@@ -247,9 +247,9 @@ class EquipmentFormPage extends StatelessWidget {
 
 Para a comunicação com a API de Aplicação, foi utilizada o pacote nativa http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[htb][h!]
     \caption{\label{codigo:list-demands}Classe Aluno}
-    \begin{lstlisting}[frame=single, language=Dart]
+    \begin{lstlisting}[frame=single, language=Java]
 static Future<List<Demand>?> getDemand() async {
     try {
       var url = Uri.parse(
