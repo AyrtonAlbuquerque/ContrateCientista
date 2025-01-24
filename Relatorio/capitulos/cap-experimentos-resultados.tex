@@ -186,37 +186,98 @@ Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de t
 
 % Nesta seção é documentada a implementação do sistema com partes relevantes ou exemplos de código, rotinas, funções. Inclui, ainda, a descrição técnica do uso de recursos (componentes, bibliotecas, etc.) da linguagem. Ressalta-se que cada orientador avaliará juntamente com seu orientado o que poderá ser descrito nesta seção. Isso sem que sejam revelados detalhes do sistema que possam comprometer seu uso comercial ou científico ou que a descrição fique muito sucinta ou superficial.
 
+\subsection{Aplicação}\label{subsec:aplicacao}
+A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações. Como por exemplo no \autoref{codigo:equip-form}, o componente de formulário do equipamento, que pode ser utilizado em diferentes páginas. O formulário é utilizado tanto para edição, quando para criação de equipamentos, e possui o campo "Nome" obrigatório, enquanto os campos "Descrição" e "Área" são opcionais. Quando pressionado o botão para salvar, o modal é fechado e os controllers são retornados populados para a página de lista de equipamentos, que salva os dados no banco de dados.
+
+\begin{sourcecode}[htb]
+    \caption{\label{codigo:equip-form}Classe Aluno}
+    \begin{lstlisting}[frame=single, language=Dart]
+class EquipmentFormPage extends StatelessWidget {
+  EquipmentFormPage(
+      {Key? key,
+      required this.nameController,
+      required this.descriptionController,
+      required this.areaController})
+      : super(key: key);
+
+  ...
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text('Nome *'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: TextFormField(
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              controller: nameController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um nome';
+                }
+                return null;
+              },
+            ),
+          ),
+		  
+          ...
+		  
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: ElevatedButton(
+              child: const Text('Salvar'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ),
+
+\end{lstlisting}
+    \fonte{}
+\end{sourcecode}
+
+Para a comunicação com a API de Aplicação, foi utilizada o pacote nativa http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
+
+\begin{sourcecode}[htb]
+    \caption{\label{codigo:list-demands}Classe Aluno}
+    \begin{lstlisting}[frame=single, language=Dart]
+static Future<List<Demand>?> getDemand() async {
+    try {
+      var url = Uri.parse(
+          '${ApiConstants.baseUrl}${ApiConstants.demandEndpoint}/list');
+		  
+	  // buscar token
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
+	  
+	  // faz requisição das demandas daquela organização
+      var response =
+          await http.get(url, headers: {'Authorization': 'Bearer $token'});
+      if (response.statusCode == 200) {
+        var body = json.decode(response.body);
+		// retorna a lista de demandas
+        return List<Demand>.from(body.map((item) => Demand.fromMap(item)));
+      }
+    } catch (e) {
+	  throw Exception(e.toString());
+    }
+}
+\end{lstlisting}
+    \fonte{}
+\end{sourcecode}
+
 % Em materiais e método estão quais os recursos utilizados, neste capítulo é reportado como esses recursos foram utilizados para resolver o problema.
+\subsection{API de Aplicação}\label{subsec:api-aplicacao}
 
+\subsection{API de linguagem}\label{subsec:api-linguagens}
 
-% Sugere-se colocar listagens curtas de código, enfatizando aspectos específicos das tecnologias utilizadas ou da implementação. Sugere-se, ainda, que o código não seja apresentado sob a forma de print screen, e sim copiado e colado no texto, mantendo, se possível, a formatação. Todas as listagens de código devem ser devidamente explicadas. A explicação deve ser técnica, fundamentada em aspectos conceituais e boas práticas de programação.
 
 % Enfatizar os diferenciais do sistema: procedimentos armazenados, consultas SQL, uso de componentes, uso de padrões de projeto, a forma de uso dos recursos da linguagem. Esses diferenciais são no sentido de explicitar as vantagens, desvantagens, dificuldades e facilidades que esses recursos impetraram no desenvolvimento do sistema em termos técnicos. Esses diferenciais servirão para avaliar pela utilização ou não desses recursos, pelo menos para sistemas iguais ou semelhantes ao reportado no trabalho.
 
 % Reportar a forma como o sistema foi verificado e validado. No sentido de verificar se os requisitos definidos para o mesmo foram atendidos. Os testes podem ser realizados pelo professor orientador, pelos professores que compõem a banca, por pessoas que serviram de base para as informações para o sistema e etc. Os testes podem ser realizados com base em um plano de testes elaborado juntamente com a análise e projeto do sistema. Para validar a implementação podem ser desenvolvidas rotinas de teste unitário.
 
-% Se houver implantação do sistema, mesmo que seja para teste, reportar a forma como isso foi feito, a geração de instaladores, os problemas com ambiente e sistema operacional, incluindo banco de dados e outros. Deixar explícito o procedimento para instalar e usar o sistema.
+Por falta de disponibilidade de um equipamento com sistema operacional macOS, o aplicativo foi desenvolvido apenas para a plataforma Android. Atualmente, ele conta com um arquivo instalador que precisa ser transferido para o celular para permitir a instalação direta no dispositivo. No futuro, se faz necessário disponibilizá-lo na Google Play Store, a fim de simplificar o processo de instalação e oferecer maior praticidade aos usuários
 
-% Quando for necessário, citar no texto do trabalho nomes de campos, tabelas ou rotinas específicas utilizadas na implementação de um software, utilizar a fonte courier new para destacar esses nomes.
-
-% Um exemplo de listagem de código fonte pode ser observado na \autoref{codigo:classeFoo}, que representa a classe Aluno.
-
-% \begin{sourcecode}[htb]
-%     \caption{\label{codigo:classeFoo}Classe Aluno}
-%     \begin{lstlisting}[frame=single, language=Java]
-% @Entity
-% public class Foo {
- 
-%     @Id
-%     @GeneratedValue(strategy = GenerationType.IDENTITY)
-%     private Long id;
- 
-%     private String nome;
-    
-%     private Integer ra;
-     
-%     // constructor, getters and setters
-% }
-% \end{lstlisting}
-%     \fonte{}
-% \end{sourcecode}
