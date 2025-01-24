@@ -3,21 +3,27 @@
 % ------------------------------------------------------------------------------------------- %
 \chapter{Resultados}\label{cap:resultados}
 
+Os resultados decorrentes do desenvolvimento deste projeto foram:
+
+\begin{itemize}
+	\item Dados resultantes da comparação entre cinco diferentes inteligências e seu desepenho na extração de contextos relevantes presentes em dados de laboratórios e demandas coletados pelo \gls{direc} ao longo dos anos.
+	\item A criação de uma aplicação capaz de integrar diferentes modelos de inteligência artificial para a análise linguistica de textos e extração de palavras-chave, bem como a análise de similiaridade entre contextos.
+	\item A criação de uma aplicação capaz de mediar a utilização de uma aplicativo mobile com uma aplicação de análise de dados.
+	\item Um \gls{mvp} mobile como prova de conceito na utilização das tecnologias empregadas, aceitando a entrada de dados de usuários e oferencendo resultados compreensíveis.
+\end{itemize}
+
 % ------------------------------------ Escopo do Sistema ------------------------------------ %
 \section{Escopo do sistema}\label{sec:escopoSistema}
 
-O sistema Contrate um Cientista terá como objetivo conectar organizações que possuem demandas específicas de pesquisa, desenvolvimento ou inovação com laboratórios científicos 
-que possuem expertise para atender essas necessidades. Utilizando modelos de Inteligência Artificial, o sistema será capaz de analisar competências e demandas, garantindo um 
-match eficiente e personalizado.
+O projeto Contrate um Cientista possui dois objetivos principais, sendo eles, a realização de uma análise comparativa entre diferentes modelos de linguagem na terefa de associação de demandas com laboratórios, e a facilitação da formação de parcerias entre o setor produtivo e a expertise científica presente nas universidades através de uma aplicação que, de forma inteligente e automatizada, norteie a tomada de decisões na formação de parcerias. Com estes objetvios postos, é necessaário realizar algumas considerações sobre o escopo do projeto.
 
-Abrange dois tipos de usuários: organizações e laboratórios científicos. Onde as organizações são responsáveis por criar as demandas e favoritar os cientistas 
-pré selecionados pelos modelos de Inteligência Artificial. E os laboratórios científicos responsáveis em cadastrar todos os recursos que possuem.
+O sistema desenvolvido não visa eliminar a necessidade de avaliação das sugestões realizadas pelos profissíonais responsáveis, mas sim fornecer uma ferramenta que auxilie na tomada de decisão, pois nenhum sistema é a prova de falhas. O aplicativo desensolvido é uma prova de conceito e não deve ser visto como uma solução pronta para ambiente de produção, pois mesmo que implemente um mecânismo básico de segurança, não foi desenvolvido com foco na segurança dos dados. Para um cenário de utilização real, a base de dados deve estar presente é um ambiente seguro com acesso controlado, e o armazenamento de dados de usuários deve seguir as regras impostas pela \gls{lgpd}.  
 
-Os modelos de Inteligência Artificial são utilizados para encontrar os laboratórios que são aptos para uma demanda específica, levando em consideração palavras-chave, 
-equipamentos e softwares.
+As inteligências \gls{bert}, \gls{gpt}, Azure AI Language e Amazon Comprehend foram escolhidas por se tratar de modelos de linguagem desensolvidos pelas quatro gigantes na área de tecnologia e \gls{ia}, Google, OpenAI, Microsoft e Amazon, respectivamente. A inteligência \gls{yake}, mesmo sendo um modelo análitico, foi escolhido para efeitos de comparação entre \gls{llm} e modelos de análise de texto mais tradicionais. Outro fator que contribuiu para a escolha destas tecnologias foi a disponibilidade de uma \gls{api} de integração e facilidade de implementação.
 
-A organização poderá selecionar os laboratórios que possui maior interesse (dentre os laboratórios aptos) para que os usuários do tipo laboratórios científico possa 
-visualizar as especificações daquela demanda.
+O sistema abrange dois tipos de usuários, organizações e laboratórios. Ambos os tipos de usuário utilizaram a mesma tela de login para acesso à aplicação, sendo que o conteúdo apresentado após autenticação no sistema difere a depender do tipo de usuário. Organizações são responsáveis pela criação das demandas, cujo conteúdo é analisado contra as informações de todos os laboratórios cadastrados, gerando uma pontuação indicativa de similaridade para cada um. Organizações tambem seram capazes de favoritar os laboratórios de sua preferência por demanda. Laboratórios são responsáveis pelo cadastro de seus recursos relavantes, como descrição do trabalho que efetuam, equipamentos, softwares e certificados, que serão utilizados para a análise e podem ser visualizados pelas organizações.
+
+Para realizar a comparação entre as inteligências integradas foi construído um projeto a parte de teste e benchmarking. Este projeto simula o consumo dos pontos de extremidade expostos pela \gls{api} de aplicação da mesma forma que o aplicativo mobile, porém obtendo informações relevantes para à análise de desempenho, como por exemplo, o tempo de análise de cada inteligência, armazenando as informações obtidas em um banco de dados. Estas informações são utilizadas na conclusão e ajudam a enteder os pontos positivos e possíveis melhorias que podem basear trabalhos futuros.
 
 % ----------------------------------- Modelagem do Sistema ---------------------------------- %
 \section{Modelagem do sistema}\label{sec:modelagemSistema}
@@ -48,7 +54,7 @@ Como a função principal, é a criação de demandas, foi possível entender me
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
 \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 
-\subsection{Requisitos Funcionais}\label{subsec:ia1}
+\subsection{Requisitos Funcionais}\label{subsec:rf}
 \begin{enumerate}
     \item O sistema deve disponibilizar um aplicativo
     \item O aplicativo deve ter uma página para o cadastro das organizações
@@ -123,7 +129,7 @@ Como a função principal, é a criação de demandas, foi possível entender me
 	\item O sistema deve permitir que um laboratório visualize as informações da demanda após aquela organização o marcar como favorito
 \end{enumerate}
 
-\subsection{Requisitos Não-Funcionais}\label{subsec:ia1}
+\subsection{Requisitos Não-Funcionais}\label{subsec:rnf}
 \begin{enumerate}
 \item O sistema deve permitir ser instalado em sistema operacionais Android e iOs
 \item O sistema deve ser usado a framework Dart
@@ -170,7 +176,7 @@ Após realizar o login e senha, o usuário será redirecionado para sua tela pri
     \fonte{}
 \end{figure}
 
-Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela \autoref{pagina-matches-detalhes} , enquanto o laboratório poderar ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
+Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela \autoref{fig:pagina-matches-detalhes} , enquanto o laboratório poderar ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
 
 \begin{figure}[htpb]
     \captionsetup{width=0.43\textwidth}
