@@ -40,7 +40,41 @@ Finalmente, foi realizado um diagrama para que seja facilmente entendido quais s
     \fonte{}
 \end{figure}
 
-Como a função principal, é a criação de demandas, foi possível entender melhor os passos através do diagrama \autoref{fig:diagrama-sequencia}.
+Para representar os tipos de usuários e suas possíveis funções, temos os diagramas de casos de uso das \autoref{fig:caso-uso-org} e \autoref{fig:caso-uso-lab}. 
+
+A \autoref{fig:caso-uso-org} mostra as ações que as organizações podem realizar, que são: se cadastrar na plataforma, visualizar e editar informações do perfil, criar demandas com suas especifidades, visualizar todas as demandas previamente criadas, visualizar todos os matches para cada demanda, assim como as informações dos respectivos laboratórios e favoritar esses laboratórios.
+
+\begin{figure}[htb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de caso de uso da organização.}
+    \label{fig:caso-uso-org}
+    \includegraphics[scale=0.8]{caso-uso-org}
+    \fonte{}
+\end{figure}
+
+O diagrama de caso de uso da \autoref{fig:caso-uso-lab}, mostra as açoes que os labartoratórios podem realizar: se cadastrar, entrar na plataforma, visualizar e editar informações do perfil e visualizar as demandas que a organização proprietária o favoritou.
+
+\begin{figure}[htb]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de caso de uso da organização.}
+    \label{fig:caso-uso-lab}
+    \includegraphics[scale=0.8]{caso-uso-lab}
+    \fonte{}
+\end{figure}
+
+O banco de dados foi planejado para comportar os dois tipo de usuários diferentes (laboratório e organização), e para armazenar todos os dados relevantes para análise das demandas, de acordo com o diagrama da \autoref{fig:ERD}.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Diagrama de Relação de Entidades do Bando de Dados.}
+    \label{fig:ERD}
+    \includegraphics[scale=0.5]{ERD}
+    \fonte{}
+\end{figure}
+
+Como a função principal, é a criação de demandas, é possível entender melhor os passos através do diagrama \autoref{fig:diagrama-sequencia}, que exibe os passos desde a criação de demanda, até a criação da relação entre a demanda e os laboratórios.
+
+A organização, através do aplicativo, pode criar a demanda, e após preencher todos os dados da demanda, e salvar, esses dados serão enviados para a \gls{api} de aplicação. A \gls{api} de aplicação irá validar os dados, salvar no banco de dados e então fazer uma requisição para a \gls{api} de linguagem, para que ela salve as palavras chaves adicionais da demanda em questão, e faça o match com todos os laboratórios ja cadastrados. Após encontrados os laboratórios que deram match com a demanda, ele irá relacionar aquela demanda com o laboratório no banco de dados.
 
 \begin{figure}[htb]
     \captionsetup{width=0.43\textwidth}
@@ -141,51 +175,81 @@ Como a função principal, é a criação de demandas, foi possível entender me
 \item O sistema não deve travar até a análise de todos os laboratórios para aquela nova demanda
 \end{enumerate}
 
-O diagrama de caso de uso, para fácil visualização dos atores e suas respectivas ações {{diagrama-caso-de-uso}}
-
-O banco de dados foi planejado para comportar os dois tipo de usuários diferentes (laboratório e organização), e para armazenar todos os dados relevantes para análise das demandas, de acordo com o diagrama da \autoref{fig:ERD}.
-
-\begin{figure}[h!]
-    \captionsetup{width=0.43\textwidth}
-    \caption{Diagrama de Relação de Entidades do Bando de Dados.}
-    \label{fig:ERD}
-    \includegraphics[scale=0.5]{ERD}
-    \fonte{}
-\end{figure}
-
 
 % --------------------------------- Apresentação do Sistema --------------------------------- %
 \section{Apresentação do sistema}\label{sec:apresentacaoSistema}
 
-O sistema possui uma tela de login inicial, onde o usuário pode preencher seu email e senha, ou fazer um signin. Antes de realizar o signin, o usuário precisa escolher se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações.
-Após realizar o login e senha, o usuário será redirecionado para sua tela principal, o qual é representado a tela principal da organização na \autoref{fig:pagina-home-org}, onde é mostrada as opções que ele poderá acessar no Aplicativo, como está demonstrado na \autoref{fig:diagrama-navegacao}.
+Para uma representação visual do fluxo e da estrutura de interação entre todas as páginas do sistema, é utilizado o diagrama de navegação na \autoref{fig:diagrama-navegacao}, onde mostra como os usuários navegarão de uma tela para outra.
 
 \begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
-    \caption{Tela inicial de um usuário do tipo organização do aplicativo.}
-    \label{fig:pagina-home-org}
-    \includegraphics[scale=0.8]{pagina-home-org}
-    \fonte{}
-\end{figure}
-
-\begin{figure}[h!]
-    \captionsetup{width=0.43\textwidth}
-    \caption{Diagrama de navegação ao realizar o login.}
+    \caption{Diagrama de navegação de telas do aplicativo.}
     \label{fig:diagrama-navegacao}
     \includegraphics[scale=0.8]{diagrama-navegacao}
     \fonte{}
 \end{figure}
 
-Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela \autoref{fig:pagina-matches-detalhes} , enquanto o laboratório poderar ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
+O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de realizar o signin, o usuário precisa escolher se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar nos sistemas estão representadas na \autoref{fig:pagina-login-signin}.
 
 \begin{figure}[h!]
     \captionsetup{width=0.43\textwidth}
-    \caption{Tela de detalhes de um match, com o título da demanda, e os detalhes do laboratório, de um usuário do tipo organização do aplicativo.}
-    \label{fig:pagina-matches-detalhes}
-    \includegraphics[scale=0.8]{pagina-matches-detalhes}
+    \caption{Tela para entrar e se registrar do aplicativo.}
+    \label{fig:pagina-login-signin}
+    \includegraphics[scale=0.6]{pagina-login-signin}
     \fonte{}
 \end{figure}
 
+Após realizar o login e senha, o usuário será redirecionado para sua tela principal, á esquerda da \autoref{fig:pagina-home} está a tela para um usuário do tipo organização, e á direita, para um usuário do tipo laboratório.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Telas iniciais de um usuário do tipo organização e laboratório, respectivamente, do aplicativo.}
+    \label{fig:pagina-home}
+    \includegraphics[scale=0.6]{pagina-home}
+    \fonte{}
+\end{figure}
+
+Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de todas as demandas, além dos seus detalhes, demonstrado pela, enquanto o laboratório poderá ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
+
+A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas informações de perfil, na \autoref{fig:pagina-form-perfil} temos essas telas de organização e laboratório, respectivamente. Esse mesmo formulário, é visível ao se registrar no aplicativo.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Tela de detalhes de perfil da organização e laboratório, respectivamente, do aplicativo.}
+    \label{fig:pagina-form-perfil}
+    \includegraphics[scale=0.4]{pagina-form-perfil}
+    \fonte{}
+\end{figure}
+
+As páginas das demandas na \autoref{fig:paginas-demanda}, podem ser gerenciadas apenas para usuários do tipo organização. E é possível visualizar uma lista com todas as demandas já cadastradas, editar a demanda apenas se nenhum laboratório estiver associada a ela, visualizar os detalhes da demanda, e criar uma demanda nova.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Telas de lista de demandas, detalhe de demanda e criação de demanda, respectivamente, do aplicativo.}
+    \label{fig:paginas-demanda}
+    \includegraphics[scale=0.4]{paginas-demanda}
+    \fonte{}
+\end{figure}
+
+Uma lista comum para ambos os usuários, é a tela de lista dos matches na \autoref{fig:pagina-matches}, onde é pode-se ver os detalhes daquela match.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Tela da lista de matches do aplicativo.}
+    \label{fig:pagina-matches}
+    \includegraphics[scale=0.6]{pagina-matches}
+    \fonte{}
+\end{figure}
+
+Para o usuário organização, ao clicar para visualizar os detalhes do match, ele tem acesso a todas as informações do laboratório que deu match com aquela demanda, e as descrições de equipamentos e softwares são visiveis através de um modal. Além dos detalhes, a organização pode marcar aquele laboratório como apto para aquela demanda, o que faz com que o no aplicativo do laboratóio, ele possa ver os detalhes dessa demanda na respectiva tela. Já para o usuário laboratório, o botão de detalhes o leva para visualizar as informações completas da demanda. Ambas as página são mostradas na \autoref{fig:pagina-match}, e o título das duas páginas de detalhes, é o título da demanda em questão.
+
+\begin{figure}[h!]
+    \captionsetup{width=0.43\textwidth}
+    \caption{Telas de detalhes de um match, com os detalhes do laboratório, assim como a descrição do equipmanto, de um usuário do tipo organização do aplicativo. E a tela de detalhe da demanda visualizado no aplicativo de laboratórios, com detalhes da demanda.}
+    \label{fig:pagina-match}
+    \includegraphics[scale=0.4]{pagina-match}
+    \fonte{}
+\end{figure}
 
 % --------------------------------- Implementação do Sistema -------------------------------- %
 \section{Implementação do sistema}\label{sec:implementacaoSistema}
@@ -193,10 +257,10 @@ Ou seja, uma organização poderá ver seu perfil, as demandas e os matches de t
 % Nesta seção é documentada a implementação do sistema com partes relevantes ou exemplos de código, rotinas, funções. Inclui, ainda, a descrição técnica do uso de recursos (componentes, bibliotecas, etc.) da linguagem. Ressalta-se que cada orientador avaliará juntamente com seu orientado o que poderá ser descrito nesta seção. Isso sem que sejam revelados detalhes do sistema que possam comprometer seu uso comercial ou científico ou que a descrição fique muito sucinta ou superficial.
 
 \subsection{Aplicação}\label{subsec:aplicacao}
-A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações. Como por exemplo no \autoref{codigo:equip-form}, o componente de formulário do equipamento, que pode ser utilizado em diferentes páginas. O formulário é utilizado tanto para edição, quando para criação de equipamentos, e possui o campo "Nome" obrigatório, enquanto os campos "Descrição" e "Área" são opcionais. Quando pressionado o botão para salvar, o modal é fechado e os controllers são retornados populados para a página de lista de equipamentos, que salva os dados no banco de dados.
+A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações. Como por exemplo na \autoref{codigo:equip-form}, o componente de formulário do equipamento, que pode ser utilizado em diferentes páginas. O formulário é utilizado tanto para edição, quando para criação de equipamentos, e possui o campo "Nome" obrigatório, enquanto os campos "Descrição" e "Área" são opcionais. Quando pressionado o botão para salvar, o modal é fechado e os controllers são retornados populados para a página de lista de equipamentos, que salva os dados no banco de dados.
 
 \begin{sourcecode}[htb]
-    \caption{\label{codigo:equip-form}Classe Aluno}
+    \caption{\label{codigo:equip-form}Componente do formulário de equipamentos}
     \begin{lstlisting}[frame=single, language=Java]
 class EquipmentFormPage extends StatelessWidget {
   EquipmentFormPage(
@@ -245,10 +309,10 @@ class EquipmentFormPage extends StatelessWidget {
     \fonte{}
 \end{sourcecode}
 
-Para a comunicação com a API de Aplicação, foi utilizada o pacote nativa http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
+Para a comunicação com a API de Aplicação, foi utilizada o pacote nativo http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
 
 \begin{sourcecode}[htb][h!]
-    \caption{\label{codigo:list-demands}Classe Aluno}
+    \caption{\label{codigo:list-demands}Buscar lista de demandas}
     \begin{lstlisting}[frame=single, language=Java]
 static Future<List<Demand>?> getDemand() async {
     try {
