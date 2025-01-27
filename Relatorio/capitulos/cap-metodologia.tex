@@ -1,6 +1,3 @@
-% ------------------------------------------------------------------------------------------- %
-%                                         Metodologia                                         %
-% ------------------------------------------------------------------------------------------- %
 \chapter{Materiais e Métodos}\label{cap:materialemetodos}
 
 \section{Materiais}\label{sec:materiais}
@@ -67,20 +64,13 @@ O algoritmo é composto por seis etapas principais, sendo elas, pré-processamen
 
 \section{Métodos}\label{sec:metodo}
 
-O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile/web. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender.
+O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender.
 
 \subsection{API de Aplicação}\label{subsec:app_api}
 
 A \gls{api} de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela aplicação de interface com o usuário, bem como realizar as requisições de análise linguísticas à \gls{api} de linguagem.
 
-Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atualização de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL. O diagrama da figura \ref{fig:api_aplicacao} apresenta seu funcionamento básico.
-
-\begin{figure}[htb]
-    \caption{Diagrama da API de Aplicação}
-    \includegraphics[scale=0.65]{api-aplicacao}
-    \fonte{Autoria própria (2025)}
-    \label{fig:api_aplicacao}
-\end{figure}
+Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atualização de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL.
 
 \subsection{API de Linguagem}\label{subsec:language_api}
 
@@ -90,7 +80,7 @@ Optou-se pela linguagem Python devido a facilidade de integração por meio de p
 
 Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada uma das inteligenências integradas e análises semânticas de similaridade entre um conjunto de palavras-chave com seus respectivos pesos e textos.
 
-\subsubsection{Extração de Palavras-Chave}\label{subsubsec:keyword_extraction}
+\subsection{Extração de Palavras-Chave}\label{subsec:keyword_extraction}
 
 Para o conjunto de dados de demandas e laboratórios proporcionados pelo \gls{direc} para análise, notou-se que em sua totalidade eram compostos por textos e planilhas. Desta surge um primeiro obstáculo, pois a qualidade e precisão ao estabelecer a similaridade entre dois textos decai com seus respectivos tamanhos.
 
@@ -101,10 +91,10 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
 \begin{table}[htb]
     \caption{Tipos de dados de laboratórios}
     \label{tab:dados_labs}
-    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+    \begin{tabular}{lcc}
         \hline
         \textbf{Rótulo}  & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
-        Nome             & Texto         & Sim                           \\
+        Nome             & Texto         & Não                           \\
         Código           & Texto         & Não                           \\
         Descrição        & Texto         & Sim                           \\
         Certificados     & Texto         & Não                           \\
@@ -115,14 +105,14 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
         Equipamentos     & Texto         & Não                           \\
         Midias Sociais   & Texto         & Não                           \\
         Palavras Chave   & Texto         & Sim                           \\ \hline
-    \end{tabularx}
+    \end{tabular}
     \fonte{}
 \end{table}
 
 \begin{table}[htb]
     \caption{Tipos de dados de demandas}
     \label{tab:dados_demandas}
-    \begin{tabularx}{\textwidth}{@{\extracolsep{\fill}}lcc}
+    \begin{tabular}{lcc}
         \hline
         \textbf{Rótulo} & \textbf{Tipo} & \textbf{Utilizado na Análise} \\ \hline
         Título          & Texto         & Sim                           \\
@@ -132,11 +122,11 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
         Detalhes        & Texto         & Sim                           \\
         Responsável     & Texto         & Não                           \\
         Palavras Chave  & Texto         & Sim                           \\ \hline
-    \end{tabularx}
+    \end{tabular}
     \fonte{}
 \end{table}
 
-\subsubsection{Similaridade do Cosseno}\label{subsubsec:cossine_similarity}
+\subsection{Similaridade do Cosseno}\label{subsec:cossine_similarity}
 
 Para realizar um comparativo entre as diferentes inteligências empregadas neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer uma das técnologias e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
 
@@ -174,16 +164,40 @@ Vetores que apontam na mesma direção possuem um grau de similaridade maior de 
 
 A implementação do método retorna um valor entre -1 e 1, onde valores negativos representam contradição entre os documentos, valor zero (vetores ortogonais) indicam não similaridade e valores positivos representam similaridade entre os documentos.
 
-\subsubsection{Marcação de Parte de Fala}\label{subsubsec:pos_tagging}
+A partir da palavras-chave de cada laborátorio e do texto de uma demanda, calcula-se a pontuação de cada laboratório em relação a demanda seguindo a equação \ref{eq:score_equation}.
+
+\begin{equation}
+    \label{eq:score_equation}
+    score =
+    \begin{cases}
+        \frac{\sum_{i=1}^{|k|} w_i \cdot \text{sim}\big(\text{embed}(d), \text{embed}(k_i)\big)}{|k|}, & \text{se } |k| > 0 \\
+        0,                                                                                             & \text{se } |k| = 0
+    \end{cases}
+\end{equation}
+
+\begin{align*}
+    \text{Onde:}                                                                                 \\
+    d                & : \text{Texto da demanda}                          \\
+    L                & : \text{Conjunto de laboratórios}                    \\
+    l                & : \text{Um laboratório específico em } L                                  \\
+    k                & : \text{Conjunto de palavras-chave do laboratório } l \\
+    k_i              & : \text{Uma palavra-chave específica em } k                               \\
+    w_i              & : \text{Peso associado à palavra-chave } k_i                              \\
+    \text{embed}(x)  & : \text{Embedding gerado pelo modelo para o texto } x                     \\
+    \text{sim}(a, b) & : \text{Similaridade entre os embeddings } a \text{ e } b                 \\
+    S_l              & : \text{Score calculado para o laboratório } l
+\end{align*}
+
+\subsection{Marcação de Parte de Fala}\label{subsec:pos_tagging}
 
 A inteligência \gls{bert} é sem dúvida a mais flexível dentre as escolhidas para análise e comparação, porém ela é também a que requer um maior número de configurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
 
 \gls{pos} representa a estrutura sintática das palavras em uma linguaguem, como por exemplo para o português brasileiro, tem-se o substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição. A marcação de partes de fala é uma das técnicas utilizadas para identificar e classificar as palavras de um texto de acordo com sua função gramatical, e serve o propósito de promover a desambiguação de palavras bem como auxiliar no entendimento da estrutura sintática \cite{JurafskyMartin2024}.
 
-Sem a implementação da marcação de partes de fala, o desempenho do modelo na extração de contexto pode ser prejudicado a depender da linguagem do conjunto de dados, pois por padrão, o \gls{bert} é configurado e treinado para a língua inglesa. Existem duas formas de se implementar essa marcação, a primeira e mais simples é a utilização de expressões regulares, onde a estrutura de marcação é determinada por padrões presentes na expressão. A segunda forma, e a escolhida para este projeto, é automatizar o processo, cuja implementação pode ser vista na seção \ref{sec:implementacaoSistema}.
+Sem a implementação da marcação de partes de fala, o desempenho do modelo na extração de contexto pode ser prejudicado a depender da linguagem do conjunto de dados, pois por padrão, o \gls{bert} é configurado e treinado para a língua inglesa. Existem duas formas de se implementar essa marcação, a primeira e mais simples é a utilização de expressões regulares, onde a estrutura de marcação é determinada por padrões presentes na expressão. A segunda forma, e a escolhida para este projeto, é automatizar o processo, cuja implementação pode ser vista na seção \ref{sec:implementacao}.
 
-\subsection{Aplicação Mobile/Web}\label{subsec:app}
+\subsection{Aplicação Mobile}\label{subsec:app}
 
-A aplicação mobile/web foi construída utilizando Dart, com a linguagem Dart, e é responsável por ser a ponte entre o usuário e o sistema, facilitando e validando a entrada de dados, e os exibindo de forma clara.
+A aplicação mobile foi construída utilizando Dart, com a linguagem Dart, e é responsável por ser a ponte entre o usuário e o sistema, facilitando e validando a entrada de dados, e os exibindo de forma clara.
 
 Possui 5 páginas principais: página principal de organização e laboratório, lista de demandas, lista de matches e perfil. Além dessas páginas, possui o formulário de todas entidades, como por exemplo, de demanda, endereços, equipamentos, softwares, entre outros.

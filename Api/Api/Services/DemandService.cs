@@ -39,7 +39,7 @@ namespace Api.Services
             var user = await userService.GetUserAsync();
             var result = new List<Contracts.Common.Demand>();
 
-            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar demandas como um laboratório, utilize o endpoint /laboratory/demands/{id}");
+            ForbiddenException.ThrowIfNull(user.Company, "Usuário não corresponde a uma empresa, para listar demandas como um laboratório, utilize o endpoint /match/list?laboratory={id}");
 
             var demands = await demandRepository.SelectAsync(user.Company);
 
