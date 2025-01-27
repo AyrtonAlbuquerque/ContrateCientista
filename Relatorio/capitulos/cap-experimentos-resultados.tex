@@ -859,7 +859,7 @@ A inteligência \gls{bert} também requer um número de pré configurações par
 
 É notável a falta de coerência gramatical nas palavras-chave extraídas. Para resolver este problema, optou-se pela utilização de vetorizadores através do pacote \textbf{KeyphraseVectorizers} \cite{schopf_etal_kdir22}. Essa ferramenta auxilia o modelo na extração de palavras-chave ao utilizar marcação de parte de fala (POS Tagging).
 
-Para configurar o vetorizador, defini-se uma pipeline, nesse caso advinda do BERTimbau, a linguagem cujas stopwords serão removidas e uma função que realiza a marcação de parte de fala nas palavras do texto seguindo o dicionário definido pela pipeline. Também é possível utilizar expressões regulares para realizar a marcação de parte de fala, como mencionado na seção \ref{subsec:pos_tagging}, porém, utilizar um dicionário pode introduzir viés à extração. O código \ref{codigo:pos-tagger} apresenta o método de marcação de parte de fala configurado para o vetorizador.
+Para configurar o vetorizador, defini-se uma pipeline, nesse caso advinda do BERTimbau, a linguagem cujas stopwords serão removidas e uma função que realiza a marcação de parte de fala nas palavras do texto seguindo o dicionário definido pela pipeline. Também é possível utilizar expressões regulares para realizar a marcação de parte de fala, como mencionado na seção \ref{subsec:pos_tagging}, porém, utilizar uma expressão pode introduzir viés à extração. O código \ref{codigo:pos-tagger} apresenta o método de marcação de parte de fala configurado para o vetorizador.
 
 \begin{sourcecode}[htb]
   \caption{\label{codigo:pos-tagger}Método de marcação automática de parte de fala}
