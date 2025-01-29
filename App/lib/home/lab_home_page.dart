@@ -1,7 +1,7 @@
-import 'package:app/match/match_page.dart';
 import 'package:app/labs/lab.dart';
 import 'package:app/labs/lab_form_page.dart';
 import 'package:app/labs/labs_service.dart';
+import 'package:app/match/match_page.dart';
 import 'package:flutter/material.dart';
 
 class LabHomePage extends StatefulWidget {

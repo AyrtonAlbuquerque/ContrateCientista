@@ -149,7 +149,7 @@ Como fora descrito nos requisitos funcionais, a aplicação é também responsá
 
 \subsection{Modelagem da API de Linguagem}\label{subsec:modelagem_linguagem}
 
-De forma similar à \gls{api} de aplicação, a \gls{api} de linguagem também foi projetada com o intuito de poder ser integrada a qualquer sistema que seja capaz de realizar requisições \gls{http} através de uma arquitetura \gls{rest}. Foi modelada para análisar as informções somente no momento de sua requisição, portanto é independente do contexto do agente que a consome e não realiza nenhum tipo de persistência de dados por si só. As tabelas \autoref{tab:requisitos_funcionais_linguagem} e \autoref{tab:requisitos_nao_funcionais_linguagem} apresentam os requisitos indentificados para esta aplicação.
+De forma similar à \gls{api} de aplicação, a \gls{api} de linguagem também foi projetada com o intuito de poder ser integrada a qualquer sistema que seja capaz de realizar requisições \gls{http} através de uma arquitetura \gls{rest}. Foi modelada para analisar as informções somente no momento de sua requisição, portanto é independente do contexto do agente que a consome e não realiza nenhum tipo de persistência de dados por si só. As tabelas \autoref{tab:requisitos_funcionais_linguagem} e \autoref{tab:requisitos_nao_funcionais_linguagem} apresentam os requisitos indentificados para esta aplicação.
 
 \begin{table}[htb]
   \caption{Requisitos funcionais da pi de linguagem.}
@@ -206,7 +206,7 @@ Para uma representação visual do fluxo e da estrutura de interação entre tod
   \fonte{}
 \end{figure}
 
-O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de realizar o signin, o usuário precisa escolher se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar nos sistemas estão representadas na \autoref{fig:pagina-login-signin}.
+O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de realizar o signin, o usuário precisa selecionar se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar nos sistemas estão representadas na \autoref{fig:pagina-login-signin}.
 
 \begin{figure}[htb]
   \captionsetup{width=0.43\textwidth}
@@ -228,7 +228,7 @@ Após realizar o login e senha, o usuário será redirecionado para sua tela pri
 
 Ou seja, uma organização poderá ver seu perfil, as demandas e os ranqueamentos de todos os laborátorios para cada demanda, além dos seus detalhes, demonstrado pela, enquanto o laboratório poderá ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
 
-A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas informações de perfil, na \autoref{fig:pagina-form-perfil} temos essas telas de organização e laboratório, respectivamente. Esse mesmo formulário, é visível ao se registrar no aplicativo.
+A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas informações de perfil, na \autoref{fig:pagina-form-perfil} temos essas telas de organização e laboratório, respectivamente. Esses mesmos formulários, são visíveis ao se registrar no aplicativo.
 
 \begin{figure}[htb]
   \captionsetup{width=0.43\textwidth}
@@ -248,17 +248,17 @@ As páginas das demandas na \autoref{fig:paginas-demanda}, podem ser gerenciadas
   \fonte{}
 \end{figure}
 
-Uma lista comum para ambos os usuários, é a tela de lista dos matches na \autoref{fig:pagina-matches}, onde é pode-se ver os detalhes daquela match.
+Uma lista comum para ambos os usuários, é a tela de lista dos matches na \autoref{fig:pagina-matches}, onde pode-se ver os detalhes daquele match. Para o usuário organização, ele é direcionado antes, para uma tela que lista todos os laboratórios que deram match com aquela demanda com seu respectivo score.
 
 \begin{figure}[htb]
   \captionsetup{width=0.43\textwidth}
-  \caption{Tela da lista de matches do aplicativo.}
+  \caption{Tela da lista de matches, e tela visível para organizações com lista de laboratórios que deram match com aquela demanda.}
   \label{fig:pagina-matches}
   \includegraphics[scale=0.6]{pagina-matches}
   \fonte{}
 \end{figure}
 
-Para o usuário organização, ao clicar para visualizar os detalhes do match, ele tem acesso a todas as informações do laboratório que deu match com aquela demanda, e as descrições de equipamentos e softwares são visiveis através de um modal. Além dos detalhes, a organização pode marcar aquele laboratório como apto para aquela demanda, o que faz com que no aplicativo do laboratóio, ele possa ver os detalhes dessa demanda na respectiva tela. Já para o usuário laboratório, o botão de detalhes o leva para visualizar as informações completas da demanda. Ambas as página são mostradas na \autoref{fig:pagina-match}, e o título das duas páginas de detalhes, é o título da demanda em questão.
+Para o usuário organização, ao clicar para visualizar os detalhes do laboratório que deu match, ele tem acesso a todas as informações do laboratório que deu match com aquela demanda, e as descrições de equipamentos e softwares são visiveis através de um modal. Além dos detalhes, a organização pode marcar aquele laboratório como apto para aquela demanda, o que faz com que no aplicativo do laboratóio, ele possa ver os detalhes dessa demanda na respectiva tela. Já para o usuário laboratório, o botão de detalhes o leva para visualizar as informações completas da demanda. Ambas as página são mostradas na \autoref{fig:pagina-match}, e o título das duas páginas de detalhes, é o título da demanda em questão.
 
 \begin{figure}[htb]
   \captionsetup{width=0.43\textwidth}
