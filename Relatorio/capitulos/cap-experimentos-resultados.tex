@@ -32,7 +32,7 @@ O processo de modelagem do sistema foi divido de modo a habilitar a compartiment
 
 As tabelas \autoref{tab:requisitos_funcionais_app} e \autoref{tab:requisitos_nao_funcionais_app} apresentam os requisitos funcionais e não funcionais identificados para a aplicação mobile. No seu levantamento foram consideradas as necessidades dos usuários, sendo eles laboratórios e organizações, e os objetivos pretendidos pelo \gls{direc}.
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos funcionais da aplicação mobile.}
   \label{tab:requisitos_funcionais_app}
   \begin{tabularx}{\textwidth}{l|l}
@@ -53,7 +53,7 @@ As tabelas \autoref{tab:requisitos_funcionais_app} e \autoref{tab:requisitos_nao
   \fonte{}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos não funcionais da aplicação mobile.}
   \label{tab:requisitos_nao_funcionais_app}
   \begin{tabularx}{\textwidth}{l|l}
@@ -72,7 +72,7 @@ As tabelas \autoref{tab:requisitos_funcionais_app} e \autoref{tab:requisitos_nao
 
 Para representar os tipos de usuários e suas possíveis funções, temos os diagramas de casos de uso das \autoref{fig:caso-uso-org} e \autoref{fig:caso-uso-lab}.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Diagrama de caso de uso da organização.}
   \label{fig:caso-uso-org}
@@ -80,7 +80,7 @@ Para representar os tipos de usuários e suas possíveis funções, temos os dia
   \fonte{}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Diagrama de caso de uso da organização.}
   \label{fig:caso-uso-lab}
@@ -92,7 +92,7 @@ Para representar os tipos de usuários e suas possíveis funções, temos os dia
 
 A \gls{api} de aplicação foi projetada para que possa ser integrada a qualquer sistema que seja capaz de realizar requisições \gls{http} através de uma arquitetura \gls{rest}. Também foi configurada para ser o agente responsável pela manipulação e persistência dos dados. As tabelas \autoref{tab:requisitos_funcionais_api} e \autoref{tab:requisitos_nao_funcionais_api} aprensentam os requisitos indentificados para esta aplicação.
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos funcionais da Api de aplicação.}
   \label{tab:requisitos_funcionais_api}
   \begin{tabularx}{\textwidth}{l|l}
@@ -112,7 +112,7 @@ A \gls{api} de aplicação foi projetada para que possa ser integrada a qualquer
   \fonte{}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos não funcionais da Api de aplicação.}
   \label{tab:requisitos_nao_funcionais_api}
   \begin{tabularx}{\textwidth}{l|l}
@@ -139,7 +139,7 @@ Para atender a todos os possíveis casos de uso, a \gls{api} de aplicação foi 
 
 Como fora descrito nos requisitos funcionais, a aplicação é também responsável pelas transações com o banco de dados. O diagrama da figura \ref{fig:ERD} apresenta as entidades que foram criadas e a forma como se relacionam para atender as necessidades do sistema.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Diagrama de Relação de Entidades do Bando de Dados.}
   \label{fig:ERD}
@@ -151,7 +151,7 @@ Como fora descrito nos requisitos funcionais, a aplicação é também responsá
 
 De forma similar à \gls{api} de aplicação, a \gls{api} de linguagem também foi projetada com o intuito de poder ser integrada a qualquer sistema que seja capaz de realizar requisições \gls{http} através de uma arquitetura \gls{rest}. Foi modelada para analisar as informções somente no momento de sua requisição, portanto é independente do contexto do agente que a consome e não realiza nenhum tipo de persistência de dados por si só. As tabelas \autoref{tab:requisitos_funcionais_linguagem} e \autoref{tab:requisitos_nao_funcionais_linguagem} apresentam os requisitos indentificados para esta aplicação.
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos funcionais da pi de linguagem.}
   \label{tab:requisitos_funcionais_linguagem}
   \begin{tabularx}{\textwidth}{l|l}
@@ -171,7 +171,7 @@ De forma similar à \gls{api} de aplicação, a \gls{api} de linguagem também f
   \fonte{}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[H]
   \caption{Requisitos não funcionais da api de linguagem.}
   \label{tab:requisitos_nao_funcionais_linguagem}
   \begin{tabularx}{\textwidth}{l|l}
@@ -198,7 +198,7 @@ Sendo as funções da aplicação de análise de similaridade e extração de pa
 
 Para uma representação visual do fluxo e da estrutura de interação entre todas as páginas do sistema, é utilizado o diagrama de navegação na \autoref{fig:diagrama-navegacao}, onde mostra como os usuários navegarão de uma tela para outra.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Diagrama de navegação de telas do aplicativo.}
   \label{fig:diagrama-navegacao}
@@ -208,7 +208,7 @@ Para uma representação visual do fluxo e da estrutura de interação entre tod
 
 O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de realizar o signin, o usuário precisa selecionar se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar nos sistemas estão representadas na \autoref{fig:pagina-login-signin}.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Tela para entrar e se registrar do aplicativo.}
   \label{fig:pagina-login-signin}
@@ -218,7 +218,7 @@ O sistema possui uma tela para entrar inicialmente, onde o usuário pode preench
 
 Após realizar o login e senha, o usuário será redirecionado para sua tela principal, á esquerda da \autoref{fig:pagina-home} está a tela para um usuário do tipo organização, e á direita, para um usuário do tipo laboratório.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Telas iniciais de um usuário do tipo organização e laboratório, respectivamente, do aplicativo.}
   \label{fig:pagina-home}
@@ -230,7 +230,7 @@ Ou seja, uma organização poderá ver seu perfil, as demandas e os ranqueamento
 
 A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas informações de perfil, na \autoref{fig:pagina-form-perfil} temos essas telas de organização e laboratório, respectivamente. Esses mesmos formulários, são visíveis ao se registrar no aplicativo.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Tela de detalhes de perfil da organização e laboratório, respectivamente, do aplicativo.}
   \label{fig:pagina-form-perfil}
@@ -240,7 +240,7 @@ A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas i
 
 As páginas das demandas na \autoref{fig:paginas-demanda}, podem ser gerenciadas apenas para usuários do tipo organização. E é possível visualizar uma lista com todas as demandas já cadastradas, editar a demanda apenas se nenhum laboratório estiver associada a ela, visualizar os detalhes da demanda, e criar uma demanda nova.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Telas de lista de demandas, detalhe de demanda e criação de demanda, respectivamente, do aplicativo.}
   \label{fig:paginas-demanda}
@@ -250,7 +250,7 @@ As páginas das demandas na \autoref{fig:paginas-demanda}, podem ser gerenciadas
 
 Uma lista comum para ambos os usuários, é a tela de lista dos matches na \autoref{fig:pagina-matches}, onde pode-se ver os detalhes daquele match. Para o usuário organização, ele é direcionado antes, para uma tela que lista todos os laboratórios que deram match com aquela demanda com seu respectivo score.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Tela da lista de matches, e tela visível para organizações com lista de laboratórios que deram match com aquela demanda.}
   \label{fig:pagina-matches}
@@ -260,7 +260,7 @@ Uma lista comum para ambos os usuários, é a tela de lista dos matches na \auto
 
 Para o usuário organização, ao clicar para visualizar os detalhes do laboratório que deu match, ele tem acesso a todas as informações do laboratório que deu match com aquela demanda, e as descrições de equipamentos e softwares são visiveis através de um modal. Além dos detalhes, a organização pode marcar aquele laboratório como apto para aquela demanda, o que faz com que no aplicativo do laboratóio, ele possa ver os detalhes dessa demanda na respectiva tela. Já para o usuário laboratório, o botão de detalhes o leva para visualizar as informações completas da demanda. Ambas as página são mostradas na \autoref{fig:pagina-match}, e o título das duas páginas de detalhes, é o título da demanda em questão.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
   \caption{Telas de detalhes de um match, com os detalhes do laboratório, assim como a descrição do equipmanto, de um usuário do tipo organização do aplicativo. E a tela de detalhe da demanda visualizado no aplicativo de laboratórios, com detalhes da demanda.}
   \label{fig:pagina-match}
@@ -276,7 +276,7 @@ Para o usuário organização, ao clicar para visualizar os detalhes do laborat�
 
 A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações. Como por exemplo na \autoref{codigo:equip-form}, o componente de formulário do equipamento, que pode ser utilizado em diferentes páginas. O formulário é utilizado tanto para edição, quando para criação de equipamentos, e possui o campo "Nome" obrigatório, enquanto os campos "Descrição" e "Área" são opcionais. Quando pressionado o botão para salvar, o modal é fechado e os controllers são retornados populados para a página de lista de equipamentos, que salva os dados no banco de dados.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:equip-form}Componente do formulário de equipamentos}
   \begin{lstlisting}[frame=single, language=Java]
 class EquipmentFormPage extends StatelessWidget {
@@ -327,7 +327,7 @@ class EquipmentFormPage extends StatelessWidget {
 
 Para a comunicação com a API de Aplicação, foi utilizada o pacote nativo http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:list-demands}Buscar lista de demandas}
   \begin{lstlisting}[frame=single, language=Java]
 static Future<List<Demand>?> getDemand() async {
@@ -372,7 +372,7 @@ O subdomínio de laboratórios possui três rotas:
 
 A rota \texttt{/register} espera um corpo de requisição como descrito no códido \ref{codigo:register-lab}.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:register-lab}Corpo JSON de registro de laboratório}
   \begin{lstlisting}[frame=single, language=Java]
 {
@@ -428,7 +428,7 @@ A rota \texttt{/register} espera um corpo de requisição como descrito no códi
 
 O consumo deste endpoint engatilha a chamada de extração de palavras-chave utilizando a inteligência configurada no início da aplicação. O código \ref{codigo:analyze-lab} representa o método que recebe a requisição, a deserializa e chama o endpoint da \gls{api} de linguagem para realizar a extração. Este método também realiza algumas validações antes de prosseguir com o processamento, como a garantia de que o laboratório com o email informado já não esteja cadastrado, de que a senha informada possua pelo menos 8 caracteres com pelo menos um número e uma letra e que o campo descrição, utilizado na extração de contexto, esteja preenchido.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:analyze-lab}Método de registro e análise de laboratório}
   \begin{lstlisting}[frame=single, language=Java]
 public async Task<LoginResponse> Register(Laboratory laboratory)
@@ -488,7 +488,7 @@ O subdomínio de empresas também possui três rotas:
 
 A rota \texttt{/register} espera um corpo de requisição como descrito no códido \ref{codigo:register-company}.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:register-company}Corpo JSON de registro de empresas}
   \begin{lstlisting}[frame=single, language=Java]
 {
@@ -506,7 +506,7 @@ O registro de empresas não engatilha a extração de palavras-chave, pois para 
 
 Com um usuário já cadastrado, é possível se autenticar no sistema através da rota \texttt{/auth/login}, que espera um corpo de requisição como descrito no códido \ref{codigo:login}. O token gerado é utilizado para autenticar as requisições nas rotas protegidas.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:login}Corpo JSON da rota de login}
   \begin{lstlisting}[frame=single, language=Java]
 Requisição
@@ -539,7 +539,7 @@ Outro subdomínio importante é o de demandas, composto por cinco rotas:
 
 Os métodos \texttt{/create} e \texttt{/update} são especialmente relevantes pois engatilham a extração de palavras-chave. As rotas deste subdomínio só podem ser consumidos por usuários do tipo empresa. O códifo \ref{codigo:create-demand} apresenta o corpo de requisição esperado pela rota de criação e atualização de demandas.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:create-demand}Corpo JSON de registro de demandas}
   \begin{lstlisting}[frame=single, language=Java]
 {
@@ -566,7 +566,7 @@ Os métodos \texttt{/create} e \texttt{/update} são especialmente relevantes po
 
 Assim como no registro de laboratórios, a criação de demandas também engatilha a extração de palavras-chave das informações contidas na requisição, porém para demandas, a aplicação também realiza a chamada de análise de similaridade entre o texto da demanda e as palavras chaves de cada laboratório cadastrado. O código \ref{codigo:demand-analyze} apresenta o método que realiza a criação e a análise de demandas.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:demand-analyze}Método de cadastro e análise de demandas}
   \begin{lstlisting}[frame=single, language=Java]
 public async Task<CreateDemandResponse> Create(CreateDemand createDemand)
@@ -657,7 +657,7 @@ O método \texttt{/like} é utilizado por uma empresa para marcar um laboratóri
 
 O diagrama da figura \ref{fig:api_aplicacao} apresenta os relacioanamentos básicos que a aplicação possui com o resto do sistema.
 
-\begin{figure}[htb]
+\begin{figure}[H]
   \caption{Diagrama de bloccos da API de Aplicação}
   \includegraphics[scale=0.65]{api-aplicacao}
   \fonte{Autoria própria (2025)}
@@ -680,7 +680,7 @@ O segundo subdomínio é o de extração de palavras-chave, \texttt{/extract}, c
 
 Todas as rotas esperam um corpo de requisição e retornam uma resposta como descrito no códido \ref{codigo:extract}.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract}Corpo JSON das rotas de extração}
   \begin{lstlisting}[frame=single, language=Java]
 Requisição
@@ -713,7 +713,7 @@ Na requisição é esperado um texto do qual se deseja extrair as palavras chave
 
 O método do códido \ref{codigo:extract-aws} é responsável por realizar a chamada à \gls{api} da Amazon Web Services à inteligência do Amazon Comprehend. É utilizado o pacote \textbf{botocore}, desensolvido e mantido pela própria Amazon Web Services:
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract-aws}Método de extração de palavras-chave utilizando a inteligência da AWS}
   \begin{lstlisting}[frame=single, language=Python]
 async def extract_aws(self, description: Description) -> list[Keyword]:
@@ -744,7 +744,7 @@ async def extract_aws(self, description: Description) -> list[Keyword]:
 
 O método do códido \ref{codigo:extract-azure} é responsável por realizar a chamada à \gls{api} da Azure AI Language. É utilizado o pacote \textbf{azure.ai.textanalytics} \cite{Alcarlucci2023}. A inteligência da Microsoft é a única que por padrão não retorna o peso das palavras-chave, por isso, todas as palavras-chave retornadas tenho o peso mínimo atríbuído.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract-azure}Método de extração de palavras-chave utilizando a inteligência da Microsoft}
   \begin{lstlisting}[frame=single, language=Python]
 async def extract_azure(self, description: Description) -> list[Keyword]:
@@ -763,7 +763,7 @@ async def extract_azure(self, description: Description) -> list[Keyword]:
 
 O método do códido \ref{codigo:extract-yake} é responsável por realizar a extração utilizando a inteligência \gls{yake}. É utilizado o pacote \textbf{yake} \cite{LiaadYake2023}. Esta inteligência não realiza nenhuma chamada à \gls{api} externas, executando todo o processamento localmente.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract-yake}Método de extração de palavras-chave utilizando a inteligência YAKE}
   \begin{lstlisting}[frame=single, language=Python]
 async def extract_yake(self, description: Description) -> list[Keyword]:
@@ -790,7 +790,7 @@ Por fim é preciso definir quais os papéis desempenhados pelo modelo e pelo usu
 
 \caixa{System Role}{You will be provided with a block of text, and your task is to extract a list of keywords/keyphrases from it and attribute a score of how accurate the keyword/keyphrase is in relation to the text. The score must be between 0 and 1. The response should be in the format: [\{"text": "keyword1", "weight": 0.9\}, \{"text": "keyword2", "weight": 0.8\}]}
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract-gpt}Método de extração de palavras-chave utilizando a inteligência GPT}
   \begin{lstlisting}[frame=single, language=Python]
 async def extract_gpt(self, description: Description) -> list[Keyword]:
@@ -861,7 +861,7 @@ A inteligência \gls{bert} também requer um número de pré configurações par
 
 Para configurar o vetorizador, defini-se uma pipeline, nesse caso advinda do BERTimbau, a linguagem cujas stopwords serão removidas e uma função que realiza a marcação de parte de fala nas palavras do texto seguindo o dicionário definido pela pipeline. Também é possível utilizar expressões regulares para realizar a marcação de parte de fala, como mencionado na seção \ref{subsec:pos_tagging}, porém, utilizar uma expressão pode introduzir viés à extração. O código \ref{codigo:pos-tagger} apresenta o método de marcação de parte de fala configurado para o vetorizador.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:pos-tagger}Método de marcação automática de parte de fala}
   \begin{lstlisting}[frame=single, language=Python]
 def pos_tagger(raw_documents: list[str], 
@@ -889,7 +889,7 @@ def pos_tagger(raw_documents: list[str],
 
 Por fim, o códido \ref{codigo:extract-bert} é responsável por realizar a extração utilizando a inteligência da Google \gls{bert}. Foi utilizado o pacote \textbf{keybert} \cite{grootendorst2020keybert}.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:extract-bert}Método de extração de palavras-chave utilizando a inteligência BERT}
   \begin{lstlisting}[frame=single, language=Python]
 async def extract_bert(self, description: Description) -> list[Keyword]:
@@ -908,7 +908,7 @@ async def extract_bert(self, description: Description) -> list[Keyword]:
 
 O último subdomínio é o de análise de similaridade, \texttt{/analyze}, composto por apenas uma rota \texttt{/analyze/demand}. Esta rota espera um corpo de requisição contendo o texto de uma demanda e uma lista de laboratórios com suas respectivas palavras-chave e pesos. A resposta é uma lista de laboratórios com seus respectivos scores de similaridade em relação à demanda, como descrito no códido \ref{codigo:analyze}.
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:analyze}Corpo JSON da rota de análise de similaridade}
   \begin{lstlisting}[frame=single, language=Java]
 Requisição
@@ -965,7 +965,7 @@ Resposta
 
 O método do códido \ref{codigo:analyze-demand} apresenta a implementação da equação \ref{eq:score_equation} para o calculo da similaridade entre uma demanda e laboratório:
 
-\begin{sourcecode}[htb]
+\begin{sourcecode}[H]
   \caption{\label{codigo:analyze-demand}Método de análise de similaridade entre demanda e laboratórios}
   \begin{lstlisting}[frame=single, language=Python]
 async def analyze(self, demand: Demand) -> list[AnalysisResponse]:

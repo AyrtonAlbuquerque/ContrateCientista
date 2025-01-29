@@ -88,7 +88,7 @@ O primeiro passo para tentar solucionar esse problema e correlacionar uma demand
 
 As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os tipos de informções presentes nos dados de laborátorios e demandas e quais os tipos de informação foram escolhidos para análise e extração de contexto.
 
-\begin{table}[htb]
+\begin{table}[H]
     \caption{Tipos de dados de laboratórios}
     \label{tab:dados_labs}
     \begin{tabular}{lcc}
@@ -109,7 +109,7 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
     \fonte{}
 \end{table}
 
-\begin{table}[htb]
+\begin{table}[H]
     \caption{Tipos de dados de demandas}
     \label{tab:dados_demandas}
     \begin{tabular}{lcc}
@@ -134,28 +134,28 @@ Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o 
 
 A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}.
 
-\begin{equation}
+\begin{equation}{H}
     \label{eq:cossine_similarity_equation}
     \text{similaridade do cosseno}(A, B) = \frac{A \cdot B}{\|A\| \times \|B\|}
 \end{equation}
 
 Vetores que apontam na mesma direção possuem um grau de similaridade maior de acordo com sua proximidade, enquanto vetores que apontam em direções opostas possuem um grau de similaridade menor. As figuras \ref{fig:cossine_similarity_1}, \ref{fig:cossine_similarity_2} e \ref{fig:cossine_similarity_3} exemplificam a aplicação do método em dois documentos \cite{YlberArtan2022}.
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \caption{Documentos similares no espaço vetorial}
     \includegraphics[scale=0.9]{cossine-similarity-1}
     \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
     \label{fig:cossine_similarity_1}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \caption{Documentos ortogonais no espaço vetorial}
     \includegraphics[scale=0.9]{cossine-similarity-2}
     \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
     \label{fig:cossine_similarity_2}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \caption{Documentos opostos no espaço vetorial}
     \includegraphics[scale=0.9]{cossine-similarity-3}
     \fonte{Ylber Januzaj e Artan Luma \textit{et al} (2022)}
@@ -166,7 +166,7 @@ A implementação do método retorna um valor entre -1 e 1, onde valores negativ
 
 A partir da palavras-chave de cada laborátorio e do texto de uma demanda, calcula-se a pontuação de cada laboratório em relação a demanda seguindo a equação \ref{eq:score_equation}.
 
-\begin{equation}
+\begin{equation}{H}
     \label{eq:score_equation}
     score =
     \begin{cases}
