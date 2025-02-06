@@ -7,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace Benchmark.Clients.Handlers
 {
-    public class ApiHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache) : DelegatingHandler
+    public class DemandHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache) : DelegatingHandler
     {
         protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var auth = GetToken();
+            var auth = Authenticate();
 
             request.Headers.Authorization = new AuthenticationHeaderValue(auth.Type, auth.Token);
 
@@ -20,27 +20,27 @@ namespace Benchmark.Clients.Handlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var auth = GetToken();
+            var auth = Authenticate();
 
             request.Headers.Authorization = new AuthenticationHeaderValue(auth.Type, auth.Token);
 
             return base.SendAsync(request, cancellationToken);
         }
 
-        private Auth GetToken()
+        private Auth Authenticate()
         {
-            if (!memoryCache.TryGetValue("token", out Auth auth))
+            if (!memoryCache.TryGetValue("DemandAuth", out Auth auth))
             {
                 var request = JsonSerializer.Serialize(new Login
                 {
-                    Email = configuration["Api:Email"],
-                    Password = configuration["Api:Password"]
+                    Email = configuration["Api:DemandEmail"],
+                    Password = configuration["Api:DemandPassword"]
                 });
                 var response = client.PostAsync("auth/login", new StringContent(request, Encoding.UTF8, "application/json")).Result;
 
                 auth = JsonSerializer.Deserialize<Auth>(response.Content.ReadAsStringAsync().Result);
 
-                memoryCache.Set("token", auth, new MemoryCacheEntryOptions
+                memoryCache.Set("DemandAuth", auth, new MemoryCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = DateTimeOffset.FromUnixTimeSeconds((long?)auth?.Expires ?? 3600).UtcDateTime - DateTime.UtcNow
                 });
