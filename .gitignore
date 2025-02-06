@@ -95,3 +95,5 @@ Relatorio/readme.md
 /LanguageApi/middleware/__pycache__
 /LanguageApi/services/interfaces/__pycache__
 /Api/.containers
+/Api/Benchmark/bin
+/Api/Benchmark/obj
