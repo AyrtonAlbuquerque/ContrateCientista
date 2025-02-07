@@ -9,7 +9,7 @@ namespace Benchmark.Benchmarks
 {
     public class LaboratoryBenchmark(ILaboratoryClient laboratoryClient)
     {
-        public async void Run()
+        public async Task Run()
         {
             var configuration = new CsvConfiguration(CultureInfo.InstalledUICulture)
             {

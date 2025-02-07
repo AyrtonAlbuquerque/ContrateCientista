@@ -10,7 +10,7 @@ namespace Benchmark.Benchmarks
 {
     public class DemandBenchmark(ITestsRepository testsRepository, IDemandClient demandClient)
     {
-        public async void Run()
+        public async Task Run()
         {
             var configuration = new CsvConfiguration(CultureInfo.InstalledUICulture)
             {

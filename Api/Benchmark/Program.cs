@@ -65,11 +65,11 @@ namespace Benchmark
                 .WithScopedLifetime());
 
             // Build services
-            services.BuildServiceProvider();
+            var provider = services.BuildServiceProvider();
 
             // Run benchmarks
-            // await services.GetRequiredService<LaboratoryBenchmark>().Run();
-            // await services.GetRequiredService<DemandBenchmark>().Run();
+            await provider.GetRequiredService<LaboratoryBenchmark>().Run();
+            await provider.GetRequiredService<DemandBenchmark>().Run();
         }
     }
 }
