@@ -18,6 +18,7 @@ namespace Benchmark.Domain.Map
             builder.Property(x => x.Demand).IsRequired();
             builder.Property(x => x.Intelligence).IsRequired().HasMaxLength(20);
             builder.Property(x => x.Score).IsRequired();
+            builder.Property(x => x.Time).IsRequired();
         }
     }
 }

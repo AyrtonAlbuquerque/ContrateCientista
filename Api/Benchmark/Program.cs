@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Globalization;
 using Benchmark.Benchmarks;
 using Benchmark.Clients;
 using Benchmark.Clients.Handlers;
 using Benchmark.Domain.Data;
 using Benchmark.Domain.Repository;
+using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,33 +21,30 @@ namespace Benchmark
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            var url = configuration["Api:Url"];
+            var csvConfiguration = new CsvConfiguration(CultureInfo.InstalledUICulture)
+            {
+                Delimiter = ","
+            };
+            var url = configuration["LanguageApi:Url"];
 
             // Add Configuration
             services.AddSingleton(configuration);
+            services.AddSingleton(csvConfiguration);
+            services.AddMemoryCache();
 
             // Add Database
             services.AddDbContext<Context>(options => options
                 .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
                 .UseLazyLoadingProxies());
 
-            // Add Laboratory Client
-            services.AddHttpClient<LaboratoryHandler>(client =>
+            // Add Clients
+            services.AddHttpClient<LanguageHandler>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
-            services.AddRefitClient<ILaboratoryClient>()
+            services.AddRefitClient<ILanguageClient>()
                 .ConfigureHttpClient(c => { c.BaseAddress = new Uri(url); })
-                .AddHttpMessageHandler<LaboratoryHandler>();
-
-            // Add Demand Client
-            services.AddHttpClient<DemandHandler>(client =>
-            {
-                client.BaseAddress = new Uri(url);
-            });
-            services.AddRefitClient<IDemandClient>()
-                .ConfigureHttpClient(c => { c.BaseAddress = new Uri(url); })
-                .AddHttpMessageHandler<DemandHandler>();
+                .AddHttpMessageHandler<LanguageHandler>();
 
             // Add Repositories
             services.Scan(scan => scan
@@ -58,7 +56,7 @@ namespace Benchmark
 
             // Add Benchmarks
             services.Scan(scan => scan
-                .FromAssemblyOf<LaboratoryBenchmark>()
+                .FromAssemblyOf<LanguageBenchmark>()
                 .AddClasses(classes => classes.InExactNamespaces("Benchmark.Benchmarks"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsSelf()
@@ -68,8 +66,7 @@ namespace Benchmark
             var provider = services.BuildServiceProvider();
 
             // Run benchmarks
-            await provider.GetRequiredService<LaboratoryBenchmark>().Run();
-            await provider.GetRequiredService<DemandBenchmark>().Run();
+            await provider.GetRequiredService<LanguageBenchmark>().Run();
         }
     }
 }

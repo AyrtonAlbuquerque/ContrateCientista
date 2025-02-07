@@ -9,5 +9,6 @@ namespace Benchmark.Domain.Model
         public virtual int Demand { get; set; }
         public virtual string Intelligence { get; set; }
         public virtual decimal Score { get; set; }
+        public virtual long Time { get; set; }
     }
 }

@@ -1,59 +1,37 @@
 using System.Text.Json.Serialization;
+using CsvHelper.Configuration;
 
 namespace Benchmark.Contracts
 {
     public class Laboratory
     {
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("id")]
-        public int? Id { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("score")]
-        public decimal? Score { get; set; }
-
         [JsonRequired]
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("code")]
-        public string Code { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("description")]
         public string Description { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("certificates")]
-        public string Certificates { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("foundationDate")]
-        public string FoundationDate { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("responsible")]
-        public Responsible Responsible { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("address")]
-        public Address Address { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("softwares")]
-        public IList<Software> Softwares { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("equipments")]
-        public IList<Equipment> Equipments { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("socialMedias")]
-        public IList<SocialMedia> SocialMedias { get; set; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonRequired]
         [JsonPropertyName("keywords")]
-        public IList<string> Keywords { get; set; }
+        public IList<Keyword> Keywords { get; set; }
+    }
+
+    public class LaboratoryMap : ClassMap<Laboratory>
+    {
+        public LaboratoryMap()
+        {
+            Map(x => x.Id).Name("id");
+            Map(x => x.Description).Name("description");
+            Map(x => x.Keywords).Name("keywords").Convert(args => 
+            {
+                return args.Row.GetField("keywords")?.Split(';').Select(x => new Keyword 
+                { 
+                    Text = x.Trim().ToLower(),
+                    Weight = 1 
+                }).ToList();
+            });
+        }
     }
 }
