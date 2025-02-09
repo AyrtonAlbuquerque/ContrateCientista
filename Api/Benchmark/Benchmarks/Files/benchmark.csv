@@ -1,4 +1,4 @@
-Id,Laboratory,Demand,Intelligence,Score,Time,WordCount,KeywordCount,Status
+id,laboratory,demand,intelligence,score,time,wordCount,keywordCount,status
 1,1,1,yake,0.2963,96,27,16,true
 2,2,1,yake,0.1975,3,27,9,true
 3,3,1,yake,0.244,62,27,24,true
