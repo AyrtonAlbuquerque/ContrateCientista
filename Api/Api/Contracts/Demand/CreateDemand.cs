@@ -1,5 +1,6 @@
 using Api.Contracts.Common;
 using System.Text.Json.Serialization;
+using Api.Domain.Enums;
 
 namespace Api.Contracts.Demand
 {
@@ -28,6 +29,10 @@ namespace Api.Contracts.Demand
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("restrictions")]
         public string Restrictions { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("model")]
+        public Model? Model { get; set; }
 
         [JsonRequired]
         [JsonPropertyName("responsible")]

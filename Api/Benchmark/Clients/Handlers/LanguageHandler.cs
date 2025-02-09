@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Benchmark.Clients.Handlers
 {
-    public class LanguageHandler(IConfigurationRoot configuration, HttpClient client, IMemoryCache memoryCache) : DelegatingHandler
+    public class LanguageHandler(IConfiguration configuration, HttpClient client, IMemoryCache memoryCache) : DelegatingHandler
     {
         protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
         {

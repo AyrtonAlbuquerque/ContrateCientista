@@ -62,14 +62,17 @@ class ExtractionService(IExtractionService):
         return [Keyword(text=keyword.get("text"), weight=keyword.get("weight")) for keyword in keywords]
 
     async def extract_bert(self, description: Description) -> list[Keyword]:
-        return [Keyword(text=text, weight=weight)
-                for text, weight in self.bert.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
-                if weight >= self.threshhold]
+        try:
+            return [Keyword(text=text, weight=weight)
+                    for text, weight in self.bert.extract_keywords(docs=description.text, vectorizer=self.vectorizer)
+                    if weight >= self.threshhold]
+        except:
+            return []
 
     async def extract_yake(self, description: Description) -> list[Keyword]:
         return [Keyword(text=text, weight=round((1 - weight), 4))
                 for text, weight in self.yake.extract_keywords(description.text)
-                if round((1 - weight), 4) >= self.threshhold]
+                if round((1 - weight), 4) >= self.threshhold and 0 <= weight <= 1]
 
     async def extract_azure(self, description: Description) -> list[Keyword]:
         return [Keyword(text=keyword, weight=self.threshhold)

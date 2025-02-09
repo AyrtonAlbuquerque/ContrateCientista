@@ -1,6 +1,6 @@
-using Benchmark.Domain.Model.Base;
+using Api.Domain.Model.Base;
 
-namespace Benchmark.Domain.Model
+namespace Api.Domain.Model
 {
     public class Tests : BaseTable
     {

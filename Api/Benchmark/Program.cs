@@ -28,8 +28,8 @@ namespace Benchmark
             var url = configuration["LanguageApi:Url"];
 
             // Add Configuration
-            services.AddSingleton(configuration);
-            services.AddSingleton(csvConfiguration);
+            services.AddSingleton<IConfiguration>(configuration);
+            services.AddSingleton<CsvConfiguration>(csvConfiguration);
             services.AddMemoryCache();
 
             // Add Database

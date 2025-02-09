@@ -57,7 +57,7 @@ namespace Api.Services
             var status = await statusRepository.SelectAsync();
             var person = await personRepository.GetAsync(createDemand.Responsible.Email, createDemand.Responsible.Phone);
             var laboratories = await laboratoryRepository.SelectAsync();
-            var keywords = await languageService.Extract(createDemand.Adapt<Description>());
+            var keywords = await languageService.Extract(createDemand.Adapt<Description>(), createDemand.Model);
             var analysis = await languageService.Analyze((createDemand, laboratories).Adapt<Analyze>());
             var demand = (createDemand, user, person, status, keywords, laboratories, analysis).Adapt<Demand>();
 
@@ -77,7 +77,7 @@ namespace Api.Services
 
             var laboratories = await laboratoryRepository.SelectAsync();
             var person = await personRepository.GetAsync(updateDemand.Responsible?.Email, updateDemand.Responsible?.Phone);
-            var keywords = await languageService.Extract(updateDemand.Adapt<Description>());
+            var keywords = await languageService.Extract(updateDemand.Adapt<Description>(), updateDemand.Model);
             var analysis = await languageService.Analyze((updateDemand, laboratories).Adapt<Analyze>());
 
             await keywordRepository.DeleteAsync(demand.Keywords);

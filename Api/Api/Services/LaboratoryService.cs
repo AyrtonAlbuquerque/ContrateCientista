@@ -38,7 +38,7 @@ namespace Api.Services
             BadRequestException.ThrowIf(!ValidationHelper.ValidatePassword(laboratory.Responsible.Password), "Senha inválida. A senha deve conter pelo menos 8 caracteres, uma letra e um número.");
             BadRequestException.ThrowIf(string.IsNullOrEmpty(laboratory.Description), "A descrição do laboratório é obrigatória.");
 
-            var keywords = await languageService.Extract(new Description { Text = laboratory.Description });
+            var keywords = await languageService.Extract(new Description { Text = laboratory.Description }, laboratory.Model);
             var user = await userRepository.InsertAsync((keywords, laboratory).Adapt<User>());
             var token = tokenService.Create(user);
 
@@ -88,7 +88,7 @@ namespace Api.Services
 
             if (laboratory.Keywords?.Count > 0)
             {
-                var keywords = await languageService.Extract(new Description { Text = user.Laboratory.Description });
+                var keywords = await languageService.Extract(new Description { Text = user.Laboratory.Description }, laboratory.Model);
 
                 await keywordRepository.DeleteAsync(user.Laboratory.Keywords);
                 user.Laboratory.Keywords.AddRange(keywords.Select(x => new Keyword { Text = x.Text.ToLower(), Weight = x.Weight })

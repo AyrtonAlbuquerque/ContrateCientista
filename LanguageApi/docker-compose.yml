@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       tags:
-        - contrate-cientista-language-api:1.0.0
+        - contrate-cientista-language-api:1.0
         - contrate-cientista-language-api:latest
     container_name: "contrate-cientista-language-api"
     ports:

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Api.Domain.Enums;
 
 namespace Api.Contracts.Common
 {
@@ -31,6 +32,10 @@ namespace Api.Contracts.Common
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("foundationDate")]
         public string FoundationDate { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("model")]
+        public Model? Model { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("responsible")]

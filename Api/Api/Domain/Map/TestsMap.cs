@@ -1,9 +1,9 @@
-using Benchmark.Domain.Map.Base;
-using Benchmark.Domain.Model;
+using Api.Domain.Map.Base;
+using Api.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Benchmark.Domain.Map
+namespace Api.Domain.Map
 {
     public class TestsMap : BaseMap<Tests>
     {

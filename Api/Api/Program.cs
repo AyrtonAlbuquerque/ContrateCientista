@@ -6,6 +6,7 @@ using Api.Middleware;
 using Api.Services;
 using Api.Services.Interfaces;
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -28,12 +29,15 @@ namespace Api
             ArgumentException.ThrowIfNullOrEmpty(url);
             ArgumentException.ThrowIfNullOrEmpty(key);
 
-            builder.Services.AddControllers();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddMemoryCache();
             builder.Services.AddRouting(options => options.LowercaseUrls = true);
             builder.Services.AddMappings();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo

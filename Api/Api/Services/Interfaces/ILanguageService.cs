@@ -2,6 +2,7 @@ using Refit;
 using Api.Contracts.Common;
 using Api.Contracts.LanguageApi;
 using Api.Contracts.LanguageApi.Response;
+using Api.Domain.Enums;
 
 namespace Api.Services.Interfaces
 {
@@ -25,21 +26,15 @@ namespace Api.Services.Interfaces
         [Post("/analyze/demand")]
         Task<IList<AnalyzeResponse>> Analyze([Body] Analyze analyze);
 
-        Task<IList<Keyword>> Extract(Description description)
+        Task<IList<Keyword>> Extract(Description description, Model? model = Model.Bert)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .Build();
-            var model = configuration["AppSettings:ExtractionModel"];
-
-            return model?.ToLower() switch
+            return model switch
             {
-                "gpt" => ExtractGpt(description),
-                "aws" => ExtractAws(description),
-                "bert" => ExtractBert(description),
-                "yake" => ExtractYake(description),
-                "azure" => ExtractAzure(description),
+                Model.Gpt => ExtractGpt(description),
+                Model.Aws => ExtractAws(description),
+                Model.Bert => ExtractBert(description),
+                Model.Yake => ExtractYake(description),
+                Model.Azure => ExtractAzure(description),
                 _ => ExtractBert(description)
             };
         }
