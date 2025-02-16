@@ -82,7 +82,7 @@ Para representar os tipos de usuários e suas possíveis funções, temos os dia
 
 \begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
-  \caption{Diagrama de caso de uso da organização.}
+  \caption{Diagrama de caso de uso do laboratório.}
   \label{fig:caso-uso-lab}
   \includegraphics[scale=0.8]{caso-uso-lab}
   \fonte{}
@@ -143,7 +143,7 @@ Como fora descrito nos requisitos funcionais, a aplicação é também responsá
   \captionsetup{width=0.43\textwidth}
   \caption{Diagrama de Relação de Entidades do Bando de Dados.}
   \label{fig:ERD}
-  \includegraphics[scale=0.5]{ERD}
+  \includegraphics[scale=0.22]{ERD}
   \fonte{}
 \end{figure}
 
@@ -164,8 +164,7 @@ De forma similar à \gls{api} de aplicação, a \gls{api} de linguagem também f
     RF6                & A aplicação deve ser capaz de autenticar um usuário utilizando Json Web Tokens \\
     RF7                & Exceto pela autenticação, endpoints só podem ser consumidos após autenticação  \\
     RF8                & A aplicação não deve persistir nenhum dado após execução                       \\
-    RF9                & As chaves de autentição com as inteligenências devem ser informadas
-    somente na criação da aplicação                                                                     \\
+    RF9                & As chaves de autentição devem ser informadas somente na criação da aplicação   \\
     RF9                & As lógicas de extração e análise devem ser segregadas                          \\ \hline
   \end{tabularx}
   \fonte{}
@@ -274,87 +273,7 @@ Para o usuário organização, ao clicar para visualizar os detalhes do laborat�
 
 \subsection{Implementação da Aplicação Mobile}\label{subsec:aplicacao}
 
-A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações. Como por exemplo na \autoref{codigo:equip-form}, o componente de formulário do equipamento, que pode ser utilizado em diferentes páginas. O formulário é utilizado tanto para edição, quando para criação de equipamentos, e possui o campo "Nome" obrigatório, enquanto os campos "Descrição" e "Área" são opcionais. Quando pressionado o botão para salvar, o modal é fechado e os controllers são retornados populados para a página de lista de equipamentos, que salva os dados no banco de dados.
-
-\begin{sourcecode}[H]
-  \caption{\label{codigo:equip-form}Componente do formulário de equipamentos}
-  \begin{lstlisting}[frame=single, language=Java]
-class EquipmentFormPage extends StatelessWidget {
-  EquipmentFormPage(
-      {Key? key,
-      required this.nameController,
-      required this.descriptionController,
-      required this.areaController})
-      : super(key: key);
-
-  ...
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('Nome *'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: TextFormField(
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              controller: nameController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira um nome';
-                }
-                return null;
-              },
-            ),
-          ),
-		  
-          ...
-		  
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: ElevatedButton(
-              child: const Text('Salvar'),
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-            ),
-          ),
-\end{lstlisting}
-  \fonte{}
-\end{sourcecode}
-
-Para a comunicação com a API de Aplicação, foi utilizada o pacote nativo http, onde é possível fazer todas as requições, com todos os parâmetros necessários. Entre esses parâmetros, está o token utilizado para a autenticação da rota. O token é registrado ao realizar o login no armazenamento interno, utilizando o pacote Shared Preferences, e sendo possível buscá-lo em todas as requisições. Abaixo na \autoref{codigo:list-demands}, é possível visualizar um trecho do código utilizada para buscar as desmandas da organização logada.
-
-\begin{sourcecode}[H]
-  \caption{\label{codigo:list-demands}Buscar lista de demandas}
-  \begin{lstlisting}[frame=single, language=Java]
-static Future<List<Demand>?> getDemand() async {
-    try {
-      var url = Uri.parse(
-          '${ApiConstants.baseUrl}${ApiConstants.demandEndpoint}/list');
-		  
-	  // buscar token
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? token = prefs.getString('token');
-	  
-	  // faz requisição das demandas daquela organização
-      var response =
-          await http.get(url, headers: {'Authorization': 'Bearer $token'});
-      if (response.statusCode == 200) {
-        var body = json.decode(response.body);
-
-		// retorna a lista de demandas
-        return List<Demand>.from(body.map((item) => Demand.fromMap(item)));
-      }
-    } catch (e) {
-	  throw Exception(e.toString());
-    }
-}
-\end{lstlisting}
-  \fonte{}
-\end{sourcecode}
+A aplicação foi desenvolvida em Flutter, um framework, que utiliza o Dart como linguagem de programação. A interface é construída com componentes de interface para compor as páginas. Os componentes foram criados e organizados de forma independente, visando facilitar futuras implementações e alterações.
 
 Por falta de disponibilidade de um equipamento com sistema operacional macOS, o aplicativo foi desenvolvido apenas para a plataforma Android. Atualmente, ele conta com um arquivo instalador que precisa ser transferido para o celular para permitir a instalação direta no dispositivo. No futuro, se faz necessário disponibilizá-lo na Google Play Store, a fim de simplificar o processo de instalação e oferecer maior praticidade aos usuários.
 
@@ -381,6 +300,7 @@ A rota \texttt{/register} espera um corpo de requisição como descrito no códi
   "description": "string",
   "certificates": "string",
   "foundationDate": "DateTime",
+  "model": "string",
   "responsible": {
     "name": "string",
     "email": "string",
@@ -426,7 +346,7 @@ A rota \texttt{/register} espera um corpo de requisição como descrito no códi
   \fonte{}
 \end{sourcecode}
 
-O consumo deste endpoint engatilha a chamada de extração de palavras-chave utilizando a inteligência configurada no início da aplicação. O código \ref{codigo:analyze-lab} representa o método que recebe a requisição, a deserializa e chama o endpoint da \gls{api} de linguagem para realizar a extração. Este método também realiza algumas validações antes de prosseguir com o processamento, como a garantia de que o laboratório com o email informado já não esteja cadastrado, de que a senha informada possua pelo menos 8 caracteres com pelo menos um número e uma letra e que o campo descrição, utilizado na extração de contexto, esteja preenchido.
+O consumo deste endpoint engatilha a chamada de extração de palavras-chave utilizando a inteligência informada no campo \textit{model}, aceitando os valores \textit{Gpt, Aws, Bert, Yake e Azure}. Este campo é opcional e quando não informado utilizará a inteligência \gls{bert} por padrão. O código \ref{codigo:analyze-lab} representa o método que recebe a requisição, a deserializa e chama o endpoint da \gls{api} de linguagem para realizar a extração. Este método também realiza algumas validações antes de prosseguir com o processamento, como a garantia de que o laboratório com o email informado já não esteja cadastrado, de que a senha informada possua pelo menos 8 caracteres com pelo menos um número e uma letra e que o campo descrição, utilizado na extração de contexto, esteja preenchido.
 
 \begin{sourcecode}[H]
   \caption{\label{codigo:analyze-lab}Método de registro e análise de laboratório}
@@ -458,7 +378,8 @@ public async Task<LoginResponse> Register(Laboratory laboratory)
   // Extrai as palavras-chave da descrição do laboratório
   var keywords = await languageService.Extract
   (
-      new Description { Text = laboratory.Description }
+      new Description { Text = laboratory.Description },
+      laboratory.Model
   );
 
   // Cria o usuário, concatena as palavras-chave extraídas 
@@ -485,22 +406,6 @@ O subdomínio de empresas também possui três rotas:
   \item \texttt{POST /company/register}
   \item \texttt{PUT /company/update}
 \end{itemize}
-
-A rota \texttt{/register} espera um corpo de requisição como descrito no códido \ref{codigo:register-company}.
-
-\begin{sourcecode}[H]
-  \caption{\label{codigo:register-company}Corpo JSON de registro de empresas}
-  \begin{lstlisting}[frame=single, language=Java]
-{
-  "name": "string",
-  "cnpj": "string",
-  "email": "string",
-  "password": "string",
-  "description": "string"
-}
-\end{lstlisting}
-  \fonte{}
-\end{sourcecode}
 
 O registro de empresas não engatilha a extração de palavras-chave, pois para usuários do tipo empresa isso só ocorre na criação ou atualização de uma demanda.
 
@@ -658,7 +563,7 @@ O método \texttt{/like} é utilizado por uma empresa para marcar um laboratóri
 O diagrama da figura \ref{fig:api_aplicacao} apresenta os relacioanamentos básicos que a aplicação possui com o resto do sistema.
 
 \begin{figure}[H]
-  \caption{Diagrama de bloccos da API de Aplicação}
+  \caption{Diagrama de blocos da API de Aplicação}
   \includegraphics[scale=0.65]{api-aplicacao}
   \fonte{Autoria própria (2025)}
   \label{fig:api_aplicacao}
@@ -987,4 +892,75 @@ async def analyze(self, demand: Demand) -> list[AnalysisResponse]:
   \fonte{}
 \end{sourcecode}
 
-\subsection{Benchmarking}\label{subsec:benchmarking}
+\section{Benchmarking}\label{sec:benchmarking}
+
+Para realizar o benchmarking do sistema foi construída uma aplicação console em C\# que realiza requisições para a \gls{api} de linguagem da mesma forma como a \gls{api} de aplicação, primeiramente realizando a extração de palavras-chave de cada laboratório e em seguida a análise de similaridade entre uma demanda e as palavras-chave de cada laboratório. O benchmarking foi realizado sobre um conjunto de dados de 73 demandas e 78 laboratórios, resultando em 5694 análises por inteligência, ou seja 28470 análises no total.
+
+A aplicação armazena os dados das análises na tabela \texttt{Tests}, descrita no diagrama da figura \ref{fig:ERD}. Os principais dados armazenados são:
+
+\begin{itemize}
+  \item \texttt{Score}: Pontuação da inteligência para o par demanda e laborátorio.
+  \item \texttt{Time}: Tempo em milisegundos na extração de palavras-chave do laboratóroio pela inteligência.
+  \item \texttt{WordCount}: Número de palavras contidas na demanda.
+  \item \texttt{KeywordCount}: Número de palavras-chaves extraidas pela inteligência para cada laborátorio.
+  \item \texttt{Status}: Indica se a inteligência foi capaz de extrair as palavras-chave.
+\end{itemize}
+
+Os gráficos das figuras \ref{fig:pontuacoes} e \ref{fig:distribuicao} apresentam a pontuação média de cada inteligência e a distribuição de pontuações para todo o conjunto de dados.
+
+\begin{graph}[H]
+  \caption{Gráfico da pontuação média por inteligência}
+  \includegraphics[scale=0.65]{pontuacoes}
+  \fonte{Autoria própria (2025)}
+  \label{fig:pontuacoes}
+\end{graph}
+
+\begin{graph}[H]
+  \caption{Gráfico da distribuição de pontuações}
+  \includegraphics[scale=0.65]{distribuicao}
+  \fonte{Autoria própria (2025)}
+  \label{fig:distribuicao}
+\end{graph}
+
+Todas as inteligências apresentaram um desempenho similiar, com a maioria das pontuações entre 0.2 e 0.3 seguindo uma distribuição normal, mas apresentando casos de pontuações mais altas e mais baixas, o que pode indicar um melhor match entre demanda e laboratório para os casos específicos.
+
+Foram plotados também os gráficos de tempo médio de processamento e número médio de palavras-chave extraídas por inteligência, apresentados nas figuras \ref{fig:tempo} e \ref{fig:palavras-chave}.
+
+\begin{graph}[H]
+  \caption{Gráfico do tempo médio de processamento por inteligência}
+  \includegraphics[scale=0.65]{tempo}
+  \fonte{Autoria própria (2025)}
+  \label{fig:tempo}
+\end{graph}
+
+\begin{graph}[H]
+  \caption{Gráfico do número médio de palavras-chave extraídas por inteligência}
+  \includegraphics[scale=0.65]{palavras-chave}
+  \fonte{Autoria própria (2025)}
+  \label{fig:palavras-chave}
+\end{graph}
+
+Como esperado, a inteligência \gls{yake} possui os menores tempos de processamento pois se trata de um modelo estatístico que é executado localmente, porém vale ressaltar a bom desempenho de tempo das inteligências AWS e Azure,
+
+Plotou-se também o gráfico da relação entre a pontuação média de cada inteligência em relação
+ao número de palavras-chave extraídas, apresentado na figura \ref{fig:pontuacao-palavras}.
+
+\begin{graph}[H]
+  \caption{Gráfico da relação entre pontuação média e número de palavras-chave extraídas}
+  \includegraphics[scale=0.65]{pontuacao-palavras}
+  \fonte{Autoria própria (2025)}
+  \label{fig:pontuacao-palavras}
+\end{graph}
+
+Este gráfico destaca uma caraterística importante na análise, uma correlção inversa entre o número de palavras-chave extraídas e a pontuação média. Também pode-se notar o bom desempenho do modelo estatístico \gls{yake}, que mesmo não sendo uma ferramenta robusta como as demais \gls{llm}'s, apresentou um bom desempenho em comparação as demais.
+
+Por fim, o gráfico da figura \ref{fig:erros} apresenta o percentual de erros por inteligência durante o processamento. São considerados erros todos os processamentos em que uma inteligência não foi capaz de extrair palavras-chave.
+
+\begin{graph}[H]
+  \caption{Gráfico do percentual de erros por inteligência}
+  \includegraphics[scale=0.65]{erros}
+  \fonte{Autoria própria (2025)}
+  \label{fig:erros}
+\end{graph}
+
+Como pode ser visto, somente a inteligência \gls{bert} apresentou erros no processo de extração. Estes erros ocorreram para 9 dos 78 laboratórios, e em todos os casos o erro foi causado pelo tamanho da descrição do laboratório, sendo muito pequena para que a inteligência fosse capaz de extrair palavras-chave.

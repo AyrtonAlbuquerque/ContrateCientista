@@ -1,13 +1,23 @@
-\chapter{Conclusão}\label{cap:conclusoeseperspectivas}
+\chapter{Conclusão}\label{cap:conclusoes}
 
-% Inicia com um resumo do trabalho, retomando o(s) objetivo(s), o referencial teórico e o uso das ferramentas e das tecnologias utilizadas no trabalho.
+Não é incomum no mundo produtivo que organizações acabem necessitando de experts em determinadas áreas do conhecimento que sejam capazes de solucionar problemas os quais elas mesmas não consigam resolver internamente, e o local mais propício para encontrar tais experts são as universidades. Na \gls{utfpr}, o trabalho de encontrar o melhor profissional ou laboratório para atender a estas demandas é feito pelo \gls{direc} e de forma manual, o que pode resultar em um processo lento e ineficiente. Sendo um dos objetivos deste trabalho propor uma forma de otimização deste processo, construi-se um sistema capaz de analisar e ranquear demandas e laboratórios de acordo com suas descrições.
 
-% A conclusão contém a opinião do autor em relação às vantagens, desvantagens, facilidades e limitações das tecnologias e/ou do método utilizados, as dificuldades encontradas e como foram superadas.
+O método escolhido para tentar solucionar este problema foi a utilização de diversos modelos de inteligência artificial, sendo o principal objetivo e contribuição deste trabalho efetuar uma análise comparativa entre seus desempenhos.
 
-% Também devem ser apresentadas as vantagens, desvantagens e limitações do trabalho desenvolvido, sempre tendo em vista a sua contribuição para a comunidade acadêmica e profissional e para a sociedade como um todo.
+Foram construídas três aplicações, sendo elas, uma aplicação mobile capaz receber dados de demandas e laboratórios, uma aplicação \gls{rest} capaz de manipular e armazenar estes dados e uma aplicação \gls{rest} capaz de integrar as diferentes inteligências artificiais escolhidas na realização da tarefa de extração de contexto e análise de similaridade entre demandas e laboratórios.
 
-% É a opinião técnica do autor do trabalho em relação ao assunto sob a forma de uma espécie de avaliação em relação ao trabalho desenvolvido e as tecnologias utilizadas.
+Apesar de todas as inteligências terem atingido um desempenho semelhante, vale notar a flexibilidade oferecida pela aplicação de linguagem, onde cada uma apresenta seus pontos fortes e fracos. Mais notavelmente, a inteligência \gls{bert} possui um potencial de customização que pode ser explorado para melhorar ainda mais o seu desempenho, oferendo alternativas interessantes como por exemplo o treinamento de um modelo especializado para o caso do \gls{direc}.
 
-% Finaliza verificando se o objetivo foi alcançado e com a opinião do autor sobre o assunto, de acordo com o referencial teórico e com os resultados obtidos.
+O desempenho apresentado pela inteligência \gls{yake} surpreende, mostrando que mesmo com todo o avanço recente dos grandes modelos de linguagem, não podemos descartar o valor de métodos especializados na solução de problemas específicos.
 
-% As perspectivas futuras são opcionais, devem ser apresentadas somente caso o acadêmico pretenda dar continuidade ao trabalho, ou mesmo se ele julgar relevante que outras pessoas dêem continuidade ao seu trabalho.
+Durante a execução do projeto de benchmarking foi possível expor um problema que cerca as tecnologias hospedadas externamente, como foi o caso da inteligenência da Azure, que atingiu seu limite diário de requisições, forçando uma espera de 24 horas para a continuação do testes. É comum que essas tecnologias possuam um plano de inscrição gratuito porém limitado, e o processo de escolha de qual ferramenta utilizar deve levar em consideração o seu custo. 
+
+Conclui-se, então, que os objetivos propostos na seção \ref{sec:objetivos} foram alcançados, integrando as inteligências descritas nas seções \ref{subsec:bert} à \ref{subsec:yake}, realizado uma análise comparativa entre elas através da aplicação de linguagem descrita na seção \ref{sec:benchmarking}. Foi também construído um \gls{mvp} de uma aplicação mobile, capaz de permitir a interação entre usuários e o sistema implementado. Assim, este trabalho foi concluído com sucesso, notando-se que existem possíveis pontos de melhoria que podem embasar trabalhos futuros.
+
+\section{Trabalhos Futuros}\label{sec:futuro}
+
+Como sugestões de potenciais trabalhos futuros e melhorias a este sistema, destacam-se três pontos. O primeiro deles é a inclusão de mais inteligências ao leque de possibilidades, como por exemplo, a inclusão de modelos lançados recentemente como o Gemini e o DeepSeek.
+
+O segundo ponto é a criação e o treinamento de um modelo especializado para o caso do \gls{direc}, utilizando a inteligência \gls{bert} através do processo de Transfer Learning e utilizando os dados já agreagados pela instituição.
+
+Por fim, sugere-se a implementação de outros métodos de análise de similaridade, podendo-se utilizar até mesmo de modelos como o \gls{gpt} para a realização desta tarefa.

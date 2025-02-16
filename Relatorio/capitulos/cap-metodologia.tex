@@ -134,7 +134,7 @@ Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o 
 
 A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}.
 
-\begin{equation}{H}
+\begin{equation}
     \label{eq:cossine_similarity_equation}
     \text{similaridade do cosseno}(A, B) = \frac{A \cdot B}{\|A\| \times \|B\|}
 \end{equation}
@@ -166,7 +166,7 @@ A implementação do método retorna um valor entre -1 e 1, onde valores negativ
 
 A partir da palavras-chave de cada laborátorio e do texto de uma demanda, calcula-se a pontuação de cada laboratório em relação a demanda seguindo a equação \ref{eq:score_equation}.
 
-\begin{equation}{H}
+\begin{equation}
     \label{eq:score_equation}
     score =
     \begin{cases}
@@ -175,8 +175,9 @@ A partir da palavras-chave de cada laborátorio e do texto de uma demanda, calcu
     \end{cases}
 \end{equation}
 
-\begin{align*}
-    \text{Onde:}                                                                                 \\
+Onde,
+
+\begin{align*}                                                                                 \\
     d                & : \text{Texto da demanda}                          \\
     L                & : \text{Conjunto de laboratórios}                    \\
     l                & : \text{Um laboratório específico em } L                                  \\
