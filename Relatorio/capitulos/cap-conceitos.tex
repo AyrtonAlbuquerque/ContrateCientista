@@ -4,7 +4,7 @@
 
 Os conceitos modernos de \gls{ia} surgiram na década de 1950, com as idéias propostas por Alan Turing e a noção de uma "máquina pensante". Turing propôs um teste, ao qual chamou de "O Jogo da Imitação" e que hoje é mais conhecido como o teste de Turing, cujo objetivo é determinar se uma máquina pode ser classificada como inteligente. \cite{Turing1950}.
 
-Inteligência Artifical pode ser subdividida em quatro categorias principais, sistemas que pensam como humanos, sistemas que agem como humanos, sistemas que pensam racionalmente e sistemas que agem racionalmente \cite{RussellIA2021}.
+Inteligência Artifical pode ser subdividida em quatro categorias principais: sistemas que pensam como humanos, sistemas que agem como humanos, sistemas que pensam racionalmente e sistemas que agem racionalmente \cite{RussellIA2021}.
 
 \subsection{Sistemas que Pensam como Humanos}\label{subsec:ia1}
 
@@ -12,7 +12,7 @@ Sistemas que pensam como humanos tentam simular os processos mentais e cognitivo
 
 \subsection{Sistemas que Agem como Humanos}\label{subsec:ia2}
 
-Sistemas que agem como humanos simulam o comportamento observável, como em tarefas de conversação ou reconhecimento de padrões. Os chatbots são um exemplo claro dessa abordagem, pois tentam interagir de maneira natural com usuários. Estes sistemas geralmente se utilizam de métodos de processamento de linguagem natural para interpretar e responder perguntas de um usuário humano, que muitas vezes ser incapaz de distinguir se seu interlocutor é humano ou máquina, aproximando-se do objetivo do teste de Turing.
+Sistemas que agem como humanos simulam o comportamento observável, como em tarefas de conversação ou reconhecimento de padrões. Os chatbots são um exemplo claro dessa abordagem, pois tentam interagir de maneira natural com usuários. Estes sistemas geralmente se utilizam de métodos de processamento de linguagem natural para interpretar e responder perguntas de um usuário humano, que muitas vezes é incapaz de distinguir se seu interlocutor é humano ou máquina, aproximando-se do objetivo do teste de Turing.
 
 \subsection{Sistemas que Pensam Racionalmente}\label{subsec:ia3}
 
@@ -20,7 +20,7 @@ Sistemas que pensam racionalmente baseiam-se na lógica formal, utilizando-se de
 
 \subsection{Sistemas que Agem Racionalmente}\label{subsec:ia4}
 
-Sistemas que agem racionalmente tomam decisões de forma a maximizar a realização de um objetivo específico, Esses sistemas seguem o paradigma do \textit{"agente racional"}, agindo de forma a alcançar os melhores resultados esperados, considerando o conhecimento disponível e as incertezas do ambiente. Esse conceito é amplamente utilizado em áreas automatização, robótica e jogos. \cite{Poole2010}. Diferentemente dos sistemas que pensam racionalmente, um agente racional é mais flexível e são utilizados em aplicações mais dinâmicas, como por exemplo dirigir carros autônomos.
+Sistemas que agem racionalmente tomam decisões de forma a maximizar a realização de um objetivo específico. Esses sistemas seguem o paradigma do \textit{"agente racional"}, agindo de forma a alcançar os melhores resultados esperados, considerando o conhecimento disponível e as incertezas do ambiente. Esse conceito é amplamente utilizado em áreas de automatização, robótica e jogos. \cite{Poole2010}. Diferentemente dos sistemas que pensam racionalmente, um agente racional é mais flexível e são utilizados em aplicações mais dinâmicas, como por exemplo dirigir carros autônomos.
 
 \section{Aprendizado de Máquina}\label{subsec:ml}
 
@@ -89,17 +89,3 @@ Os grandes modelos de linguagem são sistemas de aprendizado de máquina treinad
 O diferencial dos grandes modelos de linguagem está em seu tamanho, medido pelo número de parâmetros treináveis, que podem variar de milhões a centenas de bilhões ou mais. O treinamento de modelos dessa magnitute possui um custo elevado, requerindo uma infraestrutura computacional robusta, gigantescos volumes de dados e um tempo elevado de treinamento. 
 
 O treinamento dos \gls{llm} é baseado nos paradigmas de pré-treinamento (pre-training) e ajustes finos (fine-tuning). No pré-treinamento, o modelo aprende a prever o próximo token em uma sequência usando uma abordagem auto-supervisionada. Posteriormente, ele pode ser ajustado para tarefas específicas através do fine-tuning, que adapta os parâmetros do modelo a domínios especializados. \cite{Zhou2023}.
-
-\section{REST}\label{sec:rest}
-
-\gls{rest} é um paradigma arquitetural que define como recursos de uma aplicação devem ser representados e permite a integração e comunicação entre sistemas distribuídos através do uso do protocolo \gls{http}. Estes recursos representam objetos ou dados identificados por \gls{uri}, que podem ser acessados e manipulados por meio de métodos \gls{http}. \cite{Fielding2000}.
-
-Uma das mais importantes caracteristicas da arquitetura \gls{rest} é a ausência de dependências contextuais entre requisições consecutivas, também conhecida como stateless. Essa característica habilita uma implementação mais simplificada, com melhor escalabilidade e desacoplamento entre os sistemas. Além disso, o uso de representações padronizadas, como \gls{json} ou \gls{xml}, permite que diferentes sistemas troquem informações de forma eficiente independente de linguagem de implementação.
-
-\subsection{Protocolo HTTP}\label{subsec:http}
-
-O \gls{http} é um protocolo a nível de aplicação para comunicação entre sistemas distrubuídos e é um dos pilares da comunicação web moderna, definindo regras e padrões para a requisição e obtenção de recursos entre aplicações cliente e servidores na internet. Criado no início da década de 1990 pelo CERN e mais tarde padronizado pelo consórcio World Wide Web (W3C) e pela Internet Engineering Task Force (IETF), o HTTP evoluiu significativamente desde sua primeira versão, HTTP/0.9, até a atual, HTTP/3. \cite{Fielding1999}.
-
-O \gls{http} é um protocolo sem estado (stateless), o que significa que cada requisição do cliente para o servidor é tratada de forma independente, sem memória de requisições anteriores. O protocolo utiliza mensagens de requisição e resposta. As mensagens de requisição incluem um método ou verbo \gls{http}, um \gls{uri} de recurso, e informações adicionais nos cabeçalhos. As respostas retornam um código de status que indicam o resultado da operação, e os dados do recurso solicitado no corpo da mensagem.
-
-Os quatro métodos ou verbos mais comuns do \gls{http} são GET, POST, PUT e DELETE e representam operações básicas que podem ser efetuadas sobre um recurso. O método GET é utilizado na recuperação de um recurso, sem a alteração de seu estado e idempotente, ou seja, sucessivas chamadas deste método produzem o mesmo resultado. O método POST é utilizado para a criação de um recurso e não idempotente. O método PUT é utilizado para a atualização de um recurso e por fim o método DELETE é utilizado para a remoção de um recurso, sendo estes também idempotentes.
