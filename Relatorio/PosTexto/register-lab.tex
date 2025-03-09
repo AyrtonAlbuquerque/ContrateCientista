@@ -1,0 +1,54 @@
+\begin{sourcecode}[H]
+    \caption{\label{codigo:register-lab}Corpo JSON de registro de laboratório}
+    \begin{lstlisting}[frame=single, language=Java]
+  {
+    "name": "string",
+    "code": "string",
+    "description": "string",
+    "certificates": "string",
+    "foundationDate": "DateTime",
+    "model": "string",
+    "responsible": {
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "departament": "string",
+      "phone": "string"
+    },
+    "address": {
+      "street": "string",
+      "number": int,
+      "neighborhood": "string",
+      "city": "string",
+      "state": "string",
+      "country": "string",
+      "extra": "string"
+    },
+    "softwares": [
+      {
+        "name": "string",
+        "description": "string",
+        "area": "string"
+      }
+    ],
+    "equipments": [
+      {
+        "name": "string",
+        "description": "string",
+        "area": "string"
+      }
+    ],
+    "socialMedias": [
+      {
+        "type": "string",
+        "link": "string"
+      }
+    ],
+    "keywords": [
+      "keyword 1",
+      "keyword 2"
+    ]
+  }
+  \end{lstlisting}
+    \fonte{}
+  \end{sourcecode}

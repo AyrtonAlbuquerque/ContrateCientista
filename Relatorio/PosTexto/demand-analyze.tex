@@ -1,0 +1,55 @@
+\begin{sourcecode}[H]
+  \caption{\label{codigo:demand-analyze}Método de cadastro e análise de demandas}
+  \begin{lstlisting}[frame=single, language=Java]
+public async Task<CreateDemandResponse> Create(CreateDemand createDemand)
+{
+    // Obtém o usuário realizando a requisição
+    var user = await userService.GetUserAsync();
+
+    // Verifica se o usuário é do tipo organização
+    ForbiddenException.ThrowIfNull
+    (
+        user.Company, 
+        "Usuário não possui permissão para criar demandas"
+    );
+
+    // Carrega os dados necessários para a criação da demanda
+    var status = await statusRepository.SelectAsync();
+    var laboratories = await laboratoryRepository.SelectAsync();
+    var person = await personRepository.GetAsync
+    (
+        createDemand.Responsible.Email, 
+        createDemand.Responsible.Phone
+    )
+
+    // Extrai as palavras-chave das informações da demanda
+    var keywords = await languageService.Extract
+    (
+        createDemand.Adapt<Description>()
+    );
+
+    // Realiza a análise de similaridade entre a demanda e os laboratórios
+    var analysis = await languageService.Analyze
+    (
+        (createDemand, laboratories).Adapt<Analyze>()
+    );
+
+    // Persiste a demanda no banco de dados
+    var demand = 
+    (
+        createDemand, 
+        user, 
+        person, 
+        status, 
+        keywords, 
+        laboratories, 
+        analysis
+    ).Adapt<Demand>();
+
+    await demandRepository.InsertAsync(demand);
+
+    return (demand, laboratories, analysis).Adapt<CreateDemandResponse>();
+}
+\end{lstlisting}
+  \fonte{}
+\end{sourcecode}

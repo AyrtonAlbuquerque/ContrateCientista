@@ -1,0 +1,48 @@
+\begin{sourcecode}[H]
+  \caption{\label{codigo:analyze-lab}Método de registro e análise de laboratório}
+  \begin{lstlisting}[frame=single, language=Java]
+public async Task<LoginResponse> Register(Laboratory laboratory)
+{
+  // Verifica se o e-mail já está cadastrado
+  BadRequestException.ThrowIf 
+  (
+      await userRepository.ExistsAsync(laboratory.Responsible.Email), 
+      "E-mail já cadastrado."
+  );
+
+  // Verifica se a senha é válida
+  BadRequestException.ThrowIf
+  (
+      !ValidationHelper.ValidatePassword(laboratory.Responsible.Password), 
+      "Senha inválida. A senha deve conter pelo menos 8 caracteres, 
+      uma letra e um número."
+  );
+
+  // Verifica se a descrição do laboratório foi informada
+  BadRequestException.ThrowIf
+  (
+      string.IsNullOrEmpty(laboratory.Description), 
+      "A descrição do laboratório é obrigatória."
+  );
+
+  // Extrai as palavras-chave da descrição do laboratório
+  var keywords = await languageService.Extract
+  (
+      new Description { Text = laboratory.Description },
+      laboratory.Model
+  );
+
+  // Cria o usuário, concatena as palavras-chave extraídas 
+  // com as informadas e insere no banco de dados
+  var user = await userRepository.InsertAsync(
+      (keywords, laboratory).Adapt<User>()
+  );
+
+  // Cria o token de autenticação
+  var token = tokenService.Create(user);
+
+  return (user, token).Adapt<LoginResponse>();
+}
+\end{lstlisting}
+  \fonte{}
+\end{sourcecode}

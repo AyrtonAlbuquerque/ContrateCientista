@@ -3,13 +3,13 @@
 % ---------------------------------- Considerações Iniciais --------------------------------- %
 \section{Considerações iniciais}\label{sec:consideracoesIniciais}
 
-Com a crescente complexidade dos processos de inovação nas empresas, estas se viram obrigadas a buscar novas fontes de conhecimento, sendo as universidades um dos melhores ambientes possíveis para esta busca. Contudo, as relações entre universidade e empresa não estão livres de dificuldades, pois existe um contraste entre os objetivos que regem a pesquisa acadêmica e o processo de desenvolvimento industrial, sendo o primeiro com foco na publicidade dos resultados e o último por muitas vezes requer sigilo \cite{UnicampIE}. 
+Com a crescente complexidade dos processos de inovação nas organizações, estas se viram obrigadas a buscar novas fontes de conhecimento, sendo as universidades um dos melhores ambientes possíveis para esta busca. Contudo, as relações entre universidade e organizações não estão livres de dificuldades, pois existe um contraste entre os objetivos que regem a pesquisa acadêmica e o processo de desenvolvimento industrial, sendo o primeiro com foco na publicidade dos resultados e o último por muitas vezes requer sigilo \cite{UnicampIE}. 
 
 Relacionar os problemas da sociedade com as especialidades dos cientistas é um desafio para as instituições acadêmicas. Para isso é necessário compreender quais fatores são determinantes para a solução de um problema, que requer um grau elevado de inovação, bem como apontar o melhor cientista apto a resolvê-lo. Atualmente esse trabalho é realizado pela pessoa ou departamento responsável, no caso da \gls{utfpr} pela \gls{direc}, através da ferramenta CV Lattes, onde a busca por nome dos cientistas e/ou área de conhecimento é feita. O profissional que realiza a pesquisa, precisa saber a especialidade de cada um dos membros da academia, além de ter um conhecimento prévio em cada área para determinar qual especialidade melhor atenderá a demanda, para então recomendar o cientista adequado.
 
 Uma dificuldade encontrada constantemente pela \gls{direc}, é não encontrar o cientista ou laboratório apto para resolver certa demanda. Um exemplo dessa dificuldade pode ser observada a partir da demanda a seguir. Uma empresa de telefonia iria mudar sua prestadora de serviço, e as candidatas possuíam tecnologias diferentes, então se viu necessário a consultoria para identificar qual das tecnologias atenderia melhor esta empresa. Esta demanda passou por sete cientistas do centro acadêmico, repassado de um para outro. A solicitante entrou em contato direto com o último pesquisador atribuído, e no fim, a consultoria não foi realizada.
 
-Esta proposta tem como objetivo implementar o uso de diferentes modelos de  \gls{ia} e \gls{llm} para extrair e associas informações relevantes de demandas e laboratórios, facilitando o processo de escolha de um laboratório na formação de uma parceria empresa-universidade bem como realizar uma análise comparativa do desempenho dos métodos utilizados. Para isto propõem-se a criação de um \gls{mvp} que habilite o cadastro de demandas por parte de empresas, bem como o cadastro de laboratórios.
+Esta proposta tem como objetivo integrar o uso de diferentes modelos de linguagem e \gls{llm} para extrair e associas informações relevantes de demandas e laboratórios, facilitando o processo de escolha de um laboratório na formação de uma parceria organização-universidade bem como realizar uma análise comparativa do desempenho dos métodos utilizados. Para isto propõem-se a criação de um \gls{mvp} que habilite o cadastro de demandas por parte de organizações, bem como o cadastro de laboratórios.
 
 % ---------------------------------------- Objetivos ---------------------------------------- %
 \section{Objetivos}\label{sec:objetivos}
@@ -17,19 +17,21 @@ Esta proposta tem como objetivo implementar o uso de diferentes modelos de  \gls
 % -------------------------------------- Objetivo Geral ------------------------------------- %
 \subsection{Objetivo geral}\label{subsec:objetivoGeral}
 
-Analisar e comparar o desempenho de diferentes modelos de linguagem e métodos na extração e associação de informações de demandas e laboratórios com o intuito de facilitar a formação de parcerias entre universidades e empresas.
+Analisar e comparar o desempenho de diferentes modelos de linguagem e métodos na extração e associação de informações de demandas e laboratórios com o intuito de facilitar a formação de parcerias entre universidades e organizações.
 
 % ---------------------------------- Objetivos Específicos ---------------------------------- %
 \subsection{Objetivos específicos}\label{subsec:objetivosEspecificos}
 
 \begin{itemize}
-    \item Integrar com diversos métodos para a extração de dados.
-    \item Comparar o desempenho de cada método na associação de dados.
+    \item Integrar diversos modelos de linguagem para a extração de dados.
+    \item Comparar o desempenho de cada modelo na associação de dados.
     \item Construir um \gls{mvp} que possibilite a utilização destes métodos.
 \end{itemize}
 
 % -------------------------------------- Justificativa -------------------------------------- %
 \section{Justificativa}\label{sec:justificativa}
+
+Para melhor definir o problema que se pretende resolver, levanta-se a seguinte questão: Como melhorar a relação entre o mundo produtivo e a academia, para que o processo de inovação seja fomentado?
 
 Para poder promover a inovação nem sempre é necessário reinventar a roda, pois muitas vezes a solução para um problema está em otimizar algum processo na cadeia de produção de uma solução. Neste caso, pretende-se otimizar o contato entre o mundo produtivo e a academia. Hoje este contato é um processo manual executado por uma pessoa responsável, no caso da \gls{utfpr} pelo \gls{direc}, que utilizando a plataforma Lattes e informações internas sobre os laboratórios e pesquisadores, tenta apontar a melhor opção para uma demanda.
 

@@ -1,30 +1,18 @@
 \chapter{Materiais e Métodos}\label{cap:materialemetodos}
 
-\section{Materiais}\label{sec:materiais}
+\section{Infraestrutura}\label{sec:infraestrutura}
 
-\subsection{PostgreSQL}\label{subsec:postgresql}
+Foram construídas três aplicações para atender aos objetivos propostos, sendo elas, uma \gls{api} de aplicação, uma \gls{api} de linguagem e uma aplicação mobile. A api de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET, e tratando-se de uma arquitetura REST, toda sua comunicação é feita por meio de requisições \gls{http} utilizando o formato \gls{json}. Seu papel é implementar todas as regras de negócio sobre os dados do sistema, bem como mediar a comunicação com a \gls{api} de linguagem.
 
-O PostgreSQL é um banco de dados relacional contributivo, ou seja, tem seu desenvolvimento em código aberto, o que garante mais liberdade no uso, além de permitir diferentes implementações de acordo com as necessidades, e ele utiliza a linguagem SQL como base \cite{Amazon}. Muitos dos contribuintes são voluntários, mas o projeto se sustenta com patrocínios de diversas empresas de todo o mundo. É um projeto da Universidade da Califórnia em Berkeley e tem mais de 35 anos de desenvolvimento ativo na plataforma central \cite{PostgreSQL}.
+A \gls{api} de linguagem foi construída utilizando a linguagem Python e o framework FastAPI, e de forma similar à \gls{api} de aplicação, também trata-se de uma arquitretura REST. Esta aplicação tem o objetivo único de integrar os modelos de linguagens escolhidos para análise e comparação, fornecendo uma interface padronizada para a \gls{api} de aplicação.
 
-\subsection{Linguagem C{\#} {\&} .NET Framework}\label{subsec:csharp}
+A aplicação mobile foi construída utilizando o framework Flutter e a linguagem Dart, e tem o objetivo de ser a interface entre o usuário e o sistema, habilitando a entrada e leitura de dados pelos usuários finais do sistema. Apesar de ser construída para plataformas móveis, por ser implementada em Flutter, é possível construir aplicativos em multi-plataformas (Android/iOS/Web), utilizando componentes nativos de cada uma \cite{Flutter}.
 
-C{\#} é uma linguagem de programação, fortemente tipada e orientada a objetos desenvolvida pela Microsoft em julho de 2000 e sua sintaxe foi baseada no C++, porém contendo influências de outras linguagens como Java. A linguagem permite que desenvolvedores construam diversos tipos de aplicações de forma segura e robusta que são executadas sobre a plataforma .NET \cite{CSharp}.
+Para a persistência de dados optou-se pelo PostgreSQL, um banco de dados relacional contributivo, ou seja, tem seu desenvolvimento em código aberto, o que garante mais liberdade no uso, além de permitir diferentes implementações de acordo com as necessidades \cite{PostgreSQL}.
 
-.NET Framework é uma plataforma de desenvolvimento que possui um \gls{clr}, que gerencia a execução de código. Possui também uma \gls{bcl}, oferecendo um amplo leque de classes para a construção de aplicações. A Microsoft, sua desenvolvedora, modelou a ferramenta para uso multi-plataforma, porém a ferramenta funciona melhor com o sistema operacional Windows \cite{CSharpDevelopment}.
+Por fim, para facilitar a manutenção e disponibilização do sistema, optou-se por utilizar o Docker, um motor de código aberto que automatiza a implementação de aplicações dentro de contêineres. Esta ferramenta permite a criação de aplicações mais portáteis, de fácil construção e colaboração, reduzindo o tempo em que um código escrito seja testado, implementado e utilizado \cite{TheDockerBook}.
 
-\subsection{Python}\label{subsec:python}
-
-Criada por Guido van Rossum (1991), Python é uma linguagem de programação de alto nível, interpretada e orientada a objetos com semâmtica dinâmica. Devido sua simplicidade e tipagem dinâmica, Python é uma das linguagens mais populares da atualidade, permitindo o desenvolvimento rápido de aplicações e custo reduzido de manutenção. \cite{VanRossum2009}.
-
-Python se destaca principalmente no suporte ao desenvolvimento de aplicações voltadas a análise de dados, aprendizado de máquina e inteligência artificial, oferencendo uma ampla gama de pacotes que auxiliam na criação destas aplicações, como por exemplo, Transformers, utilizada neste projeto, NTLK, TensorFlow, PyTorch, entre outros.
-
-\subsection{Flutter {\&} Dart}\label{subsec:flutterdart}
-
-Flutter é um framework de desenvolvimento em código aberto, criado e disponibilizado pelo Google. Com apenas um código, é possível construir aplicativos em multi-plataformas (Android/iOS), utilizando componentes nativos de cada plataforma \cite{Flutter}. A estrutura utiliza a linguagem Dart, assíncrona e muito semelhante à linguagem JavaScript \cite{Dart}.
-
-\subsection{Docker}\label{subsec:docker}
-
-Docker é um motor de código aberto que automatiza a implementação de aplicações dentro de contêineres. Esta ferramenta permite a criação de aplicações mais portáteis, de fácil construção e colaboração, reduzindo o tempo em que um código escrito seja testado, implementado e utilizado \cite{TheDockerBook}.
+\section{Modelos de Linguagem}\label{sec:modelos}
 
 \subsection{GPT}\label{subsec:gpt}
 
@@ -62,23 +50,7 @@ O Amazon Comprehend é um serviço de processamento de linguagem natural parte d
 
 O algoritmo é composto por seis etapas principais, sendo elas, pré-processamento do texto, extração de recursos, pontuação de termos individuais geração de lista de palavras-chave candidatas, deduplicação dos dados e ranqueamento. Após a aplicação destas etapas, o algoritmo retorna uma lista de palavras-chave e uma pontuação para cada uma delas, ordenadas de acordo com sua relevância ao contexto do texto ou documento. \cite{YakeKeywordExtractor}.
 
-\section{Métodos}\label{sec:metodo}
-
-O presente projeto foi subdividido no desenvolvimento de três módulos principais, sendo eles, a implementação de uma \gls{api} \gls{rest} de aplicação, uma \gls{api} \gls{rest} de linguagem e uma aplicação mobile. Nesta seção são detalhados os métodos utilizados e os objetivos que cada módulo visa atender.
-
-\subsection{API de Aplicação}\label{subsec:app_api}
-
-A \gls{api} de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela aplicação de interface com o usuário, bem como realizar as requisições de análise linguísticas à \gls{api} de linguagem.
-
-Dividida em cinco subdomínios e expondo quinze rotas, a \gls{api} realiza operações de autenticação, cadastro e consulta de dois tipos usuários, laboratórios e empresas, bem como a criação e atualização de demandas criadas por empresas. As requisições de extração de palavras-chave e análises semânticas são engatilhadas na criação de um perfil de usuário do tipo laboratório e na criação e atualização de demandas por usuários do tipo empresa. Por fim, a \gls{api} de aplicação também é responsável pela persistência das informações em uma base de dados PostgreSQL.
-
-\subsection{API de Linguagem}\label{subsec:language_api}
-
-A \gls{api} de linguagem foi construída utilizando a linguagem Python e o framework FastAPI. Esta \gls{api} é responsável por recepcionar, processar e responder a requisições \gls{http} realizadas pela \gls{api} de aplicação e seu objetivo é integrar os diferentes méotodos escolhidos para análise ao resto do sistema.
-
-Optou-se pela linguagem Python devido a facilidade de integração por meio de pacotes proporcionados pelos próprios criadores dos modelos, e decidiu-se pela separação em uma \gls{api} própria para facilitar a manutenção e escalabilidade do sistema, habilitando a inclusão de novos métodos de análise semântica sem a necessidade de alterações na \gls{api} de aplicação.
-
-Composta por três subdomínios e expondo sete rotas, as principais funcionalidades da \gls{api} de linguagem são a extração de palavras-chave utilizando cada um dos métodos integrados e análises semânticas de similaridade entre um conjunto de palavras-chave com seus respectivos pesos e textos.
+\section{Métodos}\label{sec:metodos}
 
 \subsection{Extração de Palavras-Chave}\label{subsec:keyword_extraction}
 
@@ -126,9 +98,11 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
     \fonte{}
 \end{table}
 
-\subsection{Similaridade do Cosseno}\label{subsec:cossine_similarity}
+\subsection{Análise de Similaridade}\label{subsec:cossine_similarity}
 
-Para realizar um comparativo entre os diferentes modelos empregados neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer uma das técnologias e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
+Para realizar um comparativo entre os diferentes modelos empregados neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer um dos modelos e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
+
+
 
 Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o método de simililaridade do cosseno. Este método é amplamente utilizado em aplicações de processamento de linguagem natural, como sistemas de busca e sistemas de recomendação, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
 
@@ -191,14 +165,8 @@ Onde,
 
 \subsection{Marcação de Parte de Fala}\label{subsec:pos_tagging}
 
-O modelo de inteligência da \gls{bert} é bem flexível, porém ela é também a que requer um maior número de configurações para que possa ser utilizada de forma eficiente. Uma da configurações necessárias para a utilização do \gls{bert} é marcação das partes de fala.
+O modelo \gls{bert} requer um maior número de configurações para que possa ser utilizado de forma eficiente. Uma da configurações necessárias para sua utilização é marcação das partes de fala.
 
 \gls{pos} representa a estrutura sintática das palavras em uma linguaguem, como por exemplo para o português brasileiro, tem-se o substantivo, adjetivo, artigo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição. A marcação de partes de fala é uma das técnicas utilizadas para identificar e classificar as palavras de um texto de acordo com sua função gramatical, e serve o propósito de promover a desambiguação de palavras bem como auxiliar no entendimento da estrutura sintática \cite{JurafskyMartin2024}.
 
 Sem a implementação da marcação de partes de fala, o desempenho do modelo na extração de contexto pode ser prejudicado a depender da linguagem do conjunto de dados, pois por padrão, o \gls{bert} é configurado e treinado para a língua inglesa. Existem duas formas de se implementar essa marcação, a primeira e mais simples é a utilização de expressões regulares, onde a estrutura de marcação é determinada por padrões presentes na expressão. A segunda forma, e a escolhida para este projeto, é automatizar o processo, cuja implementação pode ser vista na seção \ref{sec:implementacao}.
-
-\subsection{Aplicação Mobile}\label{subsec:app}
-
-A aplicação mobile foi construída utilizando Dart, com a linguagem Dart, e é responsável por ser a ponte entre o usuário e o sistema, facilitando e validando a entrada de dados, e os exibindo de forma clara.
-
-Possui 5 páginas principais: página principal de organização e laboratório, lista de demandas, lista de matches e perfil. Além dessas páginas, possui o formulário de todas entidades, como por exemplo, de demanda, endereços, equipamentos, softwares, entre outros.
