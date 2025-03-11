@@ -14,19 +14,19 @@ Os resultados decorrentes do desenvolvimento deste projeto foram:
 
 O projeto Contrate um Cientista possui dois objetivos principais, sendo eles, a realização de uma análise comparativa entre diferentes modelos de linguagem na terefa de associação de demandas com laboratórios, e a facilitação da formação de parcerias entre o setor produtivo e a expertise científica presente nas universidades através de uma aplicação que, de forma inteligente e automatizada, norteie a tomada de decisões na formação de parcerias. Com estes objetvios postos, é necessaário realizar algumas considerações sobre o escopo do projeto.
 
-O sistema desenvolvido não visa eliminar a necessidade de avaliação das sugestões realizadas pelos profissíonais responsáveis, mas sim fornecer uma ferramenta que auxilie na tomada de decisão, pois nenhum sistema é a prova de falhas. O aplicativo desensolvido é uma prova de conceito e não deve ser visto como uma solução pronta para ambiente de produção, pois mesmo que implemente um mecânismo básico de segurança, não foi desenvolvido com foco na segurança dos dados. Para um cenário de utilização real, a base de dados deve estar presente é um ambiente seguro com acesso controlado, e o armazenamento de dados de usuários deve seguir as regras impostas pela \gls{lgpd}.
+O sistema desenvolvido não visa eliminar a necessidade de avaliação das sugestões realizadas pelos profissionais responsáveis, mas sim fornecer uma ferramenta que auxilie na tomada de decisão, pois nenhum sistema é a prova de falhas. O aplicativo desenvolvido é uma prova de conceito e não deve ser visto como uma solução pronta para ambiente de produção, pois mesmo que implemente um mecânismo básico de segurança, não foi desenvolvido com foco na segurança dos dados. Para um cenário de utilização real, a base de dados deve estar presente é um ambiente seguro com acesso controlado, e o armazenamento de dados de usuários deve seguir as regras impostas pela \gls{lgpd}.
 
 Os modelos \gls{bert}, \gls{gpt}, Azure AI Language e Amazon Comprehend foram escolhidas por se tratar de modelos de linguagem desensolvidos pelas quatro gigantes na área de tecnologia e \gls{ia}, Google, OpenAI, Microsoft e Amazon, respectivamente. O \gls{yake}, mesmo sendo um método análitico, foi escolhido para efeitos de comparação entre \gls{llm} e modelos de análise de texto mais tradicionais. Outro fator que contribuiu para a escolha destas tecnologias foi a disponibilidade de uma \gls{api} de integração e facilidade de implementação.
 
 O sistema abrange dois tipos de usuários, organizações e laboratórios. Ambos os tipos de usuário utilizaram a mesma tela de login para acesso à aplicação, sendo que o conteúdo apresentado após autenticação no sistema difere a depender do tipo de usuário. Organizações são responsáveis pela criação das demandas, cujo conteúdo é analisado contra as informações de todos os laboratórios cadastrados, gerando uma pontuação indicativa de similaridade para cada um. Organizações tambem serão capazes de favoritar os laboratórios de sua preferência por demanda. Laboratórios são responsáveis pelo cadastro de seus recursos relavantes, como descrição do trabalho que efetuam, equipamentos, softwares e certificados, que serão utilizados para a análise e podem ser visualizados pelas organizações.
 
-Para realizar a comparação entre os modelos integrados foi construído um projeto a parte de teste e benchmarking. Este projeto simula o consumo dos pontos de extremidade expostos pela \gls{api} de aplicação da mesma forma que o aplicativo mobile, porém obtendo informações relevantes para à análise de desempenho, como por exemplo, o tempo de análise de cada modelo, armazenando as informações obtidas em um banco de dados. Estas informações são utilizadas na conclusão e ajudam a enteder os pontos positivos e possíveis melhorias que podem basear trabalhos futuros.
+Para realizar a comparação entre os modelos integrados foi construído um projeto a parte de teste e benchmarking. Este projeto simula o consumo dos pontos de extremidade expostos pela \gls{api} de aplicação da mesma forma que o aplicativo mobile, porém obtendo informações relevantes para a análise de desempenho, como por exemplo, o tempo de análise de cada modelo, armazenando as informações obtidas em um banco de dados. Estas informações são utilizadas na conclusão e ajudam a enteder os pontos positivos e possíveis melhorias que podem basear trabalhos futuros.
 
 % ----------------------------------- Modelagem do Sistema ---------------------------------- %
 
 \section{Modelagem do sistema}\label{sec:modelagem}
 
-O processo de modelagem do sistema foi divido de modo a habilitar a compartimentalização através da separação de conceitos e tarefas que cada módulo deve atender, permitindo uma maior escalibidade e facilitando o processo de manutenção. Nesta seção estão identificados os requisitidos de cada aplicação e o projeto arquitetural de cada uma.
+O processo de modelagem do sistema foi divido de modo a habilitar a compartimentalização através da separação de conceitos e tarefas que cada módulo deve atender, permitindo uma maior escalibidade e facilitando o processo de manutenção. Nesta seção estão identificados os requisitos de cada aplicação e o projeto arquitetural de cada uma.
 
 \subsection{Modelagem da Aplicação Mobile}\label{subsec:modelagem_app}
 
@@ -205,7 +205,7 @@ Para uma representação visual do fluxo e da estrutura de interação entre tod
   \fonte{}
 \end{figure}
 
-O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de realizar o signin, o usuário precisa selecionar se ele é um laboratório ou organização a se registrar, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar nos sistemas estão representadas na \autoref{fig:pagina-login-signin}.
+O sistema possui uma tela para entrar inicialmente, onde o usuário pode preencher seu email e senha, ou fazer seu registro. Antes de se cadastrar, o usuário precisa selecionar se ele é um laboratório ou organização, e então ele é direcionado para seu respectivo formulário para preencher com suas informações. As telas para entrar e se cadastrar no sistema estão representadas na \autoref{fig:pagina-login-signin}.
 
 \begin{figure}[H]
   \captionsetup{width=0.43\textwidth}
@@ -225,7 +225,7 @@ Após realizar o login e senha, o usuário será redirecionado para sua tela pri
   \fonte{}
 \end{figure}
 
-Ou seja, uma organização poderá ver seu perfil, as demandas e os ranqueamentos de todos os laborátorios para cada demanda, além dos seus detalhes, demonstrado pela, enquanto o laboratório poderá ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
+Ou seja, uma organização poderá ver seu perfil, as demandas e os ranqueamentos de todos os laborátorios para cada demanda, além dos seus detalhes, enquanto o laboratório poderá ver seu perfil e os matches com os detalhes da demanda do organizador que o marcou como favorito.
 
 A tela de perfil, é onde o usuário poderá visualizar e editar todas as suas informações de perfil, na \autoref{fig:pagina-form-perfil} temos essas telas de organização e laboratório, respectivamente. Esses mesmos formulários, são visíveis ao se registrar no aplicativo.
 
@@ -604,7 +604,7 @@ O \gls{bert} também requer um número de pré configurações para funcionar co
 
 É notável a falta de coerência gramatical nas palavras-chave extraídas. Para resolver este problema, optou-se pela utilização de vetorizadores através do pacote \textbf{KeyphraseVectorizers} \cite{schopf_etal_kdir22}. Essa ferramenta auxilia o modelo na extração de palavras-chave ao utilizar marcação de parte de fala (POS Tagging).
 
-Para configurar o vetorizador, defini-se uma pipeline, nesse caso advinda do BERTimbau, a linguagem cujas stopwords serão removidas e uma função que realiza a marcação de parte de fala nas palavras do texto seguindo o dicionário definido pela pipeline. Também é possível utilizar expressões regulares para realizar a marcação de parte de fala, como mencionado na seção \ref{subsec:pos_tagging}, porém, utilizar uma expressão pode introduzir viés à extração. O código \ref{codigo:pos-tagger} apresenta o método de marcação de parte de fala configurado para o vetorizador.
+Para configurar o vetorizador, definiu-se uma pipeline, nesse caso advinda do BERTimbau, a linguagem cujas stopwords serão removidas e uma função que realiza a marcação de parte de fala nas palavras do texto seguindo o dicionário definido pela pipeline. Também é possível utilizar expressões regulares para realizar a marcação de parte de fala, como mencionado na seção \ref{subsec:pos_tagging}, porém, utilizar uma expressão pode introduzir viés à extração. O código \ref{codigo:pos-tagger} apresenta o método de marcação de parte de fala configurado para o vetorizador.
 
 \begin{sourcecode}[H]
   \caption{\label{codigo:pos-tagger}Método de marcação automática de parte de fala}
