@@ -762,7 +762,16 @@ Os gráficos das figuras \ref{fig:pontuacoes} e \ref{fig:distribuicao} apresenta
   \label{fig:distribuicao}
 \end{graph}
 
-Todos os modelos apresentaram um desempenho similiar, com a maioria das pontuações entre 0.2 e 0.3 seguindo uma distribuição normal, mas apresentando casos de pontuações mais altas e mais baixas, o que pode indicar um melhor match entre demanda e laboratório para os casos específicos.
+Todos os modelos apresentaram um desempenho similiar, com a maioria das pontuações entre 0.2 e 0.3, mas apresentando casos de pontuações mais altas e mais baixas, o que pode indicar um melhor match entre demanda e laboratório para os casos específicos como pode ser visto no gráfico da figura \ref{fig:top_scores_mean} apresentando a média de pontuações máximas por modelo.
+
+\begin{graph}[H]
+  \caption{Gráfico da média de pontuações máximas por modelo}
+  \includegraphics[scale=0.65]{top_scores_mean}
+  \fonte{Autoria própria (2025)}
+  \label{fig:top_scores_mean}
+\end{graph}
+
+É importante destacar que para se obter uma pontuação 1 na análise de similaridade, é necessário que ambos os textos sendo comparados sejam idênticos, portanto resultados próximos ou acima de 0.5, como os obtidos indicam que estas seriam as pontenciais melhores indicações para uma avaliação mais detalhada de parceria entre demanda e laboratório.
 
 Foram plotados também os gráficos de tempo médio de processamento e número médio de palavras-chave extraídas por modelo, apresentados nas figuras \ref{fig:tempo} e \ref{fig:palavras-chave}.
 
@@ -792,9 +801,9 @@ ao número de palavras-chave extraídas, apresentado na figura \ref{fig:pontuaca
   \label{fig:pontuacao-palavras}
 \end{graph}
 
-Este gráfico destaca uma caraterística importante na análise, uma correlção inversa entre o número de palavras-chave extraídas e a pontuação média. Também pode-se notar o bom desempenho do modelo estatístico \gls{yake}, que mesmo não sendo uma ferramenta robusta como as demais \gls{llm}'s, apresentou um bom desempenho em comparação as demais.
+Este gráfico destaca uma caraterística importante na análise, um fraco vínculo entre o número de palavras-chave extraídas e a pontuação média. Também pode-se notar o bom desempenho do método estatístico \gls{yake}, que mesmo não sendo uma ferramenta robusta como as demais \gls{llm}'s, apresentou um bom desempenho em comparação.
 
-Por fim, o gráfico da figura \ref{fig:erros} apresenta o percentual de erros por modelo durante o processamento. São considerados erros todos os processamentos em que um modelo não foi capaz de extrair palavras-chave.
+O gráfico da figura \ref{fig:erros} apresenta o percentual de erros por modelo durante o processamento. São considerados erros todos os processamentos em que um modelo não foi capaz de extrair palavras-chave.
 
 \begin{graph}[H]
   \caption{Gráfico do percentual de erros por modelo}
@@ -804,3 +813,14 @@ Por fim, o gráfico da figura \ref{fig:erros} apresenta o percentual de erros po
 \end{graph}
 
 Como pode ser visto, somente o modelo \gls{bert} apresentou erros no processo de extração. Estes erros ocorreram para 9 dos 78 laboratórios, e em todos os casos o erro foi causado pelo tamanho da descrição do laboratório, sendo muito pequena para que o modelo fosse capaz de extrair palavras-chave.
+
+Por fim, para melhor compreensão dos resultados, foi plotado o gráfico do radar de desempenhos dos modelos por métrica utilizada, apresentado na figura \ref{fig:radar}.
+
+\begin{graph}[H]
+  \caption{Radar do desempenho dos modelos por métrica}
+  \includegraphics[scale=0.65]{radar}
+  \fonte{Autoria própria (2025)}
+  \label{fig:radar}
+\end{graph}
+
+Vale notar que na visualização na forma de radar, quanto mais próximo das bordas do círculo, melhor é o desempenho do modelo para a métrica em questão, portanto foi invertido o eixo da métrica de tempo de processamento para melhor representar os resultados.

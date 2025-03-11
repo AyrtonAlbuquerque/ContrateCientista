@@ -2,11 +2,11 @@
 
 \section{Infraestrutura}\label{sec:infraestrutura}
 
-Foram construídas três aplicações para atender aos objetivos propostos, sendo elas, uma \gls{api} de aplicação, uma \gls{api} de linguagem e uma aplicação mobile. A api de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET, e tratando-se de uma arquitetura REST, toda sua comunicação é feita por meio de requisições \gls{http} utilizando o formato \gls{json}. Seu papel é implementar todas as regras de negócio sobre os dados do sistema, bem como mediar a comunicação com a \gls{api} de linguagem.
+Foram construídas três aplicações para atender aos objetivos propostos, sendo elas, uma \gls{api} de aplicação, uma \gls{api} de linguagem e uma aplicação mobile. A \gls{api} de aplicação foi construída utilizando a linguagem C{\#} e o framework .NET, e tratando-se de uma arquitetura REST, toda sua comunicação é feita por meio de requisições \gls{http} utilizando o formato \gls{json}. Seu papel é implementar todas as regras de negócio sobre os dados do sistema, bem como mediar a comunicação com a \gls{api} de linguagem.
 
 A \gls{api} de linguagem foi construída utilizando a linguagem Python e o framework FastAPI, e de forma similar à \gls{api} de aplicação, também trata-se de uma arquitretura REST. Esta aplicação tem o objetivo único de integrar os modelos de linguagens escolhidos para análise e comparação, fornecendo uma interface padronizada para a \gls{api} de aplicação.
 
-A aplicação mobile foi construída utilizando o framework Flutter e a linguagem Dart, e tem o objetivo de ser a interface entre o usuário e o sistema, habilitando a entrada e leitura de dados pelos usuários finais do sistema. Apesar de ser construída para plataformas móveis, por ser implementada em Flutter, é possível construir aplicativos em multi-plataformas (Android/iOS/Web), utilizando componentes nativos de cada uma \cite{Flutter}.
+A aplicação mobile foi construída utilizando o framework Flutter e a linguagem Dart, e tem o objetivo de ser a interface entre o usuário e o sistema, habilitando a entrada e leitura de dados pelos usuários finais. Apesar de ser construída para plataformas móveis, por ser implementada em Flutter, é possível a compilação em multi-plataformas (Android/iOS/Web), utilizando componentes nativos de cada uma \cite{Flutter}.
 
 Para a persistência de dados optou-se pelo PostgreSQL, um banco de dados relacional contributivo, ou seja, tem seu desenvolvimento em código aberto, o que garante mais liberdade no uso, além de permitir diferentes implementações de acordo com as necessidades \cite{PostgreSQL}.
 
@@ -104,7 +104,7 @@ Para realizar um comparativo entre os diferentes modelos empregados neste trabal
 
 Entre os diversos métodos disponíveis para avaliar a relação entre um texto e uma palavra-chave, optou-se pelo uso da similaridade do cosseno. Esse método mede a similaridade entre dois vetores considerando o ângulo entre eles, independentemente de sua magnitude, o que o torna particularmente útil para comparar textos representados em um espaço vetorial.
 
-A similaridade do cosseno é amplamente utilizada em aplicações de processamento de linguagem natural, como mecanismos de busca, sistemas de recomendação e análise semântica, pois permite identificar a proximidade entre textos de maneira eficiente, mesmo quando possuem tamanhos distintos. E convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem. Além de possuir um limite mínimo e máximo, facilitando na comparacao de palavras e sem necessidade de implementar uma normalização.
+A similaridade do cosseno é amplamente utilizada em aplicações de processamento de linguagem natural, como mecanismos de busca, sistemas de recomendação e análise semântica, pois permite identificar a proximidade entre textos de maneira eficiente, mesmo quando possuem tamanhos distintos, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
 
 A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}.
 
