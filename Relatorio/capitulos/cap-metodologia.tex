@@ -102,9 +102,9 @@ As tabelas \autoref{tab:dados_labs} e \autoref{tab:dados_demandas} apresentam os
 
 Para realizar um comparativo entre os diferentes modelos empregados neste trabalho é necessário escolher uma métrica que não possua nenhum viés favorável a qualquer um dos modelos e seja capaz de determinar a similaridade entre dois conjuntos de dados de forma eficiente e determinística, eliminando do resultado final a influência do método de comparação.
 
+Entre os diversos métodos disponíveis para avaliar a relação entre um texto e uma palavra-chave, optou-se pelo uso da similaridade do cosseno. Esse método mede a similaridade entre dois vetores considerando o ângulo entre eles, independentemente de sua magnitude, o que o torna particularmente útil para comparar textos representados em um espaço vetorial.
 
-
-Dentre os diversos métodos existentes para realizar esta tarefa, escolheu-se o método de simililaridade do cosseno. Este método é amplamente utilizado em aplicações de processamento de linguagem natural, como sistemas de busca e sistemas de recomendação, e convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem.
+A similaridade do cosseno é amplamente utilizada em aplicações de processamento de linguagem natural, como mecanismos de busca, sistemas de recomendação e análise semântica, pois permite identificar a proximidade entre textos de maneira eficiente, mesmo quando possuem tamanhos distintos. E convenientemente possui sua implementação disponível no pacote SentenceTransformers, já utilizado na \gls{api} de linguagem. Além de possuir um limite mínimo e máximo, facilitando na comparacao de palavras e sem necessidade de implementar uma normalização.
 
 A similaridade do cosseno é um método matemático para calcular a distância angular entre dois vetores em um espaço vetorial, dada pela equação \ref{eq:cossine_similarity_equation}.
 
